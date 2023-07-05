@@ -11,8 +11,6 @@
 .mtj.tmp/
 
 # Package Files #
-!/5bit-PInfra/src/main/webapp/WEB-INF/lib/*.jar
-*.jar
 *.war
 *.nar
 *.ear
