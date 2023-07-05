@@ -11,6 +11,7 @@
 .mtj.tmp/
 
 # Package Files #
+!/5bit-PInfra/src/main/webapp/WEB-INF/lib/*.jar
 *.jar
 *.war
 *.nar
@@ -22,3 +23,7 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+
+!MyFolder/CoolFile.txt
+
