@@ -1,4 +1,4 @@
-package com.persistencia;
+package com.persistencia.entities;
 
 import java.io.Serializable;
 import java.sql.Date;

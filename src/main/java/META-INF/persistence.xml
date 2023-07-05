@@ -7,11 +7,11 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:/web_app</jta-data-source>
 		
-		<class>com.persistencia.Persona</class>
-		<class>com.persistencia.Carrera</class>
-		<class>com.persistencia.ITR</class>
-		<class>com.persistencia.Departamento</class>
-		<class>com.persistencia.Alumno</class>
+		<class>com.persistencia.entities.Persona</class>
+		<class>com.persistencia.entities.Carrera</class>
+		<class>com.persistencia.entities.ITR</class>
+		<class>com.persistencia.entities.Departamento</class>
+		<class>com.persistencia.entities.Alumno</class>
 
 		<properties>
 			<property name="hibernate.dialect"
