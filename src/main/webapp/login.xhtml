@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/primeflex@^3/primeflex.css"/>
+</h:head> 
+<body> 
+<div class="flex align-items-center justify-content-center">
+    <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+        <div class="text-center mb-5">
+            <p:graphicImage name="/5bit-PInfra/src/main/webapp/resources/images/Logo5BitRemaster.png" library="primeblocks-app" alt="Image"
+                            height="50" styleClass="mb-3"/>
+            <div class="text-900 text-3xl font-medium mb-3">Login</div>
+            <span class="text-600 font-medium line-height-3">No tiene una cuenta?</span>
+            <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Crear ahora</a>
+        </div>
+
+        <div>
+            <label for="email1" class="block text-900 font-medium mb-2">Email</label>
+                        <p:inputText id="email1" styleClass="w-full mb-3" placeholder="Dirección de Email"/>
+                        <label for="password1" class="block text-900 font-medium mb-2">Contraseña</label>
+                        <p:inputText id="password1" type="password" styleClass="w-full mb-3" placeholder="Contraseña"/>
+
+            <div class="flex align-items-center justify-content-between mb-6">
+                <div class="flex align-items-center">
+                    <p:selectBooleanCheckbox id="recuerdame" styleClass="mr-2"/>
+                    <label for="rememberme">Recuerdame</label>
+                </div>
+                <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Olvido su contraseña?</a>
+            </div>
+
+            <p:commandButton type="button" value="Ingresar" icon="pi pi-user" styleClass="w-full"/>
+        </div>
+    </div>
+</div>
+</body> 
+</html>
