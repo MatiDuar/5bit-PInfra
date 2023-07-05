@@ -15,5 +15,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="C:/wildfly-26.1.0.Final/wildfly-26.1.0.Final/modules/system/layers/base/javax/persistence/api/main/jakarta.persistence-api-2.2.3.jar"/>
 	<classpathentry kind="lib" path="C:/wildfly-26.1.0.Final/wildfly-26.1.0.Final/bin/client/jboss-client.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/primefaces-12.0.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
