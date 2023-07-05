@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript library="primefaces" name="primefaces.js" />
+	<link type="text/css" rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/primeflex@3.3.1/primeflex.min.css" />
+	<style>
+.label {
+	width: 20%;
+	padding: 4px;
+}
+
+.value {
+	width: 80%;
+	padding: 4px;
+}
+
+.grid {
+	width: 100%;
+}
+
+.error {
+	color: red;
+}
+
+.outputLabel {
+	font-weight: bold;
+}
+
+.grid {
+	width: 33%;
+	padding: 4px;
+}
+</style>
+</h:head>
+<body>
+<div class="flex align-items-center justify-content-center">
+						<div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+	<div class="card">
+		<h:form>
+			<p:wizard widgetVar="wizardVar">
+				<p:tab id="tab1" title="Datos Personales" step="0">
+					<!-- Contenido del primer paso -->
+
+					<p:panel header="Datos Personales">
+						<h5>Primer Nombre</h5>
+						<p:inputText />
+						<h5>Primer Segundo</h5>
+						<p:inputText />
+						<h5>Primer Apellido</h5>
+						<p:inputText />
+						<h5>Primer Apellido</h5>
+						<p:inputText />
+					</p:panel>
+				</p:tab>
+				<p:tab id="tab2" title="Datos Dirección" step="1">
+					<!-- Contenido del segundo paso -->
+					<p:panel header="Datos Dirección">
+						<h:form>
+							<div class="card">
+								<h5>Addons</h5>
+								<div class="grid ui-fluid">
+									<div class="col-12 md:col-4">
+										<div class="ui-inputgroup">
+											<div class="ui-inputgroup-addon">
+												<i class="pi pi-user"></i>
+											</div>
+											<p:inputText placeholder="Username" />
+										</div>
+									</div>
+
+									<div class="col-12 md:col-4">
+										<div class="ui-inputgroup">
+											<div class="ui-inputgroup-addon">$</div>
+											<p:inputText placeholder="Price" />
+											<div class="ui-inputgroup-addon">.00</div>
+										</div>
+									</div>
+
+									<div class="col-12 md:col-4">
+										<div class="ui-inputgroup">
+											<div class="ui-inputgroup-addon">www</div>
+											<p:inputText placeholder="Website" />
+										</div>
+									</div>
+								</div>
+
+								<h5>Multiple Addons</h5>
+								<div class="grid ui-fluid">
+									<div class="col-12">
+										<div class="ui-inputgroup">
+											<div class="ui-inputgroup-addon">
+												<i class="pi pi-tags" />
+											</div>
+											<div class="ui-inputgroup-addon">
+												<i class="pi pi-shopping-cart" />
+											</div>
+											<p:inputText placeholder="Price" />
+											<div class="ui-inputgroup-addon">$</div>
+											<div class="ui-inputgroup-addon">.00</div>
+										</div>
+									</div>
+								</div>
+
+								<h5>Button Addons</h5>
+								<div class="grid ui-fluid">
+									<div class="col-12 md:col-4">
+										<div class="ui-inputgroup">
+											<p:commandButton value="Search" />
+											<p:inputText placeholder="Keyword" />
+										</div>
+									</div>
+
+									<div class="col-12 md:col-4">
+										<div class="ui-inputgroup">
+											<p:inputText placeholder="Keyboard" />
+											<p:commandButton icon="pi pi-search"
+												styleClass="ui-button-warning" />
+										</div>
+									</div>
+
+									<div class="col-12 md:col-4">
+										<div class="ui-inputgroup">
+											<p:commandButton icon="pi pi-check"
+												styleClass="ui-button-success" />
+											<p:inputText placeholder="Vote" />
+											<p:commandButton icon="pi pi-times"
+												styleClass="ui-button-danger" />
+										</div>
+									</div>
+								</div>
+
+								<h5>Checkbox</h5>
+								<div class="grid ui-fluid">
+									<div class="col-12 md:col-4">
+										<div class="ui-inputgroup">
+											<div class="ui-inputgroup-addon">
+												<p:selectBooleanCheckbox />
+											</div>
+											<p:inputText placeholder="Username" />
+										</div>
+									</div>
+									<div class="col-12 md:col-4">
+										<div class="ui-inputgroup">
+											<p:inputText placeholder="Username" />
+											<div class="ui-inputgroup-addon">
+												<p:radioButton for="radioDemo" itemIndex="0" />
+											</div>
+										</div>
+									</div>
+									<div class="col-12 md:col-4">
+										<div class="ui-inputgroup">
+											<div class="ui-inputgroup-addon">
+												<p:selectBooleanCheckbox />
+											</div>
+											<p:inputText placeholder="Username" />
+											<div class="ui-inputgroup-addon">
+												<p:radioButton for="radioDemo" itemIndex="0" />
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<p:selectOneRadio id="radioDemo" layout="custom"
+									unselectable="true">
+									<f:selectItem itemValue="demo" />
+								</p:selectOneRadio>
+							</div>
+						</h:form>
+					</p:panel>
+				</p:tab>
+				<p:tab id="tab3" title="Contacto" step="2">
+					<!-- Contenido del tercer paso -->
+					<h:form>
+						<p:growl id="msgs" showDetail="true"
+							skipDetailIfEqualsSummary="true" />
+
+						<h5 class="mt-0">Regular</h5>
+						<p:fieldset legend="Datos Personales">
+							<h5>Primer Nombre</h5>
+							<p:inputText />
+							<h5>Primer Segundo</h5>
+							<p:inputText />
+							<h5>Primer Apellido</h5>
+							<p:inputText />
+							<h5>Primer Apellido</h5>
+							<p:inputText />
+
+						</p:fieldset>
+					</h:form>
+				</p:tab>
+				<p:tab id="tab4" title="Paso 4" step="3">
+					<!-- Contenido del cuarto paso -->
+					<div class="flex align-items-center justify-content-center">
+						<div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+							<h5>Primer Nombre</h5>
+							<p:inputText />
+							<h5>Primer Segundo</h5>
+							<p:inputText />
+							<h5>Primer Apellido</h5>
+							<p:inputText />
+							<h5>Primer Apellido</h5>
+							<p:inputText />
+						</div>
+					</div>
+				</p:tab>
+			</p:wizard>
+		</h:form>
+</div>
+</div>
+	</div>
+</body>
+</html>
