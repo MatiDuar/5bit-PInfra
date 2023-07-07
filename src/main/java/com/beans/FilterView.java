@@ -17,43 +17,39 @@ import org.primefaces.model.MatchMode;
 import org.primefaces.util.LangUtils;
 
 import com.logicaNegocio.GestionPersonaService;
+import com.persistencia.entities.Alumno;
 import com.persistencia.entities.Persona;
-
-
 
 @Named("dtFilterView")
 @ViewScoped
 public class FilterView implements Serializable {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-
 	@Inject
-    private GestionPersonaService service;
+	private GestionPersonaService service;
 
-    
-    private List<Persona> personas;
+	private List<Persona> personas;
 
-    private List<Persona> filteredPersonas;
+	private List<Persona> filteredPersonas;
 
-    private List<FilterMeta> filterBy;
+	private List<FilterMeta> filterBy;
 
-    private boolean globalFilterOnly;
+	private boolean globalFilterOnly;
 
-    @PostConstruct
-    public void init() {
-        globalFilterOnly = true;
-        try {
+	@PostConstruct
+	public void init() {
+		globalFilterOnly = true;
+		try {
 			personas = service.listarPersonas();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-
-        filterBy = new ArrayList<>();
+		filterBy = new ArrayList<>();
 
 //        filterBy.add(FilterMeta.builder()
 //                .field("status")
@@ -61,44 +57,48 @@ public class FilterView implements Serializable {
 //                .matchMode(MatchMode.EQUALS)
 //                .build());
 //
-        filterBy.add(FilterMeta.builder()
-                .field("date")
-                .filterValue(new ArrayList<>(Arrays.asList(LocalDate.now().minusDays(28), LocalDate.now().plusDays(28))))
-                .matchMode(MatchMode.BETWEEN)
-                .build());
+		filterBy.add(FilterMeta.builder().field("date")
+				.filterValue(
+						new ArrayList<>(Arrays.asList(LocalDate.now().minusDays(28), LocalDate.now().plusDays(28))))
+				.matchMode(MatchMode.BETWEEN).build());
 
-    }
+	}
 
-    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
-        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
-        if (LangUtils.isBlank(filterText)) {
-            return true;
-        }
+	public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+		String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
+		if (LangUtils.isBlank(filterText)) {
+			return true;
+		}
 
-        Persona persona = (Persona) value;
-        return persona.getNombre1().toLowerCase().contains(filterText)
-                || persona.getApellido1().toLowerCase().contains(filterText)
-                || persona.getNombreUsuario().toLowerCase().contains(filterText)
-                || persona.getMail().toString().toLowerCase().contains(filterText)
-                || persona.getDireccion().toLowerCase().contains(filterText);
-                
-    }
+		Persona persona = (Persona) value;
+		Alumno personaAlumno=buscar(persona.getId());
+		return persona.getNombre1().toLowerCase().contains(filterText)
+				|| persona.getApellido1().toLowerCase().contains(filterText)
+				|| persona.getNombreUsuario().toLowerCase().contains(filterText)
+				|| persona.getMail().toString().toLowerCase().contains(filterText)
+				|| persona.getDireccion().toLowerCase().contains(filterText)
+				|| (personaAlumno!=null && personaAlumno.getCarrera().getNombre().toLowerCase().contains(filterText) )
+				|| (personaAlumno!=null && personaAlumno.getIdEstudiantil().toString().toLowerCase().contains(filterText));
 
-    public void toggleGlobalFilter() {
-        setGlobalFilterOnly(!isGlobalFilterOnly());
-    }
+	}
 
-    private int getInteger(String string) {
-        try {
-            return Integer.parseInt(string);
-        }
-        catch (NumberFormatException ex) {
-            return 0;
-        }
-    }
+	public void toggleGlobalFilter() {
+		setGlobalFilterOnly(!isGlobalFilterOnly());
+	}
 
-   
-    public List<Persona> getPersonas() {
+	private int getInteger(String string) {
+		try {
+			return Integer.parseInt(string);
+		} catch (NumberFormatException ex) {
+			return 0;
+		}
+	}
+
+	public Alumno buscar(long id) {
+		return service.buscarAlumno(id);
+	}
+
+	public List<Persona> getPersonas() {
 		return personas;
 	}
 
@@ -119,14 +119,14 @@ public class FilterView implements Serializable {
 	}
 
 	public List<FilterMeta> getFilterBy() {
-        return filterBy;
-    }
+		return filterBy;
+	}
 
-    public boolean isGlobalFilterOnly() {
-        return globalFilterOnly;
-    }
+	public boolean isGlobalFilterOnly() {
+		return globalFilterOnly;
+	}
 
-    public void setGlobalFilterOnly(boolean globalFilterOnly) {
-        this.globalFilterOnly = globalFilterOnly;
-    }
+	public void setGlobalFilterOnly(boolean globalFilterOnly) {
+		this.globalFilterOnly = globalFilterOnly;
+	}
 }

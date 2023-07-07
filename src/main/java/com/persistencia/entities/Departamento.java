@@ -35,6 +35,13 @@ public class Departamento implements Serializable {
 		this.nombre = nombre;
 		this.activo = activo;
 	}
+	
+	public Departamento(String nombre, Boolean activo) {
+		super();
+		
+		this.nombre = nombre;
+		this.activo = activo;
+	}
 
 
 

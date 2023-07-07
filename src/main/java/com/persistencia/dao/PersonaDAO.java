@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import com.persistencia.entities.Alumno;
 import com.persistencia.entities.Persona;
 
 @Stateless

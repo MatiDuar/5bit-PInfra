@@ -12,6 +12,22 @@ public class ITR implements Serializable {
 		super();
 	} 
 	
+	
+	public ITR(Long id, String nombre, Departamento departamento, Boolean activo) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.departamento = departamento;
+		this.activo = activo;
+	}
+	public ITR( String nombre, Departamento departamento, Boolean activo) {
+		super();
+		this.nombre = nombre;
+		this.departamento = departamento;
+		this.activo = activo;
+	}
+
+
 	private static final long serialVersionUID = 1L;
 	
 

@@ -36,6 +36,12 @@ public class Carrera implements Serializable {
 		this.nombre = nombre;
 		this.activo = activo;
 	}
+	
+	public Carrera( String nombre, Boolean activo) {
+		super();
+		this.nombre = nombre;
+		this.activo = activo;
+	}
 
 
 

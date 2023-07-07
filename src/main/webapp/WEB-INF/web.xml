@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="4.0">
 	<display-name>5bit-PInfra</display-name>
 	<welcome-file-list>
-		<welcome-file>index.xhtml</welcome-file>
+		<welcome-file>login.xhtml</welcome-file>
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>

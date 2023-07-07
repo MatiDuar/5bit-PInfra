@@ -6,8 +6,10 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import com.persistencia.entities.Alumno;
+import com.persistencia.entities.Persona;
 
 
 
@@ -67,5 +69,14 @@ public class AlumnoDAO {
 			new Exception("No se pudo borrar el Alumno");
 		}
 		
+	}
+	
+	public Alumno buscar(long id) {
+		try {
+			Alumno a=em.find(Alumno.class, id);
+			return a;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }

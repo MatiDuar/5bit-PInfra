@@ -6,7 +6,9 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
+import com.persistencia.entities.Departamento;
 import com.persistencia.entities.ITR;
 
 
@@ -67,5 +69,18 @@ public class ItrDAO {
 			new Exception("No se pudo borrar el ITR");
 		}
 		
+	}
+	
+	public ITR buscarITR(String nombre) {
+
+		try {
+			TypedQuery<ITR> query = em
+					.createQuery("select i from ITR i where i.nombre=:nombre", ITR.class)
+					.setParameter("nombre", nombre);
+			return query.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+
 	}
 }

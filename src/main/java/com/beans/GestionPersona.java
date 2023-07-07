@@ -23,6 +23,7 @@ public class GestionPersona implements Serializable {
 	private long id = 1;
 	@Inject
 	GestionPersonaService persistenciaBean;
+	
 	private Persona personaLogeada;
 	private Persona personaSeleccionada;
 

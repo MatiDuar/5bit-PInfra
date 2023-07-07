@@ -6,8 +6,10 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import com.persistencia.entities.Carrera;
+import com.persistencia.entities.Departamento;
 
 
 
@@ -67,5 +69,18 @@ public class CarreraDAO {
 			new Exception("No se pudo borrar la Carrera");
 		}
 		
+	}
+	
+	public Carrera buscarCarrera(String nombre) {
+
+		try {
+			TypedQuery<Carrera> query = em
+					.createQuery("select c from Carrera c where c.nombre=:nombre", Carrera.class)
+					.setParameter("nombre", nombre);
+			return query.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+
 	}
 }
