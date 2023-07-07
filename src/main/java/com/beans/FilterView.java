@@ -1,6 +1,7 @@
 package com.beans;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
@@ -39,6 +40,8 @@ public class FilterView implements Serializable {
 	private List<FilterMeta> filterBy;
 
 	private boolean globalFilterOnly;
+	
+	private int currentYear;
 
 	@PostConstruct
 	public void init() {
@@ -48,7 +51,7 @@ public class FilterView implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		currentYear=new Date(System.currentTimeMillis()).getYear();
 		filterBy = new ArrayList<>();
 
 //        filterBy.add(FilterMeta.builder()
@@ -129,4 +132,14 @@ public class FilterView implements Serializable {
 	public void setGlobalFilterOnly(boolean globalFilterOnly) {
 		this.globalFilterOnly = globalFilterOnly;
 	}
+
+	public int getCurrentYear() {
+		return currentYear;
+	}
+
+	public void setCurrentYear(int currentYear) {
+		this.currentYear = currentYear;
+	}
+	
+	
 }

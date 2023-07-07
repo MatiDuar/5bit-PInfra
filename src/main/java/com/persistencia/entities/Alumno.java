@@ -17,8 +17,7 @@ public class Alumno extends Persona implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ALUMNO" )
-	@SequenceGenerator(name = "SEQ_ALUMNO", initialValue = 1, allocationSize = 1)
+	@Column(nullable=false,length=10,unique=true)
 	private Long idEstudiantil;
 	
 	@ManyToOne(optional=false)

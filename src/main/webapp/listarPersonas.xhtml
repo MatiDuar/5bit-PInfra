@@ -11,7 +11,7 @@
 		<h:form>
 			<p:dataTable var="personas" value="#{dtFilterView.personas}"
 				widgetVar="personasTable"
-				emptyMessage="No customers found with given criteria"
+				emptyMessage="Personas no encontradas con este criterio"
 				filteredValue="#{dtFilterView.filteredPersonas}"
 				globalFilterFunction="#{dtFilterView.globalFilterFunction}">
 
@@ -51,14 +51,19 @@
 					<h:outputText style="vertical-align: middle; margin-left: .5rem"
 						value="#{personas.direccion}" />
 				</p:column>
+				<p:column headerText="Edad"
+					filterable="false">
+					<h:outputText style="vertical-align: middle; margin-left: .5rem"
+						value="#{dtFilterView.currentYear-(personas.fechaNacimiento.year-1900)}" />
+				</p:column>
 				
-				<p:column field="carrera" headerText="Carrera"
+				<p:column  headerText="Carrera"
 					filterable="false">
 					<h:outputText style="vertical-align: middle; margin-left: .5rem"
 						value="#{dtFilterView.buscar(personas.id).carrera.nombre}" />
 				</p:column>
 				
-				<p:column field="idEstudiante" headerText="Id Estudiante"
+				<p:column  headerText="Id Estudiante"
 					filterable="false">
 					<h:outputText style="vertical-align: middle; margin-left: .5rem"
 						value="#{dtFilterView.buscar(personas.id).idEstudiantil}" />
