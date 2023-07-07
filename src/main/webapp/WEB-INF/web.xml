@@ -36,4 +36,7 @@
 	<param-name>primefaces.THEME</param-name>
 	<param-value>saga</param-value>
 	</context-param>
+	
+	
+	
 </web-app>

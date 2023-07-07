@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+	<div class="card">
+		<h5>Global Filter Function</h5>
+		<h:form>
+			<p:dataTable var="personas" value="#{dtFilterView.personas}"
+				widgetVar="personasTable"
+				emptyMessage="No customers found with given criteria"
+				filteredValue="#{dtFilterView.filteredPersonas}"
+				globalFilterFunction="#{dtFilterView.globalFilterFunction}">
+
+				<f:facet name="header">
+					<div class="flex justify-content-end">
+						<p:inputText id="globalFilter"
+							onkeyup="PF('personasTable').filter()" style="width:300px"
+							placeholder="Buscardor global..." />
+					</div>
+				</f:facet>
+
+
+				<p:column headerText="Nombre" sortBy="#{personas.nombre1}">
+					<h:outputText style="vertical-align: middle; margin-left: .5rem"
+						value="#{personas.nombre1}" />
+				</p:column>
+
+				<p:column field="apellido" headerText="Apellido"
+					filterable="false">
+					<h:outputText style="vertical-align: middle; margin-left: .5rem"
+						value="#{personas.apellido1}" />
+				</p:column>
+				
+				<p:column field="email" headerText="Email"
+					filterable="false">
+					<h:outputText style="vertical-align: middle; margin-left: .5rem"
+						value="#{personas.mail}" />
+				</p:column>
+				
+				<p:column field="nombreUsuario" headerText="Nombre de Usuario"
+					filterable="false">
+					<h:outputText style="vertical-align: middle; margin-left: .5rem"
+						value="#{personas.nombreUsuario}" />
+				</p:column>
+				<p:column field="direccion" headerText="Direccion"
+					filterable="false">
+					<h:outputText style="vertical-align: middle; margin-left: .5rem"
+						value="#{personas.direccion}" />
+				</p:column>
+
+				
+			</p:dataTable>
+		</h:form>
+		</div>
+</body>
+</html>
