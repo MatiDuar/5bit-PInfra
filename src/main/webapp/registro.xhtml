@@ -45,15 +45,50 @@
 .fildsetprueba {
 	margin-bottom: 20px;
 }
+
+.separador {
+	margin-top: -10%;
+    margin-bottom: 6%;
+}
+
+.headerRegistro {
+	display: flex;
+	background: linear-gradient(#006666, #FFFFFF);
+	width: 100%;
+	height: 500px;
+	justify-content: center;
+	color: white;
+	font-size: 20px;
+}
+
+.textoHeader{
+	margin-top: 7%;
+}
+
+body {
+	margin: 0px;
+}
+
+.footer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	background: #f5f5f5;
+}
 </style>
 </h:head>
 <body>
 
+	<div class="headerRegistro">
+		<div class="textoHeader">
+			<h1 class="mt-0">REGISTRO DE USUARIO</h1>
+		</div>
+	</div>
 
-	<div class="box">
+	<div class="box separador">
 		<div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
-			<div class="card ">
-				<h1 class="mt-0">Registro de Usuario</h1>
+			<div class="card ">				
 				<h:form>
 					<p:growl id="messages" life="3000" closable="true" />
 					<p:fieldset id="grid" legend="Datos Personales"
@@ -192,23 +227,16 @@
 						action="#{gestionPersona.agregarPersona}" update="grid grid2" />
 
 
-
-					<!-- 						this.id = id; -->
-					<!-- 		this.nombreUsuario = nombreUsuario; -->
-					<!-- 		this.contrasena = contrasena; -->
-					<!-- 		this.apellido1 = apellido1; -->
-					<!-- 		this.apellido2 = apellido2; -->
-					<!-- 		this.nombre1 = nombre1; -->
-					<!-- 		this.nombre2 = nombre2; -->
-					<!-- 		this.fechaNacimiento = fechaNacimiento; -->
-					<!-- 		this.direccion = direccion; -->
-					<!-- 		this.mail = mail; -->
-					<!-- 		this.activo = activo; -->
-
 				</h:form>
+				
 			</div>
 		</div>
 	</div>
+	
+	<div class="footer">
+		<h1>Footer</h1>
+	</div>
+	
 </body>
 </html>
 

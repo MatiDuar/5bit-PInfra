@@ -7,13 +7,15 @@
 
 <h:head>
 
-
+<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript library="primefaces" name="primefaces.js" />
+	<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/primeflex@3.3.1/primeflex.min.css" />
 
 	<style>
 .layout-sidebar {
 	position: fixed;
 	left: 0;
-	top: 80px;
+	top: 86px;
 	height: calc(100% - 70px);
 	background-color: var(--surface-a);
 	width: 250px;
@@ -31,6 +33,10 @@ border-bottom: 1px solid var(--surface-d);
 .layout-content {
 	margin-left: 250px;
 	padding: 30px;
+}
+
+body{
+margin: 0px;
 }
 </style>
 </h:head>
