@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript library="primefaces" name="primefaces.js" />
+	<link type="text/css" rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/primeflex@3.3.1/primeflex.min.css" />
+
+
+	<style>
+button.ui-button {
+	margin-right: .5rem;
+}
+
+.linea {
+	border-bottom: 1px solid #e4e4e4;
+	padding: 20px;
+}
+
+.layout-sidebar{
+position: fixed;
+    left: 0;
+    top: 70px;
+    height: calc(100% - 70px);
+    background-color: var(--surface-a);
+    width: 250px;
+    border-right: 1px solid var(--surface-d);
+    user-select: none;
+    transition: transform .4s cubic-bezier(0.05, 0.74, 0.2, 0.99);
+    display: flex;
+    flex-direction: column;
+}
+
+</style>
+</h:head>
+<body>
+
+
+		
+			
+
+
+		
+	
+	<!-- Fin Menu -->
+
+	<div class="ui-dataview-list">
+		<h1>Temas</h1>
+		<ul>
+			<li>arya</li>
+			<li>luna-amber</li>
+			<li>luna-blue</li>
+			<li>luna-green</li>
+			<li>luna-pink</li>
+			<li>nova-colored</li>
+			<li>nova-dark</li>
+			<li>nova-light</li>
+			<li>saga (DEFAULT)</li>
+			<li>vela</li>
+		</ul>
+	</div>
+	<p:fieldset legend="Botones">
+		<div class="card">
+			<div class="linea">
+				<h5>Basic</h5>
+				<p:button value="Submit" />
+				<p:button value="Disabled" disabled="true" />
+			</div>
+
+			<div class="linea">
+
+				<h5>Icons</h5>
+				<p:button icon="pi pi-check" />
+				<p:button value="Submit" icon="pi pi-check" />
+				<p:button value="Submit" icon="pi pi-check" iconPos="right" />
+			</div>
+
+			<div class="linea">
+				<h5>Severities</h5>
+				<p:button value="Primary" />
+				<p:button value="Secondary" styleClass="ui-priority-primary" />
+				<p:button value="Success" styleClass="ui-success-button" />
+				<p:button value="Info" styleClass="ui-button-info" />
+				<p:button value="Warning" styleClass="ui-button-warning" />
+				<p:button value="Help" styleClass="ui-button-help" />
+				<p:button value="Danger" styleClass="ui-button-danger" />
+			</div>
+
+			<div class="linea">
+				<h5>Raised Buttons</h5>
+				<p:button value="Primary" styleClass="ui-button-raised" />
+				<p:button value="Secondary"
+					styleClass="ui-button-raised ui-button-secondary" />
+				<p:button value="Success"
+					styleClass="ui-button-raised ui-button-success" />
+				<p:button value="Info" styleClass="ui-button-raised ui-button-info" />
+				<p:button value="Warning"
+					styleClass="ui-button-raised ui-button-warning" />
+				<p:button value="Help" styleClass="ui-button-raised ui-button-help" />
+				<p:button value="Danger"
+					styleClass="ui-button-raised ui-button-danger" />
+			</div>
+
+			<div class="linea">
+				<h5>Rounded Buttons</h5>
+				<p:button value="Primary" styleClass="rounded-button" />
+				<p:button value="Secondary"
+					styleClass="rounded-button ui-button-secondary" />
+				<p:button value="Success"
+					styleClass="rounded-button ui-button-success" />
+				<p:button value="Info" styleClass="rounded-button ui-button-info" />
+				<p:button value="Warning"
+					styleClass="rounded-button ui-button-warning" />
+				<p:button value="Help" styleClass="rounded-button ui-button-help" />
+				<p:button value="Danger"
+					styleClass="rounded-button ui-button-danger" />
+			</div>
+
+			<div class="linea">
+				<h5>Flat Buttons</h5>
+				<p:button value="Primary" styleClass="ui-button-flat" />
+				<p:button value="Secondary"
+					styleClass="ui-button-secondary ui-button-flat" />
+				<p:button value="Success"
+					styleClass="ui-button-success ui-button-flat" />
+				<p:button value="Info" styleClass="ui-button-info ui-button-flat" />
+				<p:button value="Warning"
+					styleClass="ui-button-warning ui-button-flat" />
+				<p:button value="Help" styleClass="ui-button-help ui-button-flat" />
+				<p:button value="Danger"
+					styleClass="ui-button-danger ui-button-flat" />
+				<p:button value="Plain" styleClass="ui-button-flat ui-button-plain" />
+			</div>
+
+			<div class="linea">
+				<h5>Raised Text Buttons</h5>
+				<p:button value="Primary"
+					styleClass="ui-button-raised ui-button-flat" />
+				<p:button value="Secondary"
+					styleClass="ui-button-raised ui-button-secondary ui-button-flat" />
+				<p:button value="Success"
+					styleClass="ui-button-raised ui-button-success ui-button-flat" />
+				<p:button value="Info"
+					styleClass="ui-button-raised ui-button-info ui-button-flat" />
+				<p:button value="Warning"
+					styleClass="ui-button-raised ui-button-warning ui-button-flat" />
+				<p:button value="Help"
+					styleClass="ui-button-raised ui-button-help ui-button-flat" />
+				<p:button value="Danger"
+					styleClass="ui-button-raised ui-button-danger ui-button-flat" />
+				<p:button value="Plain"
+					styleClass="ui-button-raised ui-button-flat ui-button-plain" />
+			</div>
+
+			<div class="linea">
+				<h5>Outlined Buttons</h5>
+				<p:button value="Primary" styleClass="ui-button-outlined" />
+				<p:button value="Secondary"
+					styleClass="ui-button-outlined ui-button-secondary" />
+				<p:button value="Success"
+					styleClass="ui-button-outlined ui-button-success" />
+				<p:button value="Info"
+					styleClass="ui-button-outlined ui-button-info" />
+				<p:button value="Warning"
+					styleClass="ui-button-outlined ui-button-warning" />
+				<p:button value="Help"
+					styleClass="ui-button-outlined ui-button-help" />
+				<p:button value="Danger"
+					styleClass="ui-button-outlined ui-button-danger" />
+			</div>
+
+			<div class="linea">
+				<h5>Rounded Icon Buttons</h5>
+				<p:button icon="pi pi-bookmark"
+					styleClass="rounded-button ui-button-secondary" />
+				<p:button icon="pi pi-search"
+					styleClass="rounded-button ui-button-success" />
+				<p:button icon="pi pi-user"
+					styleClass="rounded-button ui-button-info" />
+				<p:button icon="pi pi-bell"
+					styleClass="rounded-button ui-button-warning" />
+				<p:button icon="pi pi-heart"
+					styleClass="rounded-button ui-button-help" />
+				<p:button icon="pi pi-times"
+					styleClass="rounded-button ui-button-danger" />
+				<p:button icon="pi pi-check" styleClass="rounded-button" />
+			</div>
+
+			<div class="linea">
+				<h5>Rounded Text Icon Buttons</h5>
+				<p:button icon="pi pi-check"
+					styleClass="rounded-button ui-button-flat" />
+				<p:button icon="pi pi-bookmark"
+					styleClass="rounded-button ui-button-secondary ui-button-flat" />
+				<p:button icon="pi pi-search"
+					styleClass="rounded-button ui-button-success ui-button-flat" />
+				<p:button icon="pi pi-user"
+					styleClass="rounded-button ui-button-info ui-button-flat" />
+				<p:button icon="pi pi-bell"
+					styleClass="rounded-button ui-button-warning ui-button-flat" />
+				<p:button icon="pi pi-heart"
+					styleClass="rounded-button ui-button-help ui-button-flat" />
+				<p:button icon="pi pi-times"
+					styleClass="rounded-button ui-button-danger ui-button-flat" />
+				<p:button icon="pi pi-filter"
+					styleClass="rounded-button ui-button-flat ui-button-plain" />
+			</div>
+
+			<div>
+				<h5>Rounded and Outlined Icon Buttons</h5>
+				<p:button icon="pi pi-check"
+					styleClass="rounded-button ui-button-outlined" />
+				<p:button icon="pi pi-bookmark"
+					styleClass="rounded-button ui-button-secondary ui-button-outlined" />
+				<p:button icon="pi pi-search"
+					styleClass="rounded-button ui-button-success ui-button-outlined" />
+				<p:button icon="pi pi-user"
+					styleClass="rounded-button ui-button-info ui-button-outlined" />
+				<p:button icon="pi pi-bell"
+					styleClass="rounded-button ui-button-warning ui-button-outlined" />
+				<p:button icon="pi pi-heart"
+					styleClass="rounded-button ui-button-help ui-button-outlined" />
+				<p:button icon="pi pi-times"
+					styleClass="rounded-button ui-button-danger ui-button-outlined" />
+			</div>
+		</div>
+
+	</p:fieldset>
+
+</body>
+</html>
