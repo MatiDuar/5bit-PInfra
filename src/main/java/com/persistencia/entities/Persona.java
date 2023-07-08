@@ -138,6 +138,7 @@ public class Persona implements Serializable {
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
+	
 
 	public String getDireccion() {
 		return direccion;

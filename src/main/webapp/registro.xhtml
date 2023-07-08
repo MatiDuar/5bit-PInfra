@@ -3,7 +3,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
@@ -47,70 +48,148 @@
 </style>
 </h:head>
 <body>
+
+
 	<div class="box">
 		<div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
 			<div class="card ">
 				<h1 class="mt-0">Registro de Usuario</h1>
 				<h:form>
-					<p:fieldset legend="Datos Personales" class="fildsetprueba">
+					<p:growl id="messages" life="3000" closable="true" />
+					<p:fieldset id="grid" legend="Datos Personales"
+						class="fildsetprueba">
 						<div class="grid ui-fluid">
 							<div class="col-12 md:col-4">
-								<h5>Primer Nombre</h5>
-								<p:inputText />
+								<h5>Primer Nombre *</h5>
+								<p:message for="primerNombre" id="PriNombreError"
+									display="tooltip" />
+								<p:inputText id="primerNombre"
+									value="#{gestionPersona.personaSeleccionada.nombre1}"
+									required="true"
+									requiredMessage="Debe ingresar el primer Nombre" maxlength="50" />
 							</div>
 
 							<div class="col-12 md:col-4">
 								<h5>Segundo Nombre</h5>
-								<p:inputText />
+								<p:inputText
+									value="#{gestionPersona.personaSeleccionada.nombre2}" />
 							</div>
 							<div class="field col-12 md:col-4">
-								<h5>Fecha Nacimiento</h5>
-								<p:datePicker id="spanish" value="#{calendarView.date9}"
-									locale="es" monthNavigator="true" pattern="yyyy-MMM-dd" />
+								<h5>Fecha Nacimiento *</h5>
+								<p:datePicker id="spanish" value="#{gestionPersona.fechaNacSel}"
+									locale="es" monthNavigator="true" pattern="dd-MM-yyyy"
+									required="true" requiredMessage="" />
+
 							</div>
 						</div>
 						<div class="grid ui-fluid">
 							<div class="col-12 md:col-4">
-								<h5>Primer Apellido</h5>
-								<p:inputText />
+								<h5>Primer Apellido *</h5>
+								<p:inputText
+									value="#{gestionPersona.personaSeleccionada.apellido1}"
+									required="true"
+									requiredMessage="Debe ingresar el primer Apellido" />
 							</div>
 
 							<div class="col-12 md:col-4">
 								<h5>Segundo Apellido</h5>
-								<p:inputText />
+								<p:inputText
+									value="#{gestionPersona.personaSeleccionada.apellido2}" />
+							</div>
+							<div class="field col-12 md:col-4">
+								<h5>Direccion *</h5>
+								<p:inputText
+									value="#{gestionPersona.personaSeleccionada.direccion}"
+									required="true" requiredMessage="Debe ingresar la Direccion" />
 							</div>
 						</div>
-						<div class="grid ui-fluid">
 
-							
-						</div>
+						<div class="grid ui-fluid"></div>
 
 
 					</p:fieldset>
-					<p:fieldset legend="Datos Usuario">
+					<p:fieldset id="grid2" legend="Datos Usuario" class="fildsetprueba">
 						<div class="grid ui-fluid">
 							<div class="col-12 md:col-4">
-								<h5>Nombre de Usuario</h5>
-								<p:inputText />
+								<h5>Nombre de Usuario *</h5>
+								<p:inputText
+									value="#{gestionPersona.personaSeleccionada.nombreUsuario}"
+									required="true"
+									requiredMessage="Debe ingresar el Nombre de Usuario" />
 							</div>
 
 							<div class="col-12 md:col-4">
 								<h5>Email</h5>
-								<p:inputText />
+								<p:inputText value="#{gestionPersona.personaSeleccionada.mail}"
+									required="true" requiredMessage="Debe ingresar el Email" />
 							</div>
 						</div>
 						<div class="grid ui-fluid">
 							<div class="col-12 md:col-4">
-								<h5>Contraseña</h5>
-								<p:inputText />
+								<h5>Contraseña *</h5>
+								<p:password id="pass" label="Contraseña" match="pass2"
+									feedback="false"
+									value="#{gestionPersona.personaSeleccionada.contrasena}"
+									validatorMessage="Las Contraseñas no coinciden" required="true"
+									requiredMessage="Se necesita una valor" />
+
+							</div>
+							<div class="col-12 md:col-4">
+								<h5>Confirmar Contraseña *</h5>
+								<p:password id="pass2" label="Confirmar Contraseña"
+									feedback="false"
+									value="#{gestionPersona.personaSeleccionada.contrasena}"
+									required="true" requiredMessage="Debe ingresar una Contraseña" />
 							</div>
 
 						</div>
-						
-						<p:button value="Success"
-					styleClass="ui-button-raised ui-button-success" />
-						
+
+
+
 					</p:fieldset>
+
+					<p:fieldset id="grid3" legend="Datos Alumno" class="fildsetprueba">
+						<div class="grid ui-fluid">
+							<div class="col-12 md:col-4">
+								<h5>Eres Estudiante *</h5>
+								<p:selectOneMenu id="isEstudiante" required="true" value="#{gestionPersona.alumno}">
+									<f:selectItem itemLabel="Selecciona uno" itemValue="" />
+									<f:selectItem itemLabel="Si" itemValue="true" />
+									<f:selectItem itemLabel="No" itemValue="false" />
+									<p:ajax event="change" update="datosAlumno"></p:ajax>
+								</p:selectOneMenu>
+
+							</div>
+						</div>
+						<ui:fragment rendered="#{gestionPersona.alumno==true}" id="datosAlumno">
+							<div class="grid ui-fluid" id="datosAlumno">
+								<div class="col-12 md:col-4">
+									<h5>Id Estudiantil *</h5>
+									<p:inputText value="" required="true"
+										requiredMessage="Debe ingresar el Id Estudiantil" />
+								</div>
+
+								<div class="col-12 md:col-4">
+									<h5>Carrera *</h5>
+									<p:selectOneMenu id="group" value="#{null}" required="true">
+										<f:selectItem itemLabel="Selecciona uno" itemValue="" />
+										<c:forEach var="carrera" items="#{gestionPersona.carreras}">
+											<f:selectItem itemLabel="#{carrera.nombre}"
+												itemValue="#{carrera.nombre}" />
+										</c:forEach>
+									</p:selectOneMenu>
+								</div>
+							</div>
+
+
+
+
+
+						</ui:fragment>
+					</p:fieldset>
+					<p:commandButton value="Success"
+						styleClass="ui-button-raised ui-button-success"
+						action="#{gestionPersona.agregarPersona}" update="grid grid2" />
 
 
 

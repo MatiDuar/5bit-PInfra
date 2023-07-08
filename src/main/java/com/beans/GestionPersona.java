@@ -1,7 +1,7 @@
 package com.beans;
 
 import java.io.Serializable;
-
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.logicaNegocio.GestionPersonaService;
+import com.persistencia.entities.Carrera;
 import com.persistencia.entities.Persona;
 
 
@@ -26,12 +27,22 @@ public class GestionPersona implements Serializable {
 	
 	private Persona personaLogeada;
 	private Persona personaSeleccionada;
+	
+	private String toRegistro;
+	private List<Carrera>carreras;
+	
+	private java.util.Date fechaNacSel;
+	
+	private boolean isAlumno;
 
 	@PostConstruct
 	public void init() {
 		persistenciaBean.initPersona();
-		
+		carreras=persistenciaBean.listarCarreras();
 		personaSeleccionada=new Persona();
+		fechaNacSel=new java.util.Date();
+		isAlumno=true;
+		toRegistro="registro.xhtml";
 //		persistenciaBean.agregarUsuario();
 //		try {
 //			usuarios=persistenciaBean.listarUsuarios();
@@ -66,6 +77,42 @@ public class GestionPersona implements Serializable {
 			return "";
 		}
 	}
+	
+	public String agregarPersona() {
+		persistenciaBean.agregarUsuario(personaSeleccionada);
+		
+		String msg1="Se creo correctamente el usuario";
+		//mensaje de actualizacion correcta
+		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				msg1, "");
+		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+		return "login.xhtml";
+	}
+	
+	
+	
+	private void reset() {
+		personaSeleccionada=new Persona();
+		fechaNacSel=null;
+	}
+	public java.util.Date getFechaNacSel() {
+		return fechaNacSel;
+	}
+
+	public void setFechaNacSel(java.util.Date fechaNacSel) {
+		personaSeleccionada.setFechaNacimiento(new java.sql.Date(fechaNacSel.getTime()));
+		this.fechaNacSel = fechaNacSel;
+	}
+
+	
+	public String getToRegistro() {
+		reset();
+		return toRegistro;
+	}
+
+	public void setToRegistro(String toRegistro) {
+		this.toRegistro = toRegistro;
+	}
 
 	public Persona getPersonaLogeada() {
 		return personaLogeada;
@@ -81,6 +128,22 @@ public class GestionPersona implements Serializable {
 
 	public void setPersonaSeleccionada(Persona personaSeleccionada) {
 		this.personaSeleccionada = personaSeleccionada;
+	}
+
+	public List<Carrera> getCarreras() {
+		return carreras;
+	}
+
+	public void setCarreras(List<Carrera> carreras) {
+		this.carreras = carreras;
+	}
+
+	public boolean isAlumno() {
+		return isAlumno;
+	}
+
+	public void setAlumno(boolean isAlumno) {
+		this.isAlumno = isAlumno;
 	}
 
 	

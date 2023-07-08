@@ -53,6 +53,7 @@ public class GestionPersonaService implements Serializable {
 	}
 
 	public void agregarUsuario(Persona p) {
+		p.setActivo(true);
 		personaDAO.agregarPersona(p);
 	}
 
@@ -63,7 +64,10 @@ public class GestionPersonaService implements Serializable {
 	public void borrarUsuario(long id) {
 		personaDAO.borrarPersona(id);
 	}
-
+	
+	public List<Carrera> listarCarreras(){
+		return carreraDAO.listarCarreras();
+	}
 	public void initPersona() {
 
 		initDepartamentos();
