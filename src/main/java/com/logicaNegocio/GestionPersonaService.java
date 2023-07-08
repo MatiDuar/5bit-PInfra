@@ -95,6 +95,8 @@ public class GestionPersonaService implements Serializable {
 		a.setDireccion("demo");
 		a.setFechaNacimiento(new Date(2002, 02, 04));
 		a.setMail("jean.marshall@estudiantes.utec.edu.uy");
+		a.setIdEstudiantil((long) 2222);
+		
 
 		a.setItr(itrDAO.buscarITR("Centro-sur"));
 		a.setCarrera(carreraDAO.buscarCarrera("LTI"));

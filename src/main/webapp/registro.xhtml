@@ -33,184 +33,106 @@
 	font-weight: bold;
 }
 
+.box {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	width: 100%;
+}
 
+.fildsetprueba {
+	margin-bottom: 20px;
+}
 </style>
 </h:head>
 <body>
-<div class="flex align-items-center justify-content-center">
-						<div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
-	<div class="card">
-		<h:form>
-			<p:wizard widgetVar="wizardVar">
-				<p:tab id="tab1" title="Datos Personales" step="0">
-					<!-- Contenido del primer paso -->
-
-					<p:panel header="Datos Personales">
-						<h5>Primer Nombre</h5>
-						<p:inputText value="#{gestionPersona.personaSeleccionada.nombre1}"/>
-						<h5>Primer Segundo</h5>
-						<p:inputText />
-						<h5>Primer Apellido</h5>
-						<p:inputText />
-						<h5>Primer Apellido</h5>
-						<p:inputText />
-					</p:panel>
-				</p:tab>
-				<p:tab id="tab2" title="Datos Dirección" step="1">
-					<!-- Contenido del segundo paso -->
-					<p:panel header="Datos Dirección">
-						<h:form>
-							<div class="card">
-								<h5>Addons</h5>
-								<div class="grid ui-fluid">
-									<div class="col-12 md:col-4">
-										<div class="ui-inputgroup">
-											<div class="ui-inputgroup-addon">
-												<i class="pi pi-user"></i>
-											</div>
-											<p:inputText placeholder="Username" />
-										</div>
-									</div>
-
-									<div class="col-12 md:col-4">
-										<div class="ui-inputgroup">
-											<div class="ui-inputgroup-addon">$</div>
-											<p:inputText placeholder="Price" />
-											<div class="ui-inputgroup-addon">.00</div>
-										</div>
-									</div>
-
-									<div class="col-12 md:col-4">
-										<div class="ui-inputgroup">
-											<div class="ui-inputgroup-addon">www</div>
-											<p:inputText placeholder="Website" />
-										</div>
-									</div>
-								</div>
-
-								<h5>Multiple Addons</h5>
-								<div class="grid ui-fluid">
-									<div class="col-12">
-										<div class="ui-inputgroup">
-											<div class="ui-inputgroup-addon">
-												<i class="pi pi-tags" />
-											</div>
-											<div class="ui-inputgroup-addon">
-												<i class="pi pi-shopping-cart" />
-											</div>
-											<p:inputText placeholder="Price" />
-											<div class="ui-inputgroup-addon">$</div>
-											<div class="ui-inputgroup-addon">.00</div>
-										</div>
-									</div>
-								</div>
-
-								<h5>Button Addons</h5>
-								<div class="grid ui-fluid">
-									<div class="col-12 md:col-4">
-										<div class="ui-inputgroup">
-											<p:commandButton value="Search" />
-											<p:inputText placeholder="Keyword" />
-										</div>
-									</div>
-
-									<div class="col-12 md:col-4">
-										<div class="ui-inputgroup">
-											<p:inputText placeholder="Keyboard" />
-											<p:commandButton icon="pi pi-search"
-												styleClass="ui-button-warning" />
-										</div>
-									</div>
-
-									<div class="col-12 md:col-4">
-										<div class="ui-inputgroup">
-											<p:commandButton icon="pi pi-check"
-												styleClass="ui-button-success" />
-											<p:inputText placeholder="Vote" />
-											<p:commandButton icon="pi pi-times"
-												styleClass="ui-button-danger" />
-										</div>
-									</div>
-								</div>
-
-								<h5>Checkbox</h5>
-								<div class="grid ui-fluid">
-									<div class="col-12 md:col-4">
-										<div class="ui-inputgroup">
-											<div class="ui-inputgroup-addon">
-												<p:selectBooleanCheckbox />
-											</div>
-											<p:inputText placeholder="Username" />
-										</div>
-									</div>
-									<div class="col-12 md:col-4">
-										<div class="ui-inputgroup">
-											<p:inputText placeholder="Username" />
-											<div class="ui-inputgroup-addon">
-												<p:radioButton for="radioDemo" itemIndex="0" />
-											</div>
-										</div>
-									</div>
-									<div class="col-12 md:col-4">
-										<div class="ui-inputgroup">
-											<div class="ui-inputgroup-addon">
-												<p:selectBooleanCheckbox />
-											</div>
-											<p:inputText placeholder="Username" />
-											<div class="ui-inputgroup-addon">
-												<p:radioButton for="radioDemo" itemIndex="0" />
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<p:selectOneRadio id="radioDemo" layout="custom"
-									unselectable="true">
-									<f:selectItem itemValue="demo" />
-								</p:selectOneRadio>
+	<div class="box">
+		<div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+			<div class="card ">
+				<h1 class="mt-0">Registro de Usuario</h1>
+				<h:form>
+					<p:fieldset legend="Datos Personales" class="fildsetprueba">
+						<div class="grid ui-fluid">
+							<div class="col-12 md:col-4">
+								<h5>Primer Nombre</h5>
+								<p:inputText />
 							</div>
-						</h:form>
-					</p:panel>
-				</p:tab>
-				<p:tab id="tab3" title="Contacto" step="2">
-					<!-- Contenido del tercer paso -->
-					<h:form>
-						<p:growl id="msgs" showDetail="true"
-							skipDetailIfEqualsSummary="true" />
 
-						<h5 class="mt-0">Regular</h5>
-						<p:fieldset legend="Datos Personales">
-							<h5>Primer Nombre</h5>
-							<p:inputText />
-							<h5>Primer Segundo</h5>
-							<p:inputText />
-							<h5>Primer Apellido</h5>
-							<p:inputText />
-							<h5>Primer Apellido</h5>
-							<p:inputText />
-
-						</p:fieldset>
-					</h:form>
-				</p:tab>
-				<p:tab id="tab4" title="Paso 4" step="3">
-					<!-- Contenido del cuarto paso -->
-					<div class="flex align-items-center justify-content-center">
-						<div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
-							<h5>Primer Nombre</h5>
-							<p:inputText />
-							<h5>Primer Segundo</h5>
-							<p:inputText />
-							<h5>Primer Apellido</h5>
-							<p:inputText />
-							<h5>Primer Apellido</h5>
-							<p:inputText />
+							<div class="col-12 md:col-4">
+								<h5>Segundo Nombre</h5>
+								<p:inputText />
+							</div>
+							<div class="field col-12 md:col-4">
+								<h5>Fecha Nacimiento</h5>
+								<p:datePicker id="spanish" value="#{calendarView.date9}"
+									locale="es" monthNavigator="true" pattern="yyyy-MMM-dd" />
+							</div>
 						</div>
-					</div>
-				</p:tab>
-			</p:wizard>
-		</h:form>
-</div>
-</div>
+						<div class="grid ui-fluid">
+							<div class="col-12 md:col-4">
+								<h5>Primer Apellido</h5>
+								<p:inputText />
+							</div>
+
+							<div class="col-12 md:col-4">
+								<h5>Segundo Apellido</h5>
+								<p:inputText />
+							</div>
+						</div>
+						<div class="grid ui-fluid">
+
+							
+						</div>
+
+
+					</p:fieldset>
+					<p:fieldset legend="Datos Usuario">
+						<div class="grid ui-fluid">
+							<div class="col-12 md:col-4">
+								<h5>Nombre de Usuario</h5>
+								<p:inputText />
+							</div>
+
+							<div class="col-12 md:col-4">
+								<h5>Email</h5>
+								<p:inputText />
+							</div>
+						</div>
+						<div class="grid ui-fluid">
+							<div class="col-12 md:col-4">
+								<h5>Contraseña</h5>
+								<p:inputText />
+							</div>
+
+						</div>
+						
+						<p:button value="Success"
+					styleClass="ui-button-raised ui-button-success" />
+						
+					</p:fieldset>
+
+
+
+					<!-- 						this.id = id; -->
+					<!-- 		this.nombreUsuario = nombreUsuario; -->
+					<!-- 		this.contrasena = contrasena; -->
+					<!-- 		this.apellido1 = apellido1; -->
+					<!-- 		this.apellido2 = apellido2; -->
+					<!-- 		this.nombre1 = nombre1; -->
+					<!-- 		this.nombre2 = nombre2; -->
+					<!-- 		this.fechaNacimiento = fechaNacimiento; -->
+					<!-- 		this.direccion = direccion; -->
+					<!-- 		this.mail = mail; -->
+					<!-- 		this.activo = activo; -->
+
+				</h:form>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
+
+
+
+
