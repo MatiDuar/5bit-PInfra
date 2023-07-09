@@ -48,7 +48,7 @@
 
 .separador {
 	margin-top: -10%;
-    margin-bottom: 6%;
+	margin-bottom: 6%;
 }
 
 .headerRegistro {
@@ -61,7 +61,7 @@
 	font-size: 20px;
 }
 
-.textoHeader{
+.textoHeader {
 	margin-top: 7%;
 }
 
@@ -88,7 +88,7 @@ body {
 
 	<div class="box separador">
 		<div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
-			<div class="card ">				
+			<div class="card ">
 				<h:form>
 					<p:growl id="messages" life="3000" closable="true" />
 					<p:fieldset id="grid" legend="Datos Personales"
@@ -187,7 +187,8 @@ body {
 						<div class="grid ui-fluid">
 							<div class="col-12 md:col-4">
 								<h5>Eres Estudiante *</h5>
-								<p:selectOneMenu id="isEstudiante" required="true" value="#{gestionPersona.alumno}">
+								<p:selectOneMenu id="isEstudiante" required="true"
+									value="#{gestionPersona.alumno}">
 									<f:selectItem itemLabel="Selecciona uno" itemValue="" />
 									<f:selectItem itemLabel="Si" itemValue="true" />
 									<f:selectItem itemLabel="No" itemValue="false" />
@@ -196,7 +197,8 @@ body {
 
 							</div>
 						</div>
-						<ui:fragment rendered="#{gestionPersona.alumno==true}" id="datosAlumno">
+						<ui:fragment rendered="#{gestionPersona.alumno==true}"
+							id="datosAlumno">
 							<div class="grid ui-fluid" id="datosAlumno">
 								<div class="col-12 md:col-4">
 									<h5>Id Estudiantil *</h5>
@@ -216,27 +218,33 @@ body {
 								</div>
 							</div>
 
-
-
-
-
 						</ui:fragment>
 					</p:fieldset>
-					<p:commandButton value="Success"
-						styleClass="ui-button-raised ui-button-success"
-						action="#{gestionPersona.agregarPersona}" update="grid grid2" />
-
-
+					<div>
+						<div class="flex card-container">
+							<div class="flex-none flex align-items-center justify-content-center">
+								<p:commandButton value="Success"
+									styleClass="ui-button-raised ui-button-success"
+									action="#{gestionPersona.agregarPersona}" update="grid grid2" />
+							</div>
+							<div
+								class="flex-grow-1 flex align-items-center justify-content-center "></div>
+							<div class="flex-none flex align-items-center justify-content-center">
+								<p:commandButton value="Danger"
+									styleClass="ui-button-raised ui-button-danger" />
+							</div>
+						</div>
+					</div>
 				</h:form>
-				
+
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="footer">
 		<h1>Footer</h1>
 	</div>
-	
+
 </body>
 </html>
 
