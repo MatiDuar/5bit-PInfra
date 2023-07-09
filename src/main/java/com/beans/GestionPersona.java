@@ -10,6 +10,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.PrimeFaces;
+
 import com.logicaNegocio.GestionPersonaService;
 import com.persistencia.entities.Carrera;
 import com.persistencia.entities.Persona;
@@ -88,6 +90,7 @@ public class GestionPersona implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 		return "login.xhtml";
 	}
+	
 	
 	
 	
