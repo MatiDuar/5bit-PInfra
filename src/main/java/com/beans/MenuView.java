@@ -20,7 +20,7 @@ import org.primefaces.model.menu.MenuModel;
 @ViewScoped
 public class MenuView {
 	
-	// Esta Clase hay que borrarla, era una prueba para un Menu de PrimeFaces pero no funco
+	// Esta Clase hay que borrarla, era una prueba para un Menu de PrimeFaces pero no funcoo
 
 	 private static final long serialVersionUID = 1L;
 

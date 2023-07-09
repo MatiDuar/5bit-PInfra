@@ -10,18 +10,68 @@
 	<!-- <link type="text/css" rel="stylesheet" href="https://unpkg.com/primeflex@3.3.1/primeflex.css"/> -->
 	<link type="text/css" rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/primeflex@3.3.1/primeflex.min.css" />
+
+	<style>
+.headerRegistro {
+	display: flex;
+	background: linear-gradient(#006666, #FFFFFF);
+	width: 100%;
+	height: 380px;
+	justify-content: center;
+	color: white;
+	font-size: 20px;
+}
+
+.footer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	background: #f5f5f5;
+}
+
+.box {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	width: 100%;
+	margin-top: -460px;
+}
+
+.separador {
+	margin-top: -10%;
+}
+
+.textoHeader {
+	margin-top: 3%;
+}
+
+body {
+	margin: 0px;
+}
+</style>
+
 </h:head>
+
 <body>
-	<div class="flex align-items-center justify-content-center">
+
+	<!--****************************************	Header	  **************************************** -->
+	<div class="headerRegistro">
+		<div class="textoHeader">
+			<h1 class="mt-0">LOGIN</h1>
+		</div>
+	</div>
+	<!--**************************************** 	Fin Header    ****************************************-->
+
+	<!--**************************************** 	Login    ****************************************-->
+	<div class="box">
 		<div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
 			<div class="text-center mb-5">
 				<p:graphicImage name="Logo5BitRemaster.png" library="images"
 					alt="Image" height="50" styleClass="mb-3" />
-				<div class="text-900 text-3xl font-medium mb-3">Login</div>
-				<span class="text-600 font-medium line-height-3">No tiene una
-					cuenta?</span> <a href="#{gestionPersona.toRegistro}"
-					class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Crear
-					ahora</a>
+				<div class="text-900 text-3xl font-medium mb-3"></div>
+
 			</div>
 
 			<div>
@@ -39,8 +89,10 @@
 
 					<div class="flex align-items-center justify-content-between mb-6">
 						<div class="flex align-items-center">
-							<p:selectBooleanCheckbox id="recuerdame" styleClass="mr-2" />
-							<label for="rememberme">Recuerdame</label>
+							<span class="text-600 font-medium line-height-3">No tiene
+								una cuenta?</span> <a href="#{gestionPersona.toRegistro}"
+								class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Crear
+								ahora</a>
 						</div>
 						<a
 							class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Olvido
@@ -48,12 +100,19 @@
 					</div>
 
 					<p:commandButton action="#{gestionPersona.verificarPersona}"
-						 value="Ingresar" icon="pi pi-user" update="messages" validateClient="true"
-						styleClass="w-full" />
+						value="Ingresar" icon="pi pi-user" update="messages"
+						validateClient="true" styleClass="w-full" />
 
 				</h:form>
 			</div>
 		</div>
 	</div>
+	<!--**************************************** 	Fin Login    ****************************************-->
+
+	<!--**************************************** 	Footer    ****************************************-->
+	<div class="footer">
+		<h1>Footer</h1>
+	</div>
+	<!--**************************************** 	Fin Footer    ****************************************-->
 </body>
 </html>
