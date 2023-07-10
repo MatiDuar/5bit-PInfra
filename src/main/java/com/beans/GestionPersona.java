@@ -13,10 +13,10 @@ import javax.inject.Named;
 import org.primefaces.PrimeFaces;
 
 import com.logicaNegocio.GestionPersonaService;
+import com.persistencia.entities.Alumno;
 import com.persistencia.entities.Carrera;
+import com.persistencia.entities.ITR;
 import com.persistencia.entities.Persona;
-
-
 
 @Named(value = "gestionPersona") // JEE8
 @SessionScoped // JEE8
@@ -26,25 +26,32 @@ public class GestionPersona implements Serializable {
 	private long id = 1;
 	@Inject
 	GestionPersonaService persistenciaBean;
-	
+
 	private Persona personaLogeada;
 	private Persona personaSeleccionada;
-	
+	private Alumno alumnoSeleccionado;
+	private String carreraSeleccionada;
+	private String itrSeleccionado;
+
 	private String toRegistro;
-	private List<Carrera>carreras;
-	
+	private List<Carrera> carreras;
+	private List<ITR> itrs;
+
 	private java.util.Date fechaNacSel;
-	
+
 	private boolean isAlumno;
 
 	@PostConstruct
 	public void init() {
 		persistenciaBean.initPersona();
-		carreras=persistenciaBean.listarCarreras();
-		personaSeleccionada=new Persona();
-		fechaNacSel=new java.util.Date();
-		isAlumno=true;
-		toRegistro="registro.xhtml";
+		carreras = persistenciaBean.listarCarreras();
+
+		itrs = persistenciaBean.listarITRs();
+
+		personaSeleccionada = new Persona();
+		fechaNacSel = new java.util.Date();
+		isAlumno = true;
+		toRegistro = "registro.xhtml";
 //		persistenciaBean.agregarUsuario();
 //		try {
 //			usuarios=persistenciaBean.listarUsuarios();
@@ -53,51 +60,67 @@ public class GestionPersona implements Serializable {
 //			e.printStackTrace();
 //		}
 //		usuarioSeleccionado = new Analista();
-		
+
 	}
-	
+
 	public String verificarPersona() {
 		try {
-			
-			Persona persona=persistenciaBean.verificarUsuario(personaSeleccionada.getNombreUsuario(), personaSeleccionada.getContrasena());
 
+			Persona persona = persistenciaBean.verificarUsuario(personaSeleccionada.getNombreUsuario(),
+					personaSeleccionada.getContrasena());
 
-
-			if(persona==null) {
+			if (persona == null) {
 				throw new Exception();
 			}
-			personaLogeada=persona;
-			
+			personaLogeada = persona;
+
 			return "index.xhtml";
-		}catch(Exception e) {
-			String msg1="Usuario o contraseña Incorrecta";
-			//mensaje de actualizacion correcta
-			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					msg1, "");
+		} catch (Exception e) {
+			String msg1 = "Usuario o contraseña Incorrecta";
+			// mensaje de actualizacion correcta
+			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg1, "");
 			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-			
+
 			return "";
 		}
 	}
-	
+
 	public String agregarPersona() {
-		persistenciaBean.agregarUsuario(personaSeleccionada);
-		
-		String msg1="Se creo correctamente el usuario";
-		//mensaje de actualizacion correcta
-		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-				msg1, "");
+		if (isAlumno) {
+			parsePersona(personaSeleccionada);
+			persistenciaBean.agregarUsuario(alumnoSeleccionado);
+		} else {
+			persistenciaBean.agregarUsuario(personaSeleccionada);
+		}
+		reset();
+		String msg1 = "Se creo correctamente el usuario";
+		// mensaje de actualizacion correcta
+		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, msg1, "");
 		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 		return "login.xhtml";
 	}
-	
-	
-	
-	
+
 	private void reset() {
-		personaSeleccionada=new Persona();
-		fechaNacSel=null;
+		personaSeleccionada = new Persona();
+		personaLogeada = new Persona();
+		fechaNacSel = null;
+		alumnoSeleccionado = new Alumno();
+		carreraSeleccionada="";
+		itrSeleccionado="";
 	}
+
+	public void parsePersona(Persona p) {
+		alumnoSeleccionado.setNombre1(p.getNombre1());
+		alumnoSeleccionado.setNombre2(p.getApellido2());
+		alumnoSeleccionado.setApellido1(p.getApellido1());
+		alumnoSeleccionado.setApellido2(p.getApellido2());
+		alumnoSeleccionado.setNombreUsuario(p.getNombreUsuario());
+		alumnoSeleccionado.setContrasena(p.getContrasena());
+		alumnoSeleccionado.setMail(p.getMail());
+		alumnoSeleccionado.setDireccion(p.getDireccion());
+		alumnoSeleccionado.setFechaNacimiento(p.getFechaNacimiento());
+	}
+
 	public java.util.Date getFechaNacSel() {
 		return fechaNacSel;
 	}
@@ -107,7 +130,6 @@ public class GestionPersona implements Serializable {
 		this.fechaNacSel = fechaNacSel;
 	}
 
-	
 	public String getToRegistro() {
 		reset();
 		return toRegistro;
@@ -149,13 +171,40 @@ public class GestionPersona implements Serializable {
 		this.isAlumno = isAlumno;
 	}
 
+	public Alumno getAlumnoSeleccionado() {
+		return alumnoSeleccionado;
+	}
+
+	public void setAlumnoSeleccionado(Alumno alumnoSeleccionado) {
+		this.alumnoSeleccionado = alumnoSeleccionado;
+	}
+
+	public String getCarreraSeleccionada() {
+		return carreraSeleccionada;
+	}
+
+	public void setCarreraSeleccionada(String carreraSeleccionada) {
+		alumnoSeleccionado.setCarrera(persistenciaBean.buscarCarrera(carreraSeleccionada));
+		this.carreraSeleccionada = carreraSeleccionada;
+	}
+
+	public List<ITR> getItrs() {
+		return itrs;
+	}
+
+	public void setItrs(List<ITR> itrs) {
+		this.itrs = itrs;
+	}
+
+	public String getItrSeleccionado() {
+		return itrSeleccionado;
+	}
+
+	public void setItrSeleccionado(String itrSeleccionado) {
+		alumnoSeleccionado.setItr(persistenciaBean.buscarITR(itrSeleccionado));
+		this.itrSeleccionado = itrSeleccionado;
+	}
+	
 	
 
-	
-	
-	
-	
-	
-	
-	
 }

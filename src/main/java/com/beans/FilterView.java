@@ -51,7 +51,7 @@ public class FilterView implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		currentYear=new Date(System.currentTimeMillis()).getYear();
+		currentYear=new Date(System.currentTimeMillis()).getYear()+1900;
 		filterBy = new ArrayList<>();
 
 //        filterBy.add(FilterMeta.builder()

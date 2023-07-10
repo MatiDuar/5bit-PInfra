@@ -99,46 +99,60 @@ body {
 						<div class="grid ui-fluid">
 							<div class="col-12 md:col-4">
 								<h5>Primer Nombre *</h5>
-								<p:message for="primerNombre" id="PriNombreError"
-									display="tooltip" />
+
 								<p:inputText id="primerNombre"
 									value="#{gestionPersona.personaSeleccionada.nombre1}"
 									required="true"
 									requiredMessage="Debe ingresar el primer Nombre" maxlength="50" />
+								<small class="block ui-state-error"><h:message
+										style="color:red;" for="primerNombre" /></small>
+
 							</div>
 
 							<div class="col-12 md:col-4">
 								<h5>Segundo Nombre</h5>
-								<p:inputText
+								<p:inputText id="nombre2"
 									value="#{gestionPersona.personaSeleccionada.nombre2}" />
+								<small class="block ui-state-error"><h:message
+										style="color:red;" for="nombre2" /></small>
 							</div>
 							<div class="field col-12 md:col-4">
 								<h5>Fecha Nacimiento *</h5>
 								<p:datePicker id="spanish" value="#{gestionPersona.fechaNacSel}"
-									locale="es" monthNavigator="true" pattern="dd-MM-yyyy"
-									required="true" requiredMessage="" />
+									locale="es" monthNavigator="true" pattern="dd-MM-yyyy" yearNavigator="true" yearRange="1950:2023"
+									required="true"
+									requiredMessage="Debe ingresar una fecha de nacimiento"
+									validatorMessage="Formato incorrecto de la Fecha" />
+								<small class="block ui-state-error"><h:message
+										style="color:red;" for="spanish" /></small>
 
 							</div>
 						</div>
 						<div class="grid ui-fluid">
 							<div class="col-12 md:col-4">
 								<h5>Primer Apellido *</h5>
-								<p:inputText
+								<p:inputText id="apellido1"
 									value="#{gestionPersona.personaSeleccionada.apellido1}"
 									required="true"
 									requiredMessage="Debe ingresar el primer Apellido" />
+								<small class="block ui-state-error"><h:message
+										style="color:red;" for="apellido1" /></small>
 							</div>
 
 							<div class="col-12 md:col-4">
 								<h5>Segundo Apellido</h5>
-								<p:inputText
+								<p:inputText id="apellido2"
 									value="#{gestionPersona.personaSeleccionada.apellido2}" />
+								<small class="block ui-state-error"><h:message
+										style="color:red;" for="apellido2" /></small>
 							</div>
 							<div class="field col-12 md:col-4">
 								<h5>Direccion *</h5>
-								<p:inputText
+								<p:inputText id="direccion"
 									value="#{gestionPersona.personaSeleccionada.direccion}"
 									required="true" requiredMessage="Debe ingresar la Direccion" />
+								<small class="block ui-state-error"><h:message
+										style="color:red;" for="direccion" /></small>
 							</div>
 						</div>
 
@@ -150,16 +164,25 @@ body {
 						<div class="grid ui-fluid">
 							<div class="col-12 md:col-4">
 								<h5>Nombre de Usuario *</h5>
-								<p:inputText
+
+								<p:inputText id="nombreUsuario"
 									value="#{gestionPersona.personaSeleccionada.nombreUsuario}"
 									required="true"
-									requiredMessage="Debe ingresar el Nombre de Usuario" />
+									requiredMessage="Debe ingresar el Nombre de Usuario"
+									styleClass="block" />
+								<small class="block ui-state-error"><h:message
+										style="color:red;" for="nombreUsuario" /></small>
 							</div>
 
 							<div class="col-12 md:col-4">
-								<h5>Email</h5>
-								<p:inputText value="#{gestionPersona.personaSeleccionada.mail}"
-									required="true" requiredMessage="Debe ingresar el Email" />
+								<h5>Email *</h5>
+								<p:inputText id="email1"
+									value="#{gestionPersona.personaSeleccionada.mail}"
+									required="true" requiredMessage="Debe ingresar el Email"
+									type="email" 
+									/>
+								<small class="block ui-state-error"><h:message
+										style="color:red;" for="email1" /></small>
 							</div>
 						</div>
 						<div class="grid ui-fluid">
@@ -170,6 +193,8 @@ body {
 									value="#{gestionPersona.personaSeleccionada.contrasena}"
 									validatorMessage="Las Contraseñas no coinciden" required="true"
 									requiredMessage="Se necesita una valor" />
+								<small class="block ui-state-error"><h:message
+										style="color:red;" for="pass" /></small>
 
 							</div>
 							<div class="col-12 md:col-4">
@@ -178,6 +203,8 @@ body {
 									feedback="false"
 									value="#{gestionPersona.personaSeleccionada.contrasena}"
 									required="true" requiredMessage="Debe ingresar una Contraseña" />
+								<small class="block ui-state-error"><h:message
+										style="color:red;" for="pass2" /></small>
 							</div>
 						</div>
 					</p:fieldset>
@@ -187,82 +214,96 @@ body {
 							<div class="col-12 md:col-4">
 								<h5>Eres Estudiante *</h5>
 
-								<p:selectOneMenu id="isEstudiante" required="true" value="#{gestionPersona.alumno}"
-								>
+								<p:selectOneMenu id="isEstudiante" required="true"
+									value="#{gestionPersona.alumno}">
 									<p:ajax update="datosAlumno" process="@this" event="change" />
 
-							
+
 
 									<f:selectItem itemLabel="Selecciona uno" itemValue="" />
 									<f:selectItem itemLabel="Si" itemValue="true" />
 									<f:selectItem itemLabel="No" itemValue="false" />
-									
+
 								</p:selectOneMenu>
+								
 
 							</div>
 						</div>
+						<h:panelGroup id="datosAlumno" layout="block">
+							<p:outputPanel rendered="#{gestionPersona.alumno}">
+								<div class="grid ui-fluid" id="datosAlumno">
+									<div class="col-12 md:col-4">
+										<h5>Id Estudiantil *</h5>
+										<p:inputText 
+											id="idEstudiante"
+											type="number"
+											value="#{gestionPersona.alumnoSeleccionado.idEstudiantil}"
+											requiredMessage="Debe ingresar el Id Estudiantil" />
+											<small class="block ui-state-error"><h:message
+										style="color:red;" for="idEstudiante" /></small>
+									</div>
 
-						<p:outputPanel rendered="#{gestionPersona.alumno}" id="datosAlumno">
+									<div class="col-12 md:col-4">
+										<h5>Carrera *</h5>
+										<p:selectOneMenu id="group"
+											value="#{gestionPersona.carreraSeleccionada}">
+											<f:selectItem itemLabel="Selecciona uno" itemValue="" />
+											<c:forEach var="carrera" items="#{gestionPersona.carreras}">
+												<f:selectItem itemLabel="#{carrera.nombre}"
+													itemValue="#{carrera.nombre}" />
+											</c:forEach>
+										</p:selectOneMenu>
+										<small class="block ui-state-error"><h:message
+										style="color:red;" for="group" /></small>
+									</div>
 
-						<ui:fragment rendered="#{gestionPersona.alumno==true}"
-							id="datosAlumno">
-							<div class="grid ui-fluid" id="datosAlumno">
-								<div class="col-12 md:col-4">
-									<h5>Id Estudiantil *</h5>
-									<p:inputText value="" 
-										requiredMessage="Debe ingresar el Id Estudiantil" />
+									<div class="col-12 md:col-4">
+										<h5>ITR *</h5>
+										<p:selectOneMenu id="groupItr"
+											value="#{gestionPersona.itrSeleccionado}">
+											<f:selectItem itemLabel="Selecciona uno" itemValue="" />
+											<c:forEach var="itr" items="#{gestionPersona.itrs}">
+												<f:selectItem itemLabel="#{itr.nombre}"
+													itemValue="#{itr.nombre}" />
+											</c:forEach>
+										</p:selectOneMenu>
+										<small class="block ui-state-error"><h:message
+										style="color:red;" for="groupItr" /></small>
+									</div>
 								</div>
-
-								<div class="col-12 md:col-4">
-									<h5>Carrera *</h5>
-									<p:selectOneMenu id="group" value="#{null}" >
-										<f:selectItem itemLabel="Selecciona uno" itemValue="" />
-										<c:forEach var="carrera" items="#{gestionPersona.carreras}">
-											<f:selectItem itemLabel="#{carrera.nombre}"
-												itemValue="#{carrera.nombre}" />
-										</c:forEach>
-									</p:selectOneMenu>
-								</div>
-							</div>
-
-
-
-
-
-
-						</p:outputPanel>
-
-						
-
+							</p:outputPanel>
+						</h:panelGroup>
 					</p:fieldset>
-					
+
 					<div>
 						<div class="flex card-container">
-							<div class="flex-none flex align-items-center justify-content-center">
+							<div
+								class="flex-none flex align-items-center justify-content-center">
 								<p:commandButton value="Success"
 									styleClass="ui-button-raised ui-button-success"
 									action="#{gestionPersona.agregarPersona}" update="grid grid2" />
 							</div>
 							<div
 								class="flex-grow-1 flex align-items-center justify-content-center "></div>
-							<div class="flex-none flex align-items-center justify-content-center">
+							<div
+								class="flex-none flex align-items-center justify-content-center">
 								<p:commandButton value="Danger"
 									styleClass="ui-button-raised ui-button-danger" />
 							</div>
 						</div>
 					</div>
-					
+
 				</h:form>
 			</div>
 		</div>
 	</div>
-<!--**************************************** 	Fin Registro    ****************************************-->
+	<!--**************************************** 	Fin Registro    ****************************************-->
 
-<!--**************************************** 	Footer    ****************************************-->
+	<!--**************************************** 	Footer    ****************************************-->
 	<div class="footer">
 		<h1>Footer</h1>
 	</div>
-<!--**************************************** 	Fin Footer    ****************************************-->
+	<!--**************************************** 	Fin Footer    ****************************************-->
 </body>
 </html>
 

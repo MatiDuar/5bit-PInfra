@@ -54,7 +54,7 @@
 				<p:column headerText="Edad"
 					filterable="false">
 					<h:outputText style="vertical-align: middle; margin-left: .5rem"
-						value="#{dtFilterView.currentYear-(personas.fechaNacimiento.year-1900)}" />
+						value="#{dtFilterView.currentYear-(personas.fechaNacimiento.year+1900)}" />
 				</p:column>
 				
 				<p:column  headerText="Carrera"

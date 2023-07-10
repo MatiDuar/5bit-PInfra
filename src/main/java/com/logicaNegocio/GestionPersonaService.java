@@ -47,6 +47,12 @@ public class GestionPersonaService implements Serializable {
 
 		return listaPersonas;
 	}
+	public List<ITR> listarITRs() {
+
+		List<ITR> listaPItrs = itrDAO.listarITRs();
+
+		return listaPItrs;
+	}
 
 	public Persona verificarUsuario(String nombreUsuario, String contra) {
 		return personaDAO.verificar(nombreUsuario, contra);
@@ -81,7 +87,7 @@ public class GestionPersonaService implements Serializable {
 		p.setNombreUsuario("demo");
 		p.setContrasena("demo");
 		p.setDireccion("demo");
-		p.setFechaNacimiento(new Date(2002, 02, 04));
+		p.setFechaNacimiento(new Date(2002-1900, 02, 04));
 		p.setMail("demo@demo");
 
 		personaDAO.agregarPersona(p);
@@ -93,7 +99,7 @@ public class GestionPersonaService implements Serializable {
 		a.setNombreUsuario("jean.marshall");
 		a.setContrasena("demo");
 		a.setDireccion("demo");
-		a.setFechaNacimiento(new Date(2002, 02, 04));
+		a.setFechaNacimiento(new Date(2002-1900, 02, 04));
 		a.setMail("jean.marshall@estudiantes.utec.edu.uy");
 		a.setIdEstudiantil((long) 2222);
 		
@@ -143,6 +149,14 @@ public class GestionPersonaService implements Serializable {
 
 	public Alumno buscarAlumno(long id) {
 		return alumnoDAO.buscar(id);
+	}
+	
+	public Carrera buscarCarrera(String nombre) {
+		return carreraDAO.buscarCarrera(nombre);
+	}
+	
+	public ITR buscarITR(String nombre) {
+		return itrDAO.buscarITR(nombre);
 	}
 
 }
