@@ -35,6 +35,11 @@ public class PersonaDAO {
 		}
 		return null;
 	}
+	
+	
+	public Persona buscarPersona(long id) {	
+		return em.find(Persona.class, id);
+	}
 
 	public void agregarPersona(Persona p) {
 

@@ -30,16 +30,26 @@ public class GestionPersona implements Serializable {
 	private Persona personaLogeada;
 	private Persona personaSeleccionada;
 	private Alumno alumnoSeleccionado;
+	private Alumno alumnoLogeado;
+
 	private String carreraSeleccionada;
 	private String itrSeleccionado;
+
+	private String carreraSeleccionadaLog;
+	private String itrSeleccionadoLog;
+
+	private String contrasenaModificar;
 
 	private String toRegistro;
 	private List<Carrera> carreras;
 	private List<ITR> itrs;
 
 	private java.util.Date fechaNacSel;
+	private java.util.Date fechaNacLog;
 
 	private boolean isAlumno;
+	
+	private boolean isModContraseña;
 
 	@PostConstruct
 	public void init() {
@@ -51,6 +61,7 @@ public class GestionPersona implements Serializable {
 		personaSeleccionada = new Persona();
 		fechaNacSel = new java.util.Date();
 		isAlumno = true;
+		isModContraseña=false;
 		toRegistro = "registro.xhtml";
 //		persistenciaBean.agregarUsuario();
 //		try {
@@ -72,10 +83,14 @@ public class GestionPersona implements Serializable {
 			if (persona == null) {
 				throw new Exception();
 			}
+			if (persistenciaBean.buscarAlumno(persona.getId()) != null) {
+				alumnoLogeado = persistenciaBean.buscarAlumno(persona.getId());
+			}
 			personaLogeada = persona;
 
 			return "index.xhtml";
 		} catch (Exception e) {
+			e.printStackTrace();
 			String msg1 = "Usuario o contraseña Incorrecta";
 			// mensaje de actualizacion correcta
 			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg1, "");
@@ -87,7 +102,7 @@ public class GestionPersona implements Serializable {
 
 	public String agregarPersona() {
 		if (isAlumno) {
-			parsePersona(personaSeleccionada);
+			parsePersona(personaSeleccionada, alumnoSeleccionado);
 			persistenciaBean.agregarUsuario(alumnoSeleccionado);
 		} else {
 			persistenciaBean.agregarUsuario(personaSeleccionada);
@@ -100,25 +115,70 @@ public class GestionPersona implements Serializable {
 		return "login.xhtml";
 	}
 
+	public String modificarPersona() {
+		if (alumnoLogeado != null) {
+			parsePersona(personaLogeada, alumnoLogeado);
+			persistenciaBean.modificarUsuario(alumnoLogeado);
+		} else {
+			persistenciaBean.modificarUsuario(personaLogeada);
+		}
+
+		String msg1 = "Se modifico correctamente el usuario";
+		// mensaje de actualizacion correcta
+		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, msg1, "");
+		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+		return "";
+	}
+
+	public String modificarContrasena() {
+		Persona p = persistenciaBean.buscarPersona(personaLogeada.getId());
+		p.setContrasena(contrasenaModificar);
+
+		persistenciaBean.modificarUsuario(p);
+
+		String msg1 = "Se modifico correctamente la Contraseña";
+		// mensaje de actualizacion correcta
+		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, msg1, "");
+		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+		isModContraseña=false;
+		return "";
+	}
+	
+	public String cerrarModificarContrasena() {
+		String msg1 = "Se cancelo la modificacion de la Contraseña";
+		// mensaje de actualizacion correcta
+		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, msg1, "");
+		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+		return "";
+	}
+
 	private void reset() {
 		personaSeleccionada = new Persona();
 		personaLogeada = new Persona();
 		fechaNacSel = null;
 		alumnoSeleccionado = new Alumno();
-		carreraSeleccionada="";
-		itrSeleccionado="";
+		carreraSeleccionada = "";
+		itrSeleccionado = "";
 	}
 
-	public void parsePersona(Persona p) {
-		alumnoSeleccionado.setNombre1(p.getNombre1());
-		alumnoSeleccionado.setNombre2(p.getApellido2());
-		alumnoSeleccionado.setApellido1(p.getApellido1());
-		alumnoSeleccionado.setApellido2(p.getApellido2());
-		alumnoSeleccionado.setNombreUsuario(p.getNombreUsuario());
-		alumnoSeleccionado.setContrasena(p.getContrasena());
-		alumnoSeleccionado.setMail(p.getMail());
-		alumnoSeleccionado.setDireccion(p.getDireccion());
-		alumnoSeleccionado.setFechaNacimiento(p.getFechaNacimiento());
+	public void parsePersona(Persona p, Alumno a) {
+		a.setNombre1(p.getNombre1());
+		a.setNombre2(p.getApellido2());
+		a.setApellido1(p.getApellido1());
+		a.setApellido2(p.getApellido2());
+		a.setNombreUsuario(p.getNombreUsuario());
+		a.setContrasena(p.getContrasena());
+		a.setMail(p.getMail());
+		a.setDireccion(p.getDireccion());
+		a.setFechaNacimiento(p.getFechaNacimiento());
+	}
+	public String toggleModContrasena() {
+		isModContraseña=!isModContraseña;
+		return "";
+	}
+	
+	public Alumno esAlumnoLogeado() {
+		return persistenciaBean.buscarAlumno(personaLogeada.getId());
 	}
 
 	public java.util.Date getFechaNacSel() {
@@ -204,7 +264,62 @@ public class GestionPersona implements Serializable {
 		alumnoSeleccionado.setItr(persistenciaBean.buscarITR(itrSeleccionado));
 		this.itrSeleccionado = itrSeleccionado;
 	}
-	
-	
+
+	public java.util.Date getFechaNacLog() {
+		fechaNacLog = personaLogeada.getFechaNacimiento();
+		return fechaNacLog;
+	}
+
+	public void setFechaNacLog(java.util.Date fechaNacLog) {
+		personaLogeada.setFechaNacimiento(new java.sql.Date(fechaNacLog.getTime()));
+
+		this.fechaNacLog = fechaNacLog;
+	}
+
+	public String getCarreraSeleccionadaLog() {
+		carreraSeleccionadaLog = alumnoLogeado.getCarrera().getNombre();
+		return carreraSeleccionadaLog;
+	}
+
+	public void setCarreraSeleccionadaLog(String carreraSeleccionadaLog) {
+		alumnoLogeado.setCarrera(persistenciaBean.buscarCarrera(carreraSeleccionadaLog));
+		this.carreraSeleccionadaLog = carreraSeleccionadaLog;
+	}
+
+	public String getItrSeleccionadoLog() {
+		itrSeleccionadoLog = alumnoLogeado.getItr().getNombre();
+		return itrSeleccionadoLog;
+	}
+
+	public void setItrSeleccionadoLog(String itrSeleccionadoLog) {
+
+		alumnoLogeado.setItr(persistenciaBean.buscarITR(itrSeleccionadoLog));
+
+		this.itrSeleccionadoLog = itrSeleccionadoLog;
+	}
+
+	public Alumno getAlumnoLogeado() {
+		return alumnoLogeado;
+	}
+
+	public void setAlumnoLogeado(Alumno alumnoLogeada) {
+		this.alumnoLogeado = alumnoLogeada;
+	}
+
+	public String getContrasenaModificar() {
+		return contrasenaModificar;
+	}
+
+	public void setContrasenaModificar(String contrasenaModificar) {
+		this.contrasenaModificar = contrasenaModificar;
+	}
+
+	public boolean isModContraseña() {
+		return isModContraseña;
+	}
+
+	public void setModContraseña(boolean isModContraseña) {
+		this.isModContraseña = isModContraseña;
+	}
 
 }

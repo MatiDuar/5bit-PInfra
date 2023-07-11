@@ -158,5 +158,8 @@ public class GestionPersonaService implements Serializable {
 	public ITR buscarITR(String nombre) {
 		return itrDAO.buscarITR(nombre);
 	}
-
+	
+	public Persona buscarPersona(long id) {
+		return personaDAO.buscarPersona(id);
+	}
 }
