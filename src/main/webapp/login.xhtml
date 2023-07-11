@@ -99,7 +99,7 @@ body {
 							su contraseña?</a>
 					</div>
 
-					<p:commandButton action="#{gestionPersona.verificarPersona}"
+					<p:commandButton ajax="false" action="#{gestionPersona.verificarPersona}"
 						value="Ingresar" icon="pi pi-user" update="messages"
 						validateClient="true" styleClass="w-full" />
 

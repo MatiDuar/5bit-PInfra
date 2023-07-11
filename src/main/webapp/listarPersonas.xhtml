@@ -13,7 +13,8 @@
 				widgetVar="personasTable"
 				emptyMessage="Personas no encontradas con este criterio"
 				filteredValue="#{dtFilterView.filteredPersonas}"
-				globalFilterFunction="#{dtFilterView.globalFilterFunction}">
+				globalFilterFunction="#{dtFilterView.globalFilterFunction}"
+				editable="true">
 
 				<f:facet name="header">
 					<div class="flex justify-content-end">
@@ -23,12 +24,20 @@
 					</div>
 				</f:facet>
 
-
+				
 				<p:column field="nombre1" headerText="Nombre" sortBy="#{personas.nombre1}" filterable="false">
-					<h:outputText style="vertical-align: middle; margin-left: .5rem"
-						value="#{personas.nombre1}" />
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText style="vertical-align: middle; margin-left: .5rem"
+								value="#{personas.nombre1}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:inputText style="vertical-align: middle; margin-left: .5rem" 
+								value="#{personas.nombre1}" />
+						</f:facet>
+					</p:cellEditor>
 				</p:column>
-
+				
 				<p:column field="apellido1" headerText="Apellido"
 					filterable="false">
 					<h:outputText style="vertical-align: middle; margin-left: .5rem"
@@ -68,7 +77,10 @@
 					<h:outputText style="vertical-align: middle; margin-left: .5rem"
 						value="#{dtFilterView.buscar(personas.id).idEstudiantil}" />
 				</p:column>
-
+				
+			<p:column style="width:6rem" headerText="Algo">
+                <p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
+            </p:column>
 				
 			</p:dataTable>
 		</h:form>

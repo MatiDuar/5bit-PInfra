@@ -88,7 +88,7 @@ public class GestionPersona implements Serializable {
 			}
 			personaLogeada = persona;
 
-			return "index.xhtml";
+			return "/index.xhtml";
 		} catch (Exception e) {
 			e.printStackTrace();
 			String msg1 = "Usuario o contraseña Incorrecta";
