@@ -19,6 +19,7 @@ import org.primefaces.util.LangUtils;
 
 import com.logicaNegocio.GestionPersonaService;
 import com.persistencia.entities.Alumno;
+import com.persistencia.entities.Carrera;
 import com.persistencia.entities.Persona;
 
 @Named("dtFilterView")
@@ -33,6 +34,8 @@ public class FilterView implements Serializable {
 	@Inject
 	private GestionPersonaService service;
 
+	private String carreraSel;
+	
 	private List<Persona> personas;
 
 	private List<Persona> filteredPersonas;
@@ -88,6 +91,10 @@ public class FilterView implements Serializable {
 	public void toggleGlobalFilter() {
 		setGlobalFilterOnly(!isGlobalFilterOnly());
 	}
+	
+	public boolean esAlumno(Persona p) {
+		return service.buscarAlumno(p.getId())!=null;
+	}
 
 	private int getInteger(String string) {
 		try {
@@ -95,6 +102,10 @@ public class FilterView implements Serializable {
 		} catch (NumberFormatException ex) {
 			return 0;
 		}
+	}
+	
+	public void buscarCarrera(Alumno a,String carrera) {
+		a.setCarrera(service.buscarCarrera(carrera));
 	}
 
 	public Alumno buscar(long id) {
@@ -140,6 +151,15 @@ public class FilterView implements Serializable {
 	public void setCurrentYear(int currentYear) {
 		this.currentYear = currentYear;
 	}
+
+	public String getCarreraSel() {
+		return carreraSel;
+	}
+
+	public void setCarreraSel(String carreraSel) {
+		this.carreraSel = carreraSel;
+	}
+	
 	
 	
 }
