@@ -1,0 +1,95 @@
+@charset "ISO-8859-1";
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+
+.layout-sidebar {
+	position: fixed;
+	left: 0;
+	top: 100px;
+	height: calc(100% - 70px);
+	background-color: var(- -surface-a);
+	width: 250px;
+	border-right: 1px solid var(--surface-d);
+	user-select: none;
+	transition: transform .4s cubic-bezier(0.05, 0.74, 0.2, 0.99);
+	display: flex;
+	flex-direction: column;
+}
+.aaa{
+	background: #FFFFFF;
+}
+
+.layout-topbar {
+	position: fixed;
+    height: 100px;
+    width: 100%;
+    background-color: var(--surface-a);
+    border-bottom: 2px solid var(--surface-d);
+    display: flex;
+    justify-content: space-between;
+}
+
+.layout-topbar .topbar-actions {
+    display: flex;
+}
+
+.bordeBtn {
+	border-bottom: 1px solid var(--surface-d);
+}
+
+.layout-content {
+	margin-left: 250px;
+    padding-top: 125px;
+    padding-left: 30px;  
+}
+
+body {
+	margin: 0px;
+}
+
+.ui-button btnPanel {
+	text-align: left;
+}
+
+.logo {
+	width: 250px;
+	justify-content: center;
+	padding: 4px !important;
+}
+
+ .custom-tabmenu .ui-tabmenu-nav li:first-child {
+    margin-left: auto;
+  }
+  
+ .text-align-center{
+ 	text-align:center;
+ }
+ 
+ .footer {
+	color: white;
+    background-color: #1A1A1A;
+    width: 100%;
+    height: 40px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+}
+
+.separador{
+	margin-bottom: 125px;
+}
+ 
+.fildsetprueba {
+	margin-bottom: 20px;
+} 
+ 
+.datePicker{
+    position: static !important;	
+} 
+ 
+ul {
+	overflow: hidden !important;
+	overflow-x: hidden !important;
+	overflow-y: hidden !important;
+}

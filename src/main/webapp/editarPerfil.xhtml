@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="/index.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -69,7 +70,9 @@ body {
 }
 </style>
 </h:head>
-<body>
+
+	<ui:define name="contenidoPrincipal">
+
 	<div class="headerRegistro">
 		<div class="textoHeader">
 			<h1 class="mt-0">EDITAR PERFIL</h1>
@@ -108,7 +111,8 @@ body {
 									locale="es" monthNavigator="true" pattern="dd-MM-yyyy"
 									yearNavigator="true" yearRange="1950:2023" required="true"
 									requiredMessage="Debe ingresar una fecha de nacimiento"
-									validatorMessage="Formato incorrecto de la Fecha" />
+									validatorMessage="Formato incorrecto de la Fecha" 
+									styleClass="datePicker"/>
 								<small class="block ui-state-error"><h:message
 										style="color:red;" for="spanish" /></small>
 
@@ -206,13 +210,13 @@ body {
 
 									</div>
 									<div class="grid ui-fluid col-8">
-										<div class="col-12 md:col-2">
+										<div class="col-12 md:col-3">
 											<p:commandButton value="Cancelar"
 												styleClass="ui-button-raised ui-button-danger"
 												action="#{gestionPersona.toggleModContrasena}"
 												update="modContrasena" immediate="true" />
 										</div>
-										<div class="col-12 md:col-2">
+										<div class="col-12 md:col-3">
 
 											<p:commandButton value="Guardar"
 												styleClass="ui-button-raised ui-button-success"
@@ -301,6 +305,6 @@ body {
 		</div>
 	</div>
 
+</ui:define>
 
-</body>
-</html>
+</ui:composition>

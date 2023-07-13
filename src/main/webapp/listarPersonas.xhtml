@@ -1,89 +1,92 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="/index.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head>
-<body>
-	<div class="card">
-		<h:form>
-			<p:dataTable var="personas" value="#{dtFilterView.personas}"
-				widgetVar="personasTable"
-				emptyMessage="Personas no encontradas con este criterio"
-				filteredValue="#{dtFilterView.filteredPersonas}"
-				globalFilterFunction="#{dtFilterView.globalFilterFunction}"
-				editable="true">
 
-				<f:facet name="header">
-					<div class="flex justify-content-end">
-						<p:inputText id="globalFilter"
-							onkeyup="PF('personasTable').filter()" style="width:300px"
-							placeholder="Buscardor global..." />
-					</div>
-				</f:facet>
+	<ui:define name="contenidoPrincipal">
 
-				
-				<p:column field="nombre1" headerText="Nombre" sortBy="#{personas.nombre1}" filterable="false">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText style="vertical-align: middle; margin-left: .5rem"
-								value="#{personas.nombre1}" />
-						</f:facet>
-						<f:facet name="input">
-							<h:inputText style="vertical-align: middle; margin-left: .5rem" 
-								value="#{personas.nombre1}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				
-				<p:column field="apellido1" headerText="Apellido"
-					filterable="false">
-					<h:outputText style="vertical-align: middle; margin-left: .5rem"
-						value="#{personas.apellido1}" />
-				</p:column>
-				
-				<p:column field="mail" headerText="Email"
-					filterable="false">
-					<h:outputText style="vertical-align: middle; margin-left: .5rem"
-						value="#{personas.mail}" />
-				</p:column>
-				
-				<p:column field="nombreUsuario" headerText="Nombre de Usuario"
-					filterable="false">
-					<h:outputText style="vertical-align: middle; margin-left: .5rem"
-						value="#{personas.nombreUsuario}" />
-				</p:column>
-				<p:column field="direccion" headerText="Direccion"
-					filterable="false">
-					<h:outputText style="vertical-align: middle; margin-left: .5rem"
-						value="#{personas.direccion}" />
-				</p:column>
-				<p:column headerText="Edad"
-					filterable="false">
-					<h:outputText style="vertical-align: middle; margin-left: .5rem"
-						value="#{dtFilterView.currentYear-(personas.fechaNacimiento.year+1900)}" />
-				</p:column>
-				
-				<p:column  headerText="Carrera"
-					filterable="false">
-					<h:outputText style="vertical-align: middle; margin-left: .5rem"
-						value="#{dtFilterView.buscar(personas.id).carrera.nombre}" />
-				</p:column>
-				
-				<p:column  headerText="Id Estudiante"
-					filterable="false">
-					<h:outputText style="vertical-align: middle; margin-left: .5rem"
-						value="#{dtFilterView.buscar(personas.id).idEstudiantil}" />
-				</p:column>
-				
-			<p:column style="width:6rem" headerText="Algo">
-                <p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
-            </p:column>
-				
-			</p:dataTable>
-		</h:form>
+		<div class="card">
+			<h:form>
+				<p:dataTable var="personas" value="#{dtFilterView.personas}"
+					widgetVar="personasTable"
+					emptyMessage="Personas no encontradas con este criterio"
+					filteredValue="#{dtFilterView.filteredPersonas}"
+					globalFilterFunction="#{dtFilterView.globalFilterFunction}"
+					editable="true">
+
+					<f:facet name="header">
+						<div class="flex justify-content-end">
+							<p:inputText id="globalFilter"
+								onkeyup="PF('personasTable').filter()" style="width:300px"
+								placeholder="Buscardor global..." />
+						</div>
+					</f:facet>
+
+
+					<p:column field="nombre1" headerText="Nombre"
+						sortBy="#{personas.nombre1}" filterable="false">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText style="vertical-align: middle; margin-left: .5rem"
+									value="#{personas.nombre1}" />
+							</f:facet>
+							<f:facet name="input">
+								<h:inputText style="vertical-align: middle; margin-left: .5rem"
+									value="#{personas.nombre1}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column field="apellido1" headerText="Apellido"
+						filterable="false">
+						<h:outputText style="vertical-align: middle; margin-left: .5rem"
+							value="#{personas.apellido1}" />
+					</p:column>
+
+					<p:column field="mail" headerText="Email" filterable="false">
+						<h:outputText style="vertical-align: middle; margin-left: .5rem"
+							value="#{personas.mail}" />
+					</p:column>
+
+					<p:column field="nombreUsuario" headerText="Nombre de Usuario"
+						filterable="false">
+						<h:outputText style="vertical-align: middle; margin-left: .5rem"
+							value="#{personas.nombreUsuario}" />
+					</p:column>
+					<p:column field="direccion" headerText="Direccion"
+						filterable="false">
+						<h:outputText style="vertical-align: middle; margin-left: .5rem"
+							value="#{personas.direccion}" />
+					</p:column>
+					<p:column headerText="Edad" filterable="false">
+						<h:outputText style="vertical-align: middle; margin-left: .5rem"
+							value="#{dtFilterView.currentYear-(personas.fechaNacimiento.year+1900)}" />
+					</p:column>
+
+					<p:column headerText="Carrera" filterable="false">
+						<h:outputText style="vertical-align: middle; margin-left: .5rem"
+							value="#{dtFilterView.buscar(personas.id).carrera.nombre}" />
+					</p:column>
+
+					<p:column headerText="Id Estudiante" filterable="false">
+						<h:outputText style="vertical-align: middle; margin-left: .5rem"
+							value="#{dtFilterView.buscar(personas.id).idEstudiantil}" />
+					</p:column>
+
+					<p:column style="width:6rem" headerText="Algo">
+						<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit"
+							saveTitle="Save Row" />
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
 		</div>
-</body>
-</html>
+
+	</ui:define>
+
+
+</ui:composition>

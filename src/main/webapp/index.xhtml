@@ -9,165 +9,41 @@
 
 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
 	<h:outputScript library="primefaces" name="primefaces.js" />
-	<link type="text/css" rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/primeflex@3.3.1/primeflex.min.css" />
-
-	<style>
-.layout-sidebar {
-	position: fixed;
-	left: 0;
-	top: 100px;
-	height: calc(100% - 70px);
-	background-color: var(- -surface-a);
-	width: 250px;
-	border-right: 1px solid var(--surface-d);
-	user-select: none;
-	transition: transform .4s cubic-bezier(0.05, 0.74, 0.2, 0.99);
-	display: flex;
-	flex-direction: column;
-}
-
-.layout-topbar {
-    height: 100px;
-    background-color: var(--surface-a);
-    border-bottom: 2px solid var(--surface-d);
-    display: flex;
-    justify-content: space-between;
-}
-
-.layout-topbar .topbar-actions {
-    display: flex;
-}
-
-.bordeBtn {
-	border-bottom: 1px solid var(--surface-d);
-}
-
-.layout-content {
-	margin-left: 250px;
-	padding: 30px;
-}
-
-body {
-	margin: 0px;
-}
-
-.ui-button btnPanel {
-	text-align: left;
-}
-
-.logo {
-	width: 250px;
-	justify-content: center;
-	padding: 4px !important;
-}
-
- .custom-tabmenu .ui-tabmenu-nav li:first-child {
-    margin-left: auto;
-  }
-  
- .text-align-center{
- 	text-align:center;
- }
- 
-ul {
-	overflow: hidden !important;
-	overflow-x: hidden !important;
-	overflow-y: hidden !important;
-}
-</style>
+	<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/primeflex@3.3.1/primeflex.min.css" />
+	<link rel="stylesheet" type="text/css" href="resources/css/index.css" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
 </h:head>
 <body>
 
 	<!-- ****************************************	Header	****************************************-->
-	<div class="layout-topbar">
-		<div class="flex">
-			<p:tabMenu activeIndex="#{param.i}">
-				<p:menuitem styleClass="flex logo" outcome="index">
-					<div class="col-12 md:col-4">
-						<div class="card">
-							<p:graphicImage width="70px" name="UTEC.png" library="images" />
-						</div>
-					</div>
-				</p:menuitem>
-				<p:menuitem value="Home" icon="pi pi-fw pi-home" outcome="index">
-					<f:param name="i" value="1" />
-				</p:menuitem>
-				<p:menuitem value="Gestion Uduarios" icon="pi pi-fw pi-calendar">
-					<f:param name="i" value="2" />
-				</p:menuitem>
-				<p:menuitem value="Edit" icon="pi pi-fw pi-pencil" disabled="true">
-					<f:param name="i" value="3" />
-				</p:menuitem>
-				<p:menuitem value="Documentation" icon="pi pi-fw pi-file">
-					<f:param name="i" value="4" />
-				</p:menuitem>
-				<div class="derecha">
-					<p:menuitem value="Settings" icon="pi pi-fw pi-cog"
-						styleClass="EncontrarDercha">
-						<f:param name="i" value="5" />
-					</p:menuitem>
-					<p:separator styleClass="tab-menu-separator" />
-				</div>
-			</p:tabMenu>
-		</div>
-		<div class="topbar-actions flex align-items-center text-align-center">
-			<p>#{gestionPersona.personaLogeada.nombreUsuario}</p>
-			<h:form>
-				<div class="card">
-					
-		            <p:avatar styleClass="mr-2" size="large" shape="circle">
-		                <p:graphicImage library="images" name="Logo5BitRemaster.png"/>
-		            </p:avatar>
-		        </div>			
-				<p:menuButton value="Options" buttonStyleClass="ui-button-flat" iconPos="right">
-		            <p:menuitem value="Perfil" action="editarPerfil.xhtml"  icon="pi pi-fw pi-user-edit"/>
-		           
-	            	<p:menuitem value="Cerrar Sesión" url="http://www.primefaces.org" icon="pi pi-fw pi-power-off"/>
-	            </p:menuButton>	
-	          </h:form>  	
-		</div>
-	</div>
+
+	<ui:include src="templates/header.xhtml" />
+
 	<!--****************************************	Fin Header	****************************************-->
 
 	<!--****************************************	Contenido barra Izquierda	****************************************-->
-	<div class="layout-sidebar">
-		<div class="flex flex-column card-container green-container">
-			<div class="bordeBtn">
-				<p:button value="Primary" styleClass="ui-button-flat w-full "
-					icon="pi pi-check" />
-			</div>
-			<div class="bordeBtn">
-				<p:button value="Primary" styleClass="ui-button-flat w-full"
-					icon="pi pi-check" />
-			</div>
-			<div class="bordeBtn">
-				<p:button value="Primary" styleClass="ui-button-flat w-full "
-					icon="pi pi-check" />
-			</div>
-			<div class="bordeBtn">
-				<p:button value="Primary" styleClass="ui-button-flat w-full"
-					icon="pi pi-check" />
-			</div>
-			<div class="bordeBtn">
-				<p:button value="Primary" styleClass="ui-button-flat w-full"
-					icon="pi pi-check" rendered="false"/>
-			</div>
-			<div class="bordeBtn w-full">
-				<p:button value="Primary" styleClass="ui-button-flat w-full"
-					icon="pi pi-check" />
-			</div>
-		</div>
-	</div>
+	
+	<ui:include src="templates/menu.xhtml" />
+	
 	<!--**************************************** 	Fin contenido barra Izquierda	**************************************** -->
 
 	<!--****************************************	Contenido Principal    **************************************** -->
 	<div class="layout-content">
-
-		<ui:include src="listarPersonas.xhtml" />
-
+		<div id="contenidoPrincipal">
+	        <ui:insert name="contenidoPrincipal" />
+	    </div>
 	</div>
+
 	<!--****************************************	Fin contenido Principal	   ****************************************-->
 
+    <!--****************************************	Footer    **************************************** -->
+    
+	<ui:include src="templates/footer.xhtml" />
+
+	<!--****************************************	Fin footer    **************************************** -->
+
 </body>
+
+
 </html>
