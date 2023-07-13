@@ -6,13 +6,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.LinkedList;
 
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.RowEditEvent;
-import org.primefaces.event.SelectEvent;
 
 import com.logicaNegocio.GestionPersonaService;
 import com.persistencia.entities.Alumno;
@@ -29,9 +30,12 @@ public class GestionPersona implements Serializable {
 	@Inject
 	GestionPersonaService persistenciaBean;
 
+	
+	
+	private List<Alumno> personasMod;
 	private Persona personaLogeada;
 	private Persona personaSeleccionada;
-	
+
 	private Alumno alumnoSeleccionado;
 	private Alumno alumnoLogeado;
 	private Alumno alumnoMod;
@@ -43,8 +47,9 @@ public class GestionPersona implements Serializable {
 	private String itrSeleccionadoLog;
 
 	private String contrasenaModificar;
-	
+
 	private String carreraMod;
+	private Long idEstudianteMod;
 
 	private String toRegistro;
 	private List<Carrera> carreras;
@@ -54,7 +59,7 @@ public class GestionPersona implements Serializable {
 	private java.util.Date fechaNacLog;
 
 	private boolean isAlumno;
-	
+
 	private boolean isModContraseña;
 
 	@PostConstruct
@@ -67,8 +72,9 @@ public class GestionPersona implements Serializable {
 		personaSeleccionada = new Persona();
 		fechaNacSel = new java.util.Date();
 		isAlumno = true;
-		isModContraseña=false;
+		isModContraseña = false;
 		toRegistro = "registro.xhtml";
+		personasMod=new LinkedList<>();
 
 	}
 
@@ -127,8 +133,9 @@ public class GestionPersona implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 		return "";
 	}
+
 	public String modificarPersonaOnLista(Persona p) {
-		
+
 		persistenciaBean.modificarUsuario(p);
 
 		String msg1 = "Se modifico correctamente el usuario";
@@ -148,10 +155,10 @@ public class GestionPersona implements Serializable {
 		// mensaje de actualizacion correcta
 		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, msg1, "");
 		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-		isModContraseña=false;
+		isModContraseña = false;
 		return "";
 	}
-	
+
 	public String cerrarModificarContrasena() {
 		String msg1 = "Se cancelo la modificacion de la Contraseña";
 		// mensaje de actualizacion correcta
@@ -180,41 +187,43 @@ public class GestionPersona implements Serializable {
 		a.setDireccion(p.getDireccion());
 		a.setFechaNacimiento(p.getFechaNacimiento());
 	}
-	
+
 	public void onRowEdit(RowEditEvent<Persona> persona) {
-		if(persistenciaBean.buscarAlumno(persona.getObject().getId())!=null) {
-			Alumno a=persistenciaBean.buscarAlumno(persona.getObject().getId());
+		if (persistenciaBean.buscarAlumno(persona.getObject().getId()) != null) {
+			Alumno a = persistenciaBean.buscarAlumno(persona.getObject().getId());
 			a.setCarrera(persistenciaBean.buscarCarrera(carreraMod));
+			a.setIdEstudiantil(idEstudianteMod);
 			modificarPersonaOnLista(a);
-		}else {
+		} else {
 			modificarPersonaOnLista(persona.getObject());
 		}
-        FacesMessage msg = new FacesMessage("Product Edited", "");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
+		FacesMessage msg = new FacesMessage("Product Edited", "");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
 
-    public void onRowCancel(RowEditEvent<Persona> persona) {
-    	
-        FacesMessage msg = new FacesMessage("Edit Cancelled", "");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-	
-//    public void changeAlumno(RowEditEvent<Alumno> selectEvent)
-//    {
-//        Alumno a = selectEvent.getObject();
-//
-//        alumnoMod = a;
-//        carreraMod=alumnoMod.getCarrera().getNombre();
-//        System.out.println(carreraMod);
-//        System.out.println("initEdit");
-//    }
-	
-	
+	public void onRowCancel(RowEditEvent<Persona> persona) {
+
+		FacesMessage msg = new FacesMessage("Edit Cancelled", "");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void changeAlumno(RowEditEvent<Persona> selectEvent) {
+
+		Alumno a = persistenciaBean.buscarAlumno(selectEvent.getObject().getId());
+		if (a != null) {
+			alumnoMod = persistenciaBean.buscarAlumno(a.getId());
+			carreraMod = alumnoMod.getCarrera().getNombre();
+			idEstudianteMod = alumnoMod.getIdEstudiantil();
+			PrimeFaces.current().ajax().update("groupCarreraMod");
+		}
+		
+	}
+
 	public String toggleModContrasena() {
-		isModContraseña=!isModContraseña;
+		isModContraseña = !isModContraseña;
 		return "";
 	}
-	
+
 	public Alumno esAlumnoLogeado() {
 		return persistenciaBean.buscarAlumno(personaLogeada.getId());
 	}
@@ -361,8 +370,6 @@ public class GestionPersona implements Serializable {
 	}
 
 	public String getCarreraMod() {
-		System.out.println("getCarrera");
-		System.out.println(carreraMod);
 		return carreraMod;
 	}
 
@@ -377,5 +384,21 @@ public class GestionPersona implements Serializable {
 	public void setAlumnoMod(Alumno alumnoMod) {
 		this.alumnoMod = alumnoMod;
 	}
-	
+
+	public Long getIdEstudianteMod() {
+		return idEstudianteMod;
+	}
+
+	public void setIdEstudianteMod(Long idEstudianteMod) {
+		this.idEstudianteMod = idEstudianteMod;
+	}
+
+	public List<Alumno> getPersonasMod() {
+		return personasMod;
+	}
+
+	public void setPersonasMod(List<Alumno> personasMod) {
+		this.personasMod = personasMod;
+	}
+
 }

@@ -15,13 +15,18 @@
 				emptyMessage="Personas no encontradas con este criterio"
 				filteredValue="#{dtFilterView.filteredPersonas}"
 				globalFilterFunction="#{dtFilterView.globalFilterFunction}"
-				editable="true" id="dateTable">
+				editable="true" id="dateTable" selectionMode="single"
+				rowKey="#{gestionPersona.personasMod}"
+				>
 
 				<p:ajax event="rowEdit" listener="#{gestionPersona.onRowEdit}"
 					update="dateTable" />
 				<p:ajax event="rowEditCancel"
 					listener="#{gestionPersona.onRowCancel}" update="dateTable" />
-<!-- 				<p:ajax event="rowEditInit" listener="#{gestionPersona.changeAlumno}"  /> -->
+				<p:ajax event="rowEditInit"
+					listener="#{gestionPersona.changeAlumno}" />
+
+
 
 				<f:facet name="header">
 					<div class="flex justify-content-end">
@@ -97,6 +102,7 @@
 								value="#{personas.direccion}" />
 						</f:facet>
 						<f:facet name="input" class="col-10">
+
 							<p:inputText
 								style="width:100%;vertical-align: middle; margin-left: .5rem"
 								value="#{personas.direccion}" />
@@ -118,8 +124,9 @@
 								value="#{dtFilterView.buscar(personas.id).carrera.nombre}" />
 						</f:facet>
 						<f:facet name="input" class="col-10">
-							<p:selectOneMenu id="group" value="#{gestionPersona.carreraMod}"
-								rendered="#{dtFilterView.esAlumno(personas)}" >
+							<p:selectOneMenu id="groupCarreraMod"
+								value="#{gestionPersona.carreraMod}"
+								rendered="#{dtFilterView.esAlumno(personas)}">
 								<f:selectItem itemLabel="" itemValue="" />
 								<c:forEach var="carrera" items="#{gestionPersona.carreras}">
 									<f:selectItem itemLabel="#{carrera.nombre}"
@@ -133,14 +140,26 @@
 
 
 				<p:column headerText="Id Estudiante" filterable="false">
-					<h:outputText style="vertical-align: middle; margin-left: .5rem"
-						value="#{dtFilterView.buscar(personas.id).idEstudiantil}" />
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText style="vertical-align: middle; margin-left: .5rem"
+								value="#{dtFilterView.buscar(personas.id).idEstudiantil}" />
+						</f:facet>
+						<f:facet name="input" class="col-10">
+
+							<p:inputText
+								style="width:100%;vertical-align: middle; margin-left: .5rem"
+								value="#{gestionPersona.idEstudianteMod}"
+								rendered="#{dtFilterView.esAlumno(personas)}" />
+						</f:facet>
+
+					</p:cellEditor>
 				</p:column>
 
-				<p:column style="width:6rem" headerText="">
-					<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit"
-						saveTitle="Save Row" />
-				</p:column>
+<!-- 				<p:column style="width:6rem" headerText=""> -->
+<!-- 					<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" -->
+<!-- 						saveTitle="Save Row" /> -->
+<!-- 				</p:column> -->
 
 			</p:dataTable>
 		</h:form>
