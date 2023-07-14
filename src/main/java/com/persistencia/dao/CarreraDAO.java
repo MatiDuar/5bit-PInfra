@@ -83,4 +83,15 @@ public class CarreraDAO {
 		}
 
 	}
+	
+	public Carrera buscarCarrera(Long id) {
+
+		try {
+			
+			return em.find(Carrera.class, id);
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
 }

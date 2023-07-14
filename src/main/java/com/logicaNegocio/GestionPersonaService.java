@@ -67,6 +67,7 @@ public class GestionPersonaService implements Serializable {
 
 	public void agregarUsuario(Persona p) {
 		p.setActivo(true);
+		p.setAdmin(false);
 		personaDAO.agregarPersona(p);
 	}
 
@@ -89,6 +90,7 @@ public class GestionPersonaService implements Serializable {
 		Persona p = new Persona();
 
 		p.setActivo(true);
+		p.setAdmin(true);
 		p.setApellido1("demo");
 		p.setNombre1("demo");
 		p.setNombreUsuario("demo");
@@ -100,6 +102,7 @@ public class GestionPersonaService implements Serializable {
 		personaDAO.agregarPersona(p);
 
 		Alumno a = new Alumno();
+		a.setAdmin(false);
 		a.setActivo(true);
 		a.setApellido1("Marshall");
 		a.setNombre1("Jean");
@@ -160,6 +163,10 @@ public class GestionPersonaService implements Serializable {
 	
 	public Carrera buscarCarrera(String nombre) {
 		return carreraDAO.buscarCarrera(nombre);
+	}
+	
+	public Carrera buscarCarrera(Long id) {
+		return carreraDAO.buscarCarrera(id);
 	}
 	
 	public ITR buscarITR(String nombre) {
