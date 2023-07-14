@@ -4,7 +4,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 
 	<ui:define name="contenidoPrincipal">
@@ -16,7 +17,17 @@
 					emptyMessage="Personas no encontradas con este criterio"
 					filteredValue="#{dtFilterView.filteredPersonas}"
 					globalFilterFunction="#{dtFilterView.globalFilterFunction}"
-					editable="true">
+					editable="true" id="dateTable" selectionMode="single"
+					rowKey="#{gestionPersona.personasMod}">
+
+					<p:ajax event="rowEdit" listener="#{gestionPersona.onRowEdit}"
+						update="dateTable" />
+					<p:ajax event="rowEditCancel"
+						listener="#{gestionPersona.onRowCancel}" update="dateTable" />
+					<p:ajax event="rowEditInit"
+						listener="#{gestionPersona.changeAlumno}" />
+
+
 
 					<f:facet name="header">
 						<div class="flex justify-content-end">
@@ -34,8 +45,9 @@
 								<h:outputText style="vertical-align: middle; margin-left: .5rem"
 									value="#{personas.nombre1}" />
 							</f:facet>
-							<f:facet name="input">
-								<h:inputText style="vertical-align: middle; margin-left: .5rem"
+							<f:facet name="input" class="col-10">
+								<p:inputText
+									style="width:100%;vertical-align: middle; margin-left: .5rem"
 									value="#{personas.nombre1}" />
 							</f:facet>
 						</p:cellEditor>
@@ -43,41 +55,112 @@
 
 					<p:column field="apellido1" headerText="Apellido"
 						filterable="false">
-						<h:outputText style="vertical-align: middle; margin-left: .5rem"
-							value="#{personas.apellido1}" />
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText style="vertical-align: middle; margin-left: .5rem"
+									value="#{personas.apellido1}" />
+							</f:facet>
+							<f:facet name="input" class="col-10">
+								<p:inputText
+									style="width:100%;vertical-align: middle; margin-left: .5rem"
+									value="#{personas.apellido1}" />
+							</f:facet>
+						</p:cellEditor>
 					</p:column>
 
 					<p:column field="mail" headerText="Email" filterable="false">
-						<h:outputText style="vertical-align: middle; margin-left: .5rem"
-							value="#{personas.mail}" />
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText style="vertical-align: middle; margin-left: .5rem"
+									value="#{personas.mail}" />
+							</f:facet>
+							<f:facet name="input" class="col-10">
+								<p:inputText
+									style="width:100%;vertical-align: middle; margin-left: .5rem"
+									value="#{personas.mail}" />
+							</f:facet>
+						</p:cellEditor>
 					</p:column>
 
 					<p:column field="nombreUsuario" headerText="Nombre de Usuario"
 						filterable="false">
-						<h:outputText style="vertical-align: middle; margin-left: .5rem"
-							value="#{personas.nombreUsuario}" />
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText style="vertical-align: middle; margin-left: .5rem"
+									value="#{personas.nombreUsuario}" />
+							</f:facet>
+							<f:facet name="input" class="col-10">
+								<p:inputText
+									style="width:100%;vertical-align: middle; margin-left: .5rem"
+									value="#{personas.nombreUsuario}" />
+							</f:facet>
+						</p:cellEditor>
 					</p:column>
 					<p:column field="direccion" headerText="Direccion"
 						filterable="false">
-						<h:outputText style="vertical-align: middle; margin-left: .5rem"
-							value="#{personas.direccion}" />
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText style="vertical-align: middle; margin-left: .5rem"
+									value="#{personas.direccion}" />
+							</f:facet>
+							<f:facet name="input" class="col-10">
+
+								<p:inputText
+									style="width:100%;vertical-align: middle; margin-left: .5rem"
+									value="#{personas.direccion}" />
+							</f:facet>
+						</p:cellEditor>
 					</p:column>
 					<p:column headerText="Edad" filterable="false">
+
+
+						<!-- 						<h:outputText style="vertical-align: middle; margin-left: .5rem" -->
+						<!-- 							value="#{dtFilterView.currentYear-(personas.fechaNacimiento.year+1900)}" /> -->
 						<h:outputText style="vertical-align: middle; margin-left: .5rem"
-							value="#{dtFilterView.currentYear-(personas.fechaNacimiento.year+1900)}" />
+							value="#{personas.fechaNacimiento}" />
+
 					</p:column>
 
 					<p:column headerText="Carrera" filterable="false">
-						<h:outputText style="vertical-align: middle; margin-left: .5rem"
-							value="#{dtFilterView.buscar(personas.id).carrera.nombre}" />
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText style="vertical-align: middle; margin-left: .5rem"
+									value="#{personas.carrera}" />
+							</f:facet>
+							<f:facet name="input" class="col-10">
+								<p:selectOneMenu id="groupCarreraMod"
+									value="#{gestionPersona.carreraMod}"
+									rendered="#{personas.carrera!=null}">
+									<f:selectItem itemLabel="" itemValue="" />
+									<c:forEach var="carrera" items="#{gestionPersona.carreras}">
+										<f:selectItem itemLabel="#{carrera.nombre}"
+											itemValue="#{carrera.nombre}" />
+									</c:forEach>
+								</p:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
 					</p:column>
+
+
 
 					<p:column headerText="Id Estudiante" filterable="false">
-						<h:outputText style="vertical-align: middle; margin-left: .5rem"
-							value="#{dtFilterView.buscar(personas.id).idEstudiantil}" />
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText style="vertical-align: middle; margin-left: .5rem"
+									value="#{personas.idEstudiantil}" />
+							</f:facet>
+							<f:facet name="input" class="col-10">
+
+								<p:inputText
+									style="width:100%;vertical-align: middle; margin-left: .5rem"
+									value="#{gestionPersona.idEstudianteMod}"
+									rendered="#{personas.idEstudiantil!=null}" />
+							</f:facet>
+
+						</p:cellEditor>
 					</p:column>
 
-					<p:column style="width:6rem" headerText="Algo">
+					<p:column style="width:6rem" headerText="">
 						<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit"
 							saveTitle="Save Row" />
 					</p:column>
