@@ -41,8 +41,11 @@ public class PersonaDAO {
 	public List<PersonaAlumnoDTO> listarPersonasDTO() {
 		try {
 			String query = "select p.id,p.nombreUsuario,p.apellido1,p.nombre1,p.fechaNacimiento,p.direccion,p.mail,p.activo,a.idestudiantil,a.carrera_id from Personas p FULL OUTER JOIN Alumnos a on a.id=p.id";
-
+			System.out.println("**************************************************** Hasta aca Llego ****************************************************");
 			List<Object[]> resultList = em.createNativeQuery(query).getResultList();
+			System.out.println("****************************************************");
+			System.out.println(resultList);
+			System.out.println("****************************************************");
 			String pattern = "dd-MM-yyyy";
 			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 			List<PersonaAlumnoDTO> personasDTO = new ArrayList<>();
@@ -87,12 +90,24 @@ public class PersonaDAO {
 						aux.setMail(strDato);
 						break;
 					case 7:
-						aux.setActivo((Boolean) dato);
+						System.out.println(dato.toString());
+						if(dato.toString().equals("1")) {
+							aux.setActivo(true);
+						}else {
+							aux.setActivo(false);
+						}
+						
 						break;
 					case 8:
+						if(strDato.equalsIgnoreCase("")) {
+							break;
+						}
 						aux.setIdEstudiantil(Long.parseLong(strDato));
 						break;
 					case 9:
+						if(strDato.equalsIgnoreCase("")) {						
+							break;
+						}
 						aux.setCarrera(Long.parseLong(strDato));
 						break;
 					}
