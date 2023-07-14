@@ -15,6 +15,7 @@ import com.persistencia.dao.CarreraDAO;
 import com.persistencia.dao.DepartamentoDAO;
 import com.persistencia.dao.ItrDAO;
 import com.persistencia.dao.PersonaDAO;
+import com.persistencia.dto.PersonaAlumnoDTO;
 import com.persistencia.entities.*;
 
 @Stateless
@@ -44,6 +45,12 @@ public class GestionPersonaService implements Serializable {
 	public List<Persona> listarPersonas() throws Exception {
 
 		List<Persona> listaPersonas = personaDAO.listarPersonas();
+
+		return listaPersonas;
+	}
+	public List<PersonaAlumnoDTO> listarPersonasDTO() throws Exception {
+
+		List<PersonaAlumnoDTO> listaPersonas = personaDAO.listarPersonasDTO();
 
 		return listaPersonas;
 	}

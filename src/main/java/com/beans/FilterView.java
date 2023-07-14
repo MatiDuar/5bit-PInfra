@@ -18,6 +18,7 @@ import org.primefaces.model.MatchMode;
 import org.primefaces.util.LangUtils;
 
 import com.logicaNegocio.GestionPersonaService;
+import com.persistencia.dto.PersonaAlumnoDTO;
 import com.persistencia.entities.Alumno;
 import com.persistencia.entities.Carrera;
 import com.persistencia.entities.Persona;
@@ -36,9 +37,9 @@ public class FilterView implements Serializable {
 
 	private String carreraSel;
 	
-	private List<Persona> personas;
+	private List<PersonaAlumnoDTO> personas;
 
-	private List<Persona> filteredPersonas;
+	private List<PersonaAlumnoDTO> filteredPersonas;
 
 	private List<FilterMeta> filterBy;
 
@@ -50,7 +51,7 @@ public class FilterView implements Serializable {
 	public void init() {
 		globalFilterOnly = true;
 		try {
-			personas = service.listarPersonas();
+			personas = service.listarPersonasDTO();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -112,19 +113,19 @@ public class FilterView implements Serializable {
 		return service.buscarAlumno(id);
 	}
 
-	public List<Persona> getPersonas() {
+	public List<PersonaAlumnoDTO> getPersonas() {
 		return personas;
 	}
 
-	public void setPersonas(List<Persona> personas) {
+	public void setPersonas(List<PersonaAlumnoDTO> personas) {
 		this.personas = personas;
 	}
 
-	public List<Persona> getFilteredPersonas() {
+	public List<PersonaAlumnoDTO> getFilteredPersonas() {
 		return filteredPersonas;
 	}
 
-	public void setFilteredPersonas(List<Persona> filteredPersonas) {
+	public void setFilteredPersonas(List<PersonaAlumnoDTO> filteredPersonas) {
 		this.filteredPersonas = filteredPersonas;
 	}
 
