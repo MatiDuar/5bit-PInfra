@@ -102,6 +102,22 @@ body {
 .contenedorUser{
 	padding-right: 15px;
 } 
+
+.elemento{
+	position: absolute !important;
+}
+ 
+.ui-cell-editor-input{
+	display: flex;
+	align-items: center !important;
+}
+
+.ui-datatable .ui-row-editing .ui-cell-editor .ui-cell-editor-input{
+display: grid;
+}    
+
+
+
  
 ul {
 	overflow: hidden !important;

@@ -26,7 +26,7 @@
 				<p:menuitem value="Home" icon="pi pi-fw pi-home" outcome="index">
 					<f:param name="i" value="1" />
 				</p:menuitem>
-				<p:menuitem value="Gestion Usuarios" icon="pi pi-fw pi-user-edit" outcome="listarPersonas">
+				<p:menuitem value="Gestion Usuarios" icon="pi pi-fw pi-user-edit" ajax="false" outcome="listarPersonas">
 					<f:param name="i" value="2" />
 				</p:menuitem>
 				<p:menuitem value="Eventos" icon="pi pi-fw pi-calendar" >
@@ -53,7 +53,7 @@
 				<p:menuButton value="Options" buttonStyleClass="ui-button-flat" appendTo="coso"
 					iconPos="right">
 					<p:menuitem value="Perfil" action="editarPerfil.xhtml"
-						icon="pi pi-fw pi-user-edit" ajax="false"/>
+						icon="pi pi-fw pi-user-edit" ajax="false" />
 
 					<p:menuitem value="Cerrar Sesión" action="#{gestionPersona.cerrarSesion}"
 						icon="pi pi-fw pi-power-off" />

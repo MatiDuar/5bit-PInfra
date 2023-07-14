@@ -31,8 +31,8 @@ public class Alumno extends Persona implements Serializable {
 	}
 
 	public Alumno(Long id, String nombreUsuario, String contrasena, String apellido1, String apellido2, String nombre1,
-			String nombre2, Date fechaNacimiento, String direccion, String mail, Boolean activo, Long idEstudiantil, Carrera carrera, ITR itr) {
-		super(id, nombreUsuario, contrasena, apellido1, apellido2, nombre1, nombre2, fechaNacimiento, direccion, mail, activo);
+			String nombre2, Date fechaNacimiento, String direccion, String mail, Boolean activo, Long idEstudiantil, Carrera carrera, ITR itr, boolean admin) {
+		super(id, nombreUsuario, contrasena, apellido1, apellido2, nombre1, nombre2, fechaNacimiento, direccion, mail, activo, admin);
 		this.idEstudiantil = idEstudiantil;
 		this.carrera = carrera;
 		this.itr = itr;

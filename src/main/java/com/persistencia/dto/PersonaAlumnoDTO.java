@@ -163,7 +163,7 @@ public class PersonaAlumnoDTO {
 		this.idEstudiantil = idEstudiantil;
 	}
 
-	public String getCarrera() {
+	public String groupCarreraMod() {
 		return carrera;
 	}
 

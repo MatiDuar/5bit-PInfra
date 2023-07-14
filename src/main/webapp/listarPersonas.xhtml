@@ -7,6 +7,12 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript library="primefaces" name="primefaces.js" />
+	<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/primeflex@3.3.1/primeflex.min.css" />
+	<link rel="stylesheet" type="text/css" href="resources/css/index.css" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 	<ui:define name="contenidoPrincipal">
 
@@ -25,9 +31,6 @@
 					<p:ajax event="rowEditCancel"
 						listener="#{gestionPersona.onRowCancel}" update="dateTable" />
 			
-
-
-
 					<f:facet name="header">
 						<div class="flex justify-content-end">
 							<p:inputText id="globalFilter"
@@ -35,7 +38,6 @@
 								placeholder="Buscardor global..." />
 						</div>
 					</f:facet>
-<!-- preuba -->
 
 					<p:column field="nombre1" headerText="Nombre"
 						sortBy="#{personas.nombre1}" filterable="false">
@@ -122,20 +124,24 @@
 								<h:outputText style="vertical-align: middle; margin-left: .5rem"
 									value="#{personas.carrera}" />
 							</f:facet>
-							<f:facet name="input" class="col-10">
-								<p:selectOneMenu id="groupCarreraMod"
+							<f:facet name="input" class="col-10 elemento3"  id="elementoCoso"> 
+								<p:selectOneMenu
 									value="#{personas.carrera}"
-									rendered="#{personas.carrera!=null}">
-									<f:selectItem itemLabel="" itemValue="" />
+									rendered="#{personas.carrera!=null}"
+									appendTo="@(#groupCarreraMod)"
+									styleClass="elemento">
+									<f:selectItem itemLabel="" itemValue="" styleClass="elemento2"/>
 									<c:forEach var="carrera" items="#{gestionPersona.carreras}">
 										<f:selectItem itemLabel="#{carrera.nombre}"
 											itemValue="#{carrera.nombre}" />
 									</c:forEach>
 								</p:selectOneMenu>
+							
 							</f:facet>
 						</p:cellEditor>
+						
 					</p:column>
-
+					<div id="groupCarreraMod"> prueba</div>
 
 
 					<p:column headerText="Id Estudiante" filterable="false">
