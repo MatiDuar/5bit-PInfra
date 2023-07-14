@@ -28,7 +28,7 @@ public class PersonaAlumnoDTO {
 
 	private Long idEstudiantil;
 
-	private Long idCarrera;
+	private String carrera;
 
 	public PersonaAlumnoDTO() {
 		super();
@@ -56,14 +56,14 @@ public class PersonaAlumnoDTO {
 		this.direccion = a.getDireccion();
 		this.mail = a.getMail();
 		this.idEstudiantil=a.getIdEstudiantil();
-		this.idCarrera=a.getCarrera().getId();
+		this.carrera=a.getCarrera().getNombre();
 		
 	}
 	
 	
 
 	public PersonaAlumnoDTO(Long id, String nombreUsuario, String apellido1, String nombre1, java.util.Date fechaNacimiento,
-			String direccion, String mail, Boolean activo, Long idEstudiantil, Long idCarrera) {
+			String direccion, String mail, Boolean activo, Long idEstudiantil, String carrera) {
 		super();
 		this.id = id;
 		this.nombreUsuario = nombreUsuario;
@@ -74,7 +74,7 @@ public class PersonaAlumnoDTO {
 		this.mail = mail;
 		this.activo = activo;
 		this.idEstudiantil = idEstudiantil;
-		this.idCarrera = idCarrera;
+		this.carrera = carrera;
 	}
 	
 	public PersonaAlumnoDTO(Long id, String nombreUsuario, String apellido1, String nombre1, java.util.Date fechaNacimiento,
@@ -163,12 +163,12 @@ public class PersonaAlumnoDTO {
 		this.idEstudiantil = idEstudiantil;
 	}
 
-	public Long getCarrera() {
-		return idCarrera;
+	public String getCarrera() {
+		return carrera;
 	}
 
-	public void setCarrera(Long carrera) {
-		this.idCarrera = carrera;
+	public void setCarrera(String carrera) {
+		this.carrera = carrera;
 	}
 
 	

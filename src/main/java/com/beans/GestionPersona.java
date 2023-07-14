@@ -1,5 +1,6 @@
 package com.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.event.RowEditEvent;
 
 import com.logicaNegocio.GestionPersonaService;
+import com.persistencia.dto.PersonaAlumnoDTO;
 import com.persistencia.entities.Alumno;
 import com.persistencia.entities.Carrera;
 import com.persistencia.entities.ITR;
@@ -30,8 +32,6 @@ public class GestionPersona implements Serializable {
 	@Inject
 	GestionPersonaService persistenciaBean;
 
-	
-	
 	private List<Alumno> personasMod;
 	private Persona personaLogeada;
 	private Persona personaSeleccionada;
@@ -48,9 +48,6 @@ public class GestionPersona implements Serializable {
 
 	private String contrasenaModificar;
 
-	private String carreraMod;
-	private Long idEstudianteMod;
-
 	private String toRegistro;
 	private List<Carrera> carreras;
 	private List<ITR> itrs;
@@ -62,6 +59,8 @@ public class GestionPersona implements Serializable {
 
 	private boolean isModContraseña;
 
+	//Para saber si entro sin logearse al sistema
+	private boolean isKicked;
 	@PostConstruct
 	public void init() {
 		persistenciaBean.initPersona();
@@ -73,8 +72,8 @@ public class GestionPersona implements Serializable {
 		fechaNacSel = new java.util.Date();
 		isAlumno = true;
 		isModContraseña = false;
-		toRegistro = "registro.xhtml";
-		personasMod=new LinkedList<>();
+		toRegistro = "registro.xhtml?facesRedirect=true";
+		personasMod = new LinkedList<>();
 
 	}
 
@@ -87,12 +86,20 @@ public class GestionPersona implements Serializable {
 			if (persona == null) {
 				throw new Exception();
 			}
-			if (persistenciaBean.buscarAlumno(persona.getId()) != null) {
-				alumnoLogeado = persistenciaBean.buscarAlumno(persona.getId());
-			}
-			personaLogeada = persona;
+			if(persona.getActivo()) {
+				if (persistenciaBean.buscarAlumno(persona.getId()) != null) {
+					alumnoLogeado = persistenciaBean.buscarAlumno(persona.getId());
+				}
+				personaLogeada = persona;
 
-			return "/index.xhtml";
+				return "/index.xhtml?facesRedirect=true";
+			}
+			
+			String msg1 = "Usuario dado de baja del sistema";
+			
+			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, msg1, "");
+			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+			return "";
 		} catch (Exception e) {
 			e.printStackTrace();
 			String msg1 = "Usuario o contraseña Incorrecta";
@@ -116,7 +123,15 @@ public class GestionPersona implements Serializable {
 		// mensaje de actualizacion correcta
 		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, msg1, "");
 		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-		return "login.xhtml";
+		
+		String url="login.xhtml";
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
 	}
 
 	public String modificarPersona() {
@@ -177,6 +192,8 @@ public class GestionPersona implements Serializable {
 	}
 
 	public void parsePersona(Persona p, Alumno a) {
+		a.setId(p.getId());
+		a.setActivo(p.getActivo());
 		a.setNombre1(p.getNombre1());
 		a.setNombre2(p.getApellido2());
 		a.setApellido1(p.getApellido1());
@@ -188,35 +205,49 @@ public class GestionPersona implements Serializable {
 		a.setFechaNacimiento(p.getFechaNacimiento());
 	}
 
-	public void onRowEdit(RowEditEvent<Persona> persona) {
-		if (persistenciaBean.buscarAlumno(persona.getObject().getId()) != null) {
-			Alumno a = persistenciaBean.buscarAlumno(persona.getObject().getId());
-			a.setCarrera(persistenciaBean.buscarCarrera(carreraMod));
-			a.setIdEstudiantil(idEstudianteMod);
-			modificarPersonaOnLista(a);
+	public void onRowEdit(RowEditEvent<PersonaAlumnoDTO> persona) {
+
+		if (persona.getObject().getCarrera() == null) {
+			Persona modPersona = parsePersonaFromDTO(persona.getObject());
+			modificarPersonaOnLista(modPersona);
 		} else {
-			modificarPersonaOnLista(persona.getObject());
+			Alumno modAlumno = parseAlumnoFromDTO(persona.getObject());
+			modificarPersonaOnLista(modAlumno);
 		}
-		FacesMessage msg = new FacesMessage("Product Edited", "");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+
 	}
 
-	public void onRowCancel(RowEditEvent<Persona> persona) {
+	public Persona parsePersonaFromDTO(PersonaAlumnoDTO pdto) {
+		Persona p = persistenciaBean.buscarPersona(pdto.getId());
+		p.setNombre1(pdto.getNombre1());
+		p.setApellido1(pdto.getApellido1());
+		p.setMail(pdto.getMail());
+		p.setNombreUsuario(pdto.getNombreUsuario());
+		p.setDireccion(pdto.getDireccion());
+
+		return p;
+
+	}
+
+	public Alumno parseAlumnoFromDTO(PersonaAlumnoDTO pdto) {
+		Alumno a = persistenciaBean.buscarAlumno(pdto.getId());
+
+		a.setNombre1(pdto.getNombre1());
+		a.setApellido1(pdto.getApellido1());
+		a.setMail(pdto.getMail());
+		a.setNombreUsuario(pdto.getNombreUsuario());
+		a.setDireccion(pdto.getDireccion());
+		a.setIdEstudiantil(pdto.getIdEstudiantil());
+		a.setCarrera(persistenciaBean.buscarCarrera(pdto.getCarrera()));
+
+		return a;
+
+	}
+
+	public void onRowCancel(RowEditEvent<PersonaAlumnoDTO> persona) {
 
 		FacesMessage msg = new FacesMessage("Edit Cancelled", "");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
-	public void changeAlumno(RowEditEvent<Persona> selectEvent) {
-
-		Alumno a = persistenciaBean.buscarAlumno(selectEvent.getObject().getId());
-		if (a != null) {
-			alumnoMod = persistenciaBean.buscarAlumno(a.getId());
-			carreraMod = alumnoMod.getCarrera().getNombre();
-			idEstudianteMod = alumnoMod.getIdEstudiantil();
-			PrimeFaces.current().ajax().update("groupCarreraMod");
-		}
-		
 	}
 
 	public String toggleModContrasena() {
@@ -230,6 +261,47 @@ public class GestionPersona implements Serializable {
 
 	public java.util.Date getFechaNacSel() {
 		return fechaNacSel;
+	}
+	
+	public String darDeBaja() {
+		personaLogeada.setActivo(false);
+		persistenciaBean.modificarUsuario(personaLogeada);
+		reset();
+		String msg1 = "Se dio de baja al Usuario";
+		// mensaje de actualizacion correcta
+		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, msg1, "");
+		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+		return "login.xhtml?facesRedirect=true";
+	}
+	
+	public String cerrarSesion() {
+		reset();
+		return "login.xhtml?facesRedirect=true";
+		
+	}
+	
+	public void checkUserIsLogin() {
+		if(personaLogeada.getId()==null || personaLogeada==null) {
+			try {
+				
+				isKicked=true;
+				FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public void msjKick() {
+		if(isKicked) {
+			String msg1 = "Debes estar ingresado para esa funcionalidad";
+			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, msg1, "");
+			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+			isKicked=false;
+		}
 	}
 
 	public void setFechaNacSel(java.util.Date fechaNacSel) {
@@ -369,14 +441,6 @@ public class GestionPersona implements Serializable {
 		this.isModContraseña = isModContraseña;
 	}
 
-	public String getCarreraMod() {
-		return carreraMod;
-	}
-
-	public void setCarreraMod(String carreraMod) {
-		this.carreraMod = carreraMod;
-	}
-
 	public Alumno getAlumnoMod() {
 		return alumnoMod;
 	}
@@ -385,20 +449,20 @@ public class GestionPersona implements Serializable {
 		this.alumnoMod = alumnoMod;
 	}
 
-	public Long getIdEstudianteMod() {
-		return idEstudianteMod;
-	}
-
-	public void setIdEstudianteMod(Long idEstudianteMod) {
-		this.idEstudianteMod = idEstudianteMod;
-	}
-
 	public List<Alumno> getPersonasMod() {
 		return personasMod;
 	}
 
 	public void setPersonasMod(List<Alumno> personasMod) {
 		this.personasMod = personasMod;
+	}
+
+	public boolean isKicked() {
+		return isKicked;
+	}
+
+	public void setKicked(boolean isKicked) {
+		this.isKicked = isKicked;
 	}
 
 }

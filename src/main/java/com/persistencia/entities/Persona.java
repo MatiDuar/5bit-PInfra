@@ -53,13 +53,16 @@ public class Persona implements Serializable {
 	@Column(nullable=false)
 	private Boolean activo;
 	
+	@Column(nullable=false)
+	private Boolean admin;
+	
 	public Persona() {
 		super();
 	}
 
 	
 	public Persona(Long id, String nombreUsuario, String contrasena, String apellido1, String apellido2, String nombre1,
-			String nombre2, Date fechaNacimiento, String direccion, String mail, Boolean activo) {
+			String nombre2, Date fechaNacimiento, String direccion, String mail, Boolean activo,Boolean admin) {
 		super();
 		this.id = id;
 		this.nombreUsuario = nombreUsuario;
@@ -72,6 +75,7 @@ public class Persona implements Serializable {
 		this.direccion = direccion;
 		this.mail = mail;
 		this.activo = activo;
+		this.admin=admin;
 	}
 
 
@@ -162,6 +166,17 @@ public class Persona implements Serializable {
 
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
+	}
+
+	
+
+	public Boolean getAdmin() {
+		return admin;
+	}
+
+
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
 	}
 
 

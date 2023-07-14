@@ -77,7 +77,7 @@ public class FilterView implements Serializable {
 			return true;
 		}
 
-		Persona persona = (Persona) value;
+		PersonaAlumnoDTO persona = (PersonaAlumnoDTO) value;
 		Alumno personaAlumno=buscar(persona.getId());
 		return persona.getNombre1().toLowerCase().contains(filterText)
 				|| persona.getApellido1().toLowerCase().contains(filterText)
@@ -108,9 +108,19 @@ public class FilterView implements Serializable {
 	public void buscarCarrera(Alumno a,String carrera) {
 		a.setCarrera(service.buscarCarrera(carrera));
 	}
+	
+	public Carrera buscarCarrera(String nombre) {
+		return service.buscarCarrera(nombre);
+	}
 
 	public Alumno buscar(long id) {
 		return service.buscarAlumno(id);
+	}
+	
+	public int getEdad(String fecha) {
+		String str[]=fecha.split("-");
+		
+		return currentYear-Integer.parseInt(str[0]);
 	}
 
 	public List<PersonaAlumnoDTO> getPersonas() {

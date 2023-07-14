@@ -5,7 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:head>
+<h:head >
 
 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
 	<h:outputScript library="primefaces" name="primefaces.js" />
@@ -14,8 +14,8 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	
 </h:head>
-<body>
-
+<h:body onload="#{gestionPersona.checkUserIsLogin()}">
+	
 	<!-- ****************************************	Menu	****************************************-->
 
 	<ui:include src="templates/header.xhtml" />
@@ -43,7 +43,7 @@
 
 	<!--****************************************	Fin footer    **************************************** -->
 
-</body>
+</h:body>
 
 
 </html>

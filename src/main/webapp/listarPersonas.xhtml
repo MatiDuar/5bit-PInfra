@@ -17,15 +17,14 @@
 					emptyMessage="Personas no encontradas con este criterio"
 					filteredValue="#{dtFilterView.filteredPersonas}"
 					globalFilterFunction="#{dtFilterView.globalFilterFunction}"
-					editable="true" id="dateTable" selectionMode="single"
+					editable="#{gestionPersona.personaLogeada.admin}" id="dateTable" selectionMode="single"
 					rowKey="#{gestionPersona.personasMod}">
 
 					<p:ajax event="rowEdit" listener="#{gestionPersona.onRowEdit}"
 						update="dateTable" />
 					<p:ajax event="rowEditCancel"
 						listener="#{gestionPersona.onRowCancel}" update="dateTable" />
-					<p:ajax event="rowEditInit"
-						listener="#{gestionPersona.changeAlumno}" />
+			
 
 
 
@@ -112,11 +111,8 @@
 						</p:cellEditor>
 					</p:column>
 					<p:column headerText="Edad" filterable="false">
-
-
-						
 						<h:outputText style="vertical-align: middle; margin-left: .5rem"
-							value="#{personas.fechaNacimiento}" />
+							value="#{dtFilterView.getEdad(personas.fechaNacimiento)}" />
 
 					</p:column>
 
@@ -128,7 +124,7 @@
 							</f:facet>
 							<f:facet name="input" class="col-10">
 								<p:selectOneMenu id="groupCarreraMod"
-									value="#{gestionPersona.carreraMod}"
+									value="#{personas.carrera}"
 									rendered="#{personas.carrera!=null}">
 									<f:selectItem itemLabel="" itemValue="" />
 									<c:forEach var="carrera" items="#{gestionPersona.carreras}">
@@ -152,14 +148,14 @@
 
 								<p:inputText
 									style="width:100%;vertical-align: middle; margin-left: .5rem"
-									value="#{gestionPersona.idEstudianteMod}"
+									value="#{personas.idEstudiantil}"
 									rendered="#{personas.idEstudiantil!=null}" />
 							</f:facet>
 
 						</p:cellEditor>
 					</p:column>
 
-					<p:column style="width:6rem" headerText="">
+					<p:column style="width:6rem" headerText="" rendered="#{gestionPersona.personaLogeada.admin}">
 						<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit"
 							saveTitle="Save Row" />
 					</p:column>

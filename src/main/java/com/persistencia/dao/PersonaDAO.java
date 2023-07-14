@@ -40,7 +40,7 @@ public class PersonaDAO {
 
 	public List<PersonaAlumnoDTO> listarPersonasDTO() {
 		try {
-			String query = "select p.id,p.nombreUsuario,p.apellido1,p.nombre1,p.fechaNacimiento,p.direccion,p.mail,p.activo,a.idestudiantil,a.carrera_id from Personas p FULL OUTER JOIN Alumnos a on a.id=p.id";
+			String query = "select p.id,p.nombreUsuario,p.apellido1,p.nombre1,p.fechaNacimiento,p.direccion,p.mail,p.activo,a.idestudiantil,c.nombre from Personas p FULL OUTER JOIN Alumnos a on a.id=p.id left outer join Carreras c on a.carrera_id=c.id";
 			System.out.println("**************************************************** Hasta aca Llego ****************************************************");
 			List<Object[]> resultList = em.createNativeQuery(query).getResultList();
 			System.out.println("****************************************************");
@@ -108,7 +108,7 @@ public class PersonaDAO {
 						if(strDato.equalsIgnoreCase("")) {						
 							break;
 						}
-						aux.setCarrera(Long.parseLong(strDato));
+						aux.setCarrera(strDato);
 						break;
 					}
 					contador++;
