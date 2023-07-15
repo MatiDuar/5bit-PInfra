@@ -171,6 +171,10 @@ public class PersonaAlumnoDTO {
 		this.carrera = carrera;
 	}
 
+	public String getCarrera() {
+		return carrera;
+	}
+
 	
 
 }
