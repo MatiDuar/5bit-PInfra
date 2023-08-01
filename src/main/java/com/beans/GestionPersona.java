@@ -31,6 +31,8 @@ public class GestionPersona implements Serializable {
 	private long id = 1;
 	@Inject
 	GestionPersonaService persistenciaBean;
+	@Inject
+	LoginBeanJWT jwt;
 
 	private List<Alumno> personasMod;
 	private Persona personaLogeada;
@@ -92,7 +94,16 @@ public class GestionPersona implements Serializable {
 				}
 				personaLogeada = persona;
 
-				return "/index.xhtml?facesRedirect=true";
+				// genera Token de Java Web Token(JWT)
+				jwt.generarToken(personaSeleccionada.getNombreUsuario());
+				String url="index.xhtml";
+				try {
+					FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return "";
 			}
 			
 			String msg1 = "Usuario dado de baja del sistema";

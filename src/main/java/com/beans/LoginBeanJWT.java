@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.DefaultClaims;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.io.Serializer;
 
 
 import javax.faces.context.FacesContext;
@@ -19,49 +20,32 @@ import java.io.Serializable;
 @SessionScoped
 public class LoginBeanJWT implements Serializable {
 
+	String secretKey = "^=e'Q!GHv_=HMEkpx4k$EUH!{[F9s?0M"; // Clave secreta para firmar el token, esta clave deberia ser mas robusta y deberia estar mas oculta.
 
 	private static final long serialVersionUID = 1L;
-	
-	private String nombreUsuario;
-	    private String contrasena;
 
-	    public String getUsername() {
-	        return nombreUsuario;
-	    }
-
-	    public void setUsername(String nombreUsuario) {
-	        this.nombreUsuario = nombreUsuario;
-	    }
-
-	    public String getPassword() {
-	        return contrasena;
-	    }
-
-	    public void setPassword(String contrasena) {
-	        this.contrasena = contrasena;
-	    }
-
-	    public void generarToken() {
+	    public void generarToken(String nombreUsuario) {
 	        // a esta altura ya se valido el usuario, solo hay que generar el Token
 	    	
 	    	// Generar el token JWT
-            String secretKey = "clave_secreta"; // Clave secreta para firmar el token, estas clave deberia ser mas robusta y deberia estar mas oculta.
+           
             String token = null;
 	    	try {
 	    		
 	            Date expirationDate = new Date(System.currentTimeMillis() + 86400000); // 1 día de expiración
-
+	            
 	            token = Jwts.builder()
 	                    .setSubject(nombreUsuario)
 	                    .setExpiration(expirationDate)
 	                    .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256)
 	                    .compact();
-
+	            
 	            // Almacenar el token en la sesión
 	            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("token", token);
-	            
+	            	            	            
 	    	}catch (Exception e){
 	    		// El token no se genero
+	    		 System.out.println("Error al generar el Token: " + e);
 	    	}
 	            
 	    	
@@ -98,6 +82,36 @@ public class LoginBeanJWT implements Serializable {
 	    	
 	    	// ****************************************  Esto capaz no lo usamos  ****************************************
             
+	    }
+	    
+	    
+	    public void obtenerToken() {
+	         // Obtener el token de la sesión
+            String token = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("token");
+
+            if (token != null) {
+                // Aquí puedes utilizar el token como lo desees
+            	
+            	//esto se usa para saber si el token es valido
+    	    	Claims claims = new DefaultClaims();
+    	    	try {
+    	    	       claims = Jwts.parserBuilder()
+    	    	            .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))
+    	    	            .build()
+    	    	            .parseClaimsJws(token)
+    	    	            .getBody();
+
+    	    	    // El token es válido
+    	    	} catch (Exception e) {
+    	    	    // La firma del token no es válida
+    	    	}
+            	
+            	
+                System.out.println("Token JWT almacenado en la sesión: " + token);
+            } else {
+                // El token no está en la sesión o es nulo
+                System.out.println("No se encontró ningún token JWT en la sesión.");
+            }
 	    }
 
 }
