@@ -7,10 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.impl.DefaultClaims;
+import io.jsonwebtoken.security.Keys;
 
 import java.io.IOException;
 
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -23,50 +26,48 @@ public class JWTFilter implements Filter {
 
 	String secretKey = "^=e'Q!GHv_=HMEkpx4k$EUH!{[F9s?0M"; // Clave secreta para firmar el token, esta clave
 
+	@Inject
+	LoginBeanJWT jwt;
+	@Inject
+	GestionPersona persona;
+
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 //		HttpServletResponse res = (HttpServletResponse) response;
-		String url = ((HttpServletRequest) request).getRequestURL().toString();
-		
+//		String url = ((HttpServletRequest) request).getRequestURL().toString();
 
-		
-		if (url.equals(httpRequest.getContextPath()+"/index.xhtml")) {
-			String jwtToken = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("token");
-			if ((jwtToken != null && jwtToken.startsWith("Bearer "))) {
-				jwtToken = jwtToken.substring(7); // Elimina el prefijo "Bearer "
-				try {
-					// Valida el token JWT
-					Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken).getBody();
+		System.out.println(httpRequest.getContextPath() + "/index.xhtml");
 
-					String username = claims.getSubject();
-					// Aquí también puedes obtener los roles y otras informaciones adicionales del
-					// token si las incluiste al generarlo
-					System.out.println("Usuario: " + username);
-					// Realiza cualquier lógica de autorización adicional si es necesario
+		String jwtToken = persona.getToken();
+		if (jwtToken != null) {
 
-					// Continúa con la cadena de filtros y permite el acceso al recurso protegido
-					chain.doFilter(request, response);
-				} catch (Exception e) {
-					// El token no es válido, responde con un error 401 o redirige a la página de
-					// login
-					HttpServletResponse httpResponse = (HttpServletResponse) response;
-					httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-				}
-			} else {
-				// Token no proporcionado, responde con un error 401 o redirige a la página de
-				// login
-//				HttpServletResponse httpResponse = (HttpServletResponse) response;
-//				httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			// Valida el token JWT
+			Claims claims = new DefaultClaims();
+			try {
+				claims = Jwts.parserBuilder()
+						.setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))
+						.build()
+						.parseClaimsJws(jwtToken)
+						.getBody();
+				// El token es válido
 
-				// no se encontro el token se redirije a Login.
+				String username = claims.getSubject();
+				// Aca se podria obtener los roles y otras informaciones adicionales del token si se incluyen en el
+				System.out.println("Usuario: " + username);
+
+				// Permite el acceso al recurso protegido
 				chain.doFilter(request, response);
-//				res.sendRedirect(httpRequest.getContextPath()+"/login.xhtml");
-
+			} catch (Exception e) {
+				// El token no es válido, responde con un error 401 o redirige a la página de login
+				HttpServletResponse httpResponse = (HttpServletResponse) response;
+				httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			}
-		}else {
-			chain.doFilter(request, response);
+		} else {
+			// Token no proporcionado, responde con un error 401 o redirige a la página de login
+			HttpServletResponse httpResponse = (HttpServletResponse) response;
+			httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		}
 
 	}

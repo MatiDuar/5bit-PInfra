@@ -41,11 +41,7 @@ public class PersonaDAO {
 	public List<PersonaAlumnoDTO> listarPersonasDTO() {
 		try {
 			String query = "select p.id,p.nombreUsuario,p.apellido1,p.nombre1,p.fechaNacimiento,p.direccion,p.mail,p.activo,a.idestudiantil,c.nombre from Personas p FULL OUTER JOIN Alumnos a on a.id=p.id left outer join Carreras c on a.carrera_id=c.id";
-			System.out.println("**************************************************** Hasta aca Llego ****************************************************");
 			List<Object[]> resultList = em.createNativeQuery(query).getResultList();
-			System.out.println("****************************************************");
-			System.out.println(resultList);
-			System.out.println("****************************************************");
 			String pattern = "dd-MM-yyyy";
 			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 			List<PersonaAlumnoDTO> personasDTO = new ArrayList<>();
@@ -170,6 +166,15 @@ public class PersonaDAO {
 //		} catch (Exception e) {
 //			return null;
 //		}
+	
+	/**
+	 * si esta en la BD y usuario y contrasena es correcto devuelve un objeto de tipo persona
+	 * 
+	 * @param nombreUsuario 
+	 * @param contrasena
+	 * 
+	 * @return persona
+	 */
 	public Persona verificar(String nombreUsuario, String contrasena) {
 		try {
 			TypedQuery<Persona> query = em

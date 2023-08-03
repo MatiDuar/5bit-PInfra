@@ -33,16 +33,16 @@
 	    <filter-name>JWTFilter</filter-name>
 	    <filter-class>com.beans.JWTFilter</filter-class>
 	</filter>
+<!-- Paginas en las que se aplica el filtro del JWT  -->
 	<filter-mapping>
 	    <filter-name>JWTFilter</filter-name>
-	    <url-pattern>/*</url-pattern>
+	    <url-pattern>index.xhtml</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+	    <filter-name>JWTFilter</filter-name>
+	    <url-pattern>listarPersonas.xhtml</url-pattern>
 	</filter-mapping>
 <!-- ##################### Fin JWT ##############################-->
-
-<!-- 	<context-param> -->
-<!-- 		<param-name>primefaces.THEME</param-name> -->
-<!-- 		<param-value>#{cambiadorTemas.tema}</param-value> -->
-<!-- 	</context-param> -->
 
 	<context-param>
 	<param-name>primefaces.THEME</param-name>

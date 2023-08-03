@@ -18,6 +18,7 @@ import org.primefaces.event.RowEditEvent;
 
 import com.logicaNegocio.GestionPersonaService;
 import com.persistencia.dto.PersonaAlumnoDTO;
+import com.persistencia.dto.PersonaLogeadaDTO;
 import com.persistencia.entities.Alumno;
 import com.persistencia.entities.Carrera;
 import com.persistencia.entities.ITR;
@@ -63,6 +64,10 @@ public class GestionPersona implements Serializable {
 
 	//Para saber si entro sin logearse al sistema
 	private boolean isKicked;
+	
+	// Token de jwt
+	private String token;
+	
 	@PostConstruct
 	public void init() {
 		persistenciaBean.initPersona();
@@ -79,9 +84,15 @@ public class GestionPersona implements Serializable {
 
 	}
 
+	/**
+	 * este es el metodo que verifica si el usuario esta en la BD y si esta activo, si esta activo se redirije a index
+	 * 
+	 * @return devuelve un sting con el path hacia la pagina donde hay que dirigirse
+	 */
 	public String verificarPersona() {
 		try {
 
+			
 			Persona persona = persistenciaBean.verificarUsuario(personaSeleccionada.getNombreUsuario(),
 					personaSeleccionada.getContrasena());
 
@@ -93,28 +104,24 @@ public class GestionPersona implements Serializable {
 					alumnoLogeado = persistenciaBean.buscarAlumno(persona.getId());
 				}
 				personaLogeada = persona;
-
-				// genera Token de Java Web Token(JWT)
-				jwt.generarToken(personaSeleccionada.getNombreUsuario());
-				String url="index.xhtml";
-				try {
-					FacesContext.getCurrentInstance().getExternalContext().redirect(url);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return "";
+				
+				// Generar JSON Web Token
+				token = jwt.generarToken(persona.getNombreUsuario()); // por ahora solo se le pasa nombre de usuario, se podrian agregar mas datos
+							
+				return "/index.xhtml?facesRedirect=true";
 			}
 			
-			String msg1 = "Usuario dado de baja del sistema";
 			
+			// Mensaje si el usuario esta inactivo
+			String msg1 = "Usuario dado de baja del sistema";
 			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, msg1, "");
 			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 			return "";
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			String msg1 = "Usuario o contraseña Incorrecta";
-			// mensaje de actualizacion correcta
+			// mensaje autenticación incorrecta
 			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg1, "");
 			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 
@@ -314,7 +321,7 @@ public class GestionPersona implements Serializable {
 			isKicked=false;
 		}
 	}
-
+		
 	public void setFechaNacSel(java.util.Date fechaNacSel) {
 		personaSeleccionada.setFechaNacimiento(new java.sql.Date(fechaNacSel.getTime()));
 		this.fechaNacSel = fechaNacSel;
@@ -475,5 +482,15 @@ public class GestionPersona implements Serializable {
 	public void setKicked(boolean isKicked) {
 		this.isKicked = isKicked;
 	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	
 
 }
