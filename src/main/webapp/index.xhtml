@@ -31,8 +31,22 @@
 	<!--****************************************	Contenido Principal    **************************************** -->
 	<div class="layout-content">
 		<div id="contenidoPrincipal">
-	        <ui:insert name="contenidoPrincipal" />
-	    </div>
+			<ui:insert name="contenidoPrincipal">
+
+				<div>
+					<h1>Proyecto Infraestructura - 5bit</h1>
+
+					<div class="card">
+						<h5>PDF</h5>
+						<p:media value="/resources/document/PInfra.pdf" width="100%" height="620px">
+       							 Your browser can't display pdf, <h:outputLink
+								value="#{request.contextPath}/resources/document/PInfra.pdf">click</h:outputLink> to download pdf instead.
+    					</p:media>
+					</div>
+				</div>
+
+			</ui:insert>
+		</div>
 	</div>
 
 	<!--****************************************	Fin contenido Principal	   ****************************************-->

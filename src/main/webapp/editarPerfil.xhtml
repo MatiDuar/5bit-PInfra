@@ -10,75 +10,10 @@
 	<h:head>
 		<h:outputScript library="primefaces" name="jquery/jquery.js" />
 		<h:outputScript library="primefaces" name="primefaces.js" />
+			<link rel="stylesheet" type="text/css" href="resources/css/editarPerfil.css" />
 		<link type="text/css" rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/primeflex@3.3.1/primeflex.min.css" />
-		<style>
-.label {
-	width: 20%;
-	padding: 4px;
-}
 
-.value {
-	width: 80%;
-	padding: 4px;
-}
-
-.grid {
-	width: 100%;
-}
-
-.error {
-	color: red;
-}
-
-.outputLabel {
-	font-weight: bold;
-}
-
-.box {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 100vh;
-	width: 100%;
-}
-
-.fildsetprueba {
-	margin-bottom: 20px;
-}
-
-.separador {
-	margin-top: -10%;
-	margin-bottom: 6%;
-}
-
-body {
-	margin: 0px;
-}
-
-.headerRegistro {
-	display: flex;
-	width: 100%;
-	height: 500px;
-	justify-content: center;
-	color: black;
-	font-size: 20px;
-}
-
-.textoHeader {
-	margin-top: 7%;
-}
-
-.dialog {
-	left: 5% !important;
-	top: 15% !important;
-}
-
-.confirmDialog {
-	left: 5% !important;
-	top: 15% !important;
-}
-</style>
 	</h:head>
 
 	<ui:define name="contenidoPrincipal">
@@ -331,14 +266,16 @@ body {
 							</div>
 						</div>
 
-						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
-							responsive="true" width="350" class="dialog">
-							<p:commandButton value="No" type="button"
-								styleClass="ui-confirmdialog-no ui-button-flat" />
-							<p:commandButton value="Sí" type="button"
-								styleClass="ui-confirmdialog-yes" />
-						</p:confirmDialog>
-
+						<p:outputPanel id="confirmDialogContainer" styleClass="cont">
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade" responsive="true" width="350" class="dialog" appendTo="confirmDialogContainer"
+								id="k" styleClass="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+								<p:commandButton value="No" type="button"
+									styleClass="ui-confirmdialog-no ui-button-flat" />
+								<p:commandButton value="Sí" type="button"
+									styleClass="ui-confirmdialog-yes" />
+							</p:confirmDialog>
+						</p:outputPanel>
 
 					</h:form>
 
