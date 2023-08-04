@@ -1,0 +1,65 @@
+@charset "ISO-8859-1";
+
+.cont {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.label {
+	width: 20%;
+	padding: 4px;
+}
+
+.value {
+	width: 80%;
+	padding: 4px;
+}
+
+.grid {
+	width: 100%;
+}
+
+.error {
+	color: red;
+}
+
+.outputLabel {
+	font-weight: bold;
+}
+
+.box {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	width: 100%;
+}
+
+.fildsetprueba {
+	margin-bottom: 20px;
+}
+
+.separador {
+	margin-top: -10%;
+	margin-bottom: 6%;
+}
+
+body {
+	margin: 0px;
+}
+
+.headerRegistro {
+	display: flex;
+	width: 100%;
+	height: 500px;
+	justify-content: center;
+	color: black;
+	font-size: 20px;
+}
+
+.textoHeader {
+	margin-top: 7%;
+}
+

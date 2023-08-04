@@ -130,6 +130,11 @@ public class GestionPersona implements Serializable {
 		}
 	}
 
+	/**
+	 * este metodo se encarga de crear una persona en la base de datos
+	 * 
+	 * @return devuelve la pagian en la que se tiene que redirigir
+	 */
 	public String agregarPersona() {
 		if (isAlumno) {
 			parsePersona(personaSeleccionada, alumnoSeleccionado);

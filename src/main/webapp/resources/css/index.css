@@ -1,6 +1,4 @@
 @charset "ISO-8859-1";
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
 
 .layout-sidebar {
 	position: fixed;
@@ -46,6 +44,7 @@
 
 body {
 	margin: 0px;
+	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
 
 .ui-button btnPanel {
@@ -117,8 +116,6 @@ display: grid;
 }    
 
 
-
- 
 ul {
 	overflow: hidden !important;
 	overflow-x: hidden !important;
