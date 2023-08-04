@@ -158,6 +158,11 @@ public class GestionPersona implements Serializable {
 		return "";
 	}
 
+	/**
+	 * Esta funcion modifica al usuario logeado con los cambios realizados
+	 * 
+	 * @return
+	 */
 	public String modificarPersona() {
 		if (alumnoLogeado != null) {
 			parsePersona(personaLogeada, alumnoLogeado);
@@ -173,6 +178,13 @@ public class GestionPersona implements Serializable {
 		return "";
 	}
 
+	/**
+	 * La funcion se encarga de modificar una persona en la lista
+	 * 
+	 * @param p recibe la persona a modificar
+	 * @return
+	 */
+
 	public String modificarPersonaOnLista(Persona p) {
 
 		persistenciaBean.modificarUsuario(p);
@@ -184,12 +196,17 @@ public class GestionPersona implements Serializable {
 		return "";
 	}
 
+	/**
+	 * La funcion se encarga de dar de baja a una persona en la base de datos
+	 * 
+	 * @param pDto Objeto que almacena la tabla
+	 * @return
+	 */
+
 	public String bajaPersonaOnLista(PersonaAlumnoDTO pDto) {
-		Persona p=parsePersonaFromDTO(pDto);
+		Persona p = parsePersonaFromDTO(pDto);
 		p.setActivo(false);
 		persistenciaBean.modificarUsuario(p);
-//		pDto.setActivo(false);
-		System.out.println("baja");
 		String msg1 = "Se elimino correctamente el usuario";
 		// mensaje de actualizacion correcta
 		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, msg1, "");
@@ -197,26 +214,29 @@ public class GestionPersona implements Serializable {
 		return "";
 	}
 
+	/**
+	 * La funcion se encarga de activar a una persona en la base de datos
+	 * 
+	 * @param pDto Objeto que almacena la tabla
+	 * @return
+	 */
+
 	public String activarPersonaOnLista(PersonaAlumnoDTO pDto) {
-		Persona p=parsePersonaFromDTO(pDto);
+		Persona p = parsePersonaFromDTO(pDto);
 		p.setActivo(true);
 		persistenciaBean.modificarUsuario(p);
-		
-//		pDto.setActivo(true);
-		System.out.println("alta");
 		String msg1 = "Se activo correctamente el usuario";
 		// mensaje de actualizacion correcta
 		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, msg1, "");
 		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 		return "";
 	}
-//	public void bajaPersonaLisener(ActionEvent event) {
-//		Persona p = (Persona) event.getComponent().getAttributes().get("persona");
-//
-//		bajaPersonaOnLista(p);
-//
-//	}
 
+	/**
+	 * La funcion modifica la contraseña del usuario logeado
+	 * 
+	 * @return
+	 */
 	public String modificarContrasena() {
 		Persona p = persistenciaBean.buscarPersona(personaLogeada.getId());
 		p.setContrasena(contrasenaModificar);
@@ -231,6 +251,11 @@ public class GestionPersona implements Serializable {
 		return "";
 	}
 
+	/**
+	 * Mensaje cuando se cierra el modificar contraseña
+	 * 
+	 * @return
+	 */
 	public String cerrarModificarContrasena() {
 		String msg1 = "Se cancelo la modificacion de la Contraseña";
 		// mensaje de actualizacion correcta
@@ -239,6 +264,9 @@ public class GestionPersona implements Serializable {
 		return "";
 	}
 
+	/**
+	 * Reinicia todos la mayoria de datos en el bean
+	 */
 	private void reset() {
 		personaSeleccionada = new Persona();
 		personaLogeada = new Persona();
@@ -248,6 +276,12 @@ public class GestionPersona implements Serializable {
 		itrSeleccionado = "";
 	}
 
+	/**
+	 * Copia todos los datos de la Persona al Alumno
+	 * 
+	 * @param p Persona con los datos originales
+	 * @param a Alumno a modificar los datos
+	 */
 	public void parsePersona(Persona p, Alumno a) {
 		a.setId(p.getId());
 		a.setActivo(p.getActivo());
@@ -262,6 +296,12 @@ public class GestionPersona implements Serializable {
 		a.setFechaNacimiento(p.getFechaNacimiento());
 	}
 
+	/**
+	 * Funcion que al terminar de editar la persona en la tabla realiza los cambios
+	 * realizados
+	 * 
+	 * @param persona Persona con los datos a modificar
+	 */
 	public void onRowEdit(RowEditEvent<PersonaAlumnoDTO> persona) {
 
 		if (persona.getObject().getCarrera() == null) {
@@ -274,6 +314,12 @@ public class GestionPersona implements Serializable {
 
 	}
 
+	/**
+	 * Funcion que permite parsear un objeto PersonaAlumnoDTO a un objeto Persona
+	 * 
+	 * @param pdto Objeto que tiene los datos
+	 * @return Persona con todos los datos de pdto
+	 */
 	public Persona parsePersonaFromDTO(PersonaAlumnoDTO pdto) {
 		Persona p = persistenciaBean.buscarPersona(pdto.getId());
 		p.setActivo(pdto.getActivo());
@@ -287,6 +333,12 @@ public class GestionPersona implements Serializable {
 
 	}
 
+	/**
+	 * Funcion que permite parsear un objeto PersonaAlumnoDTO a un objeto Alumno
+	 * 
+	 * @param pdto Objeto que tiene los datos
+	 * @return Alumno con todos los datos de pdto
+	 */
 	public Alumno parseAlumnoFromDTO(PersonaAlumnoDTO pdto) {
 		Alumno a = persistenciaBean.buscarAlumno(pdto.getId());
 		a.setActivo(pdto.getActivo());
@@ -320,7 +372,10 @@ public class GestionPersona implements Serializable {
 	public java.util.Date getFechaNacSel() {
 		return fechaNacSel;
 	}
-
+	/**
+	 * Funcion que da de baja al usuario Logeado
+	 * @return
+	 */
 	public String darDeBaja() {
 		personaLogeada.setActivo(false);
 		persistenciaBean.modificarUsuario(personaLogeada);
@@ -338,6 +393,9 @@ public class GestionPersona implements Serializable {
 
 	}
 
+	/**
+	 * Este metodo valida si el usuario esta logeado 
+	 */
 	public void checkUserIsLogin() {
 		if (personaLogeada.getId() == null || personaLogeada == null) {
 			try {
@@ -346,7 +404,7 @@ public class GestionPersona implements Serializable {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 		}

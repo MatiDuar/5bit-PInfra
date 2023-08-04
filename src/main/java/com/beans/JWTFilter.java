@@ -35,8 +35,6 @@ public class JWTFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-//		HttpServletResponse res = (HttpServletResponse) response;
-//		String url = ((HttpServletRequest) request).getRequestURL().toString();
 
 		System.out.println(httpRequest.getContextPath() + "/index.xhtml");
 

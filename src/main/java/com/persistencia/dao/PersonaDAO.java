@@ -27,6 +27,11 @@ public class PersonaDAO {
 	@PersistenceContext
 	private EntityManager em;
 
+	/**
+	 * Listado de Personas en la base de datos
+	 * 
+	 * @return Lista de Persona
+	 */
 	public List<Persona> listarPersonas() {
 		try {
 			String query = "select p from Persona p";
@@ -38,6 +43,10 @@ public class PersonaDAO {
 		return null;
 	}
 
+	/**
+	 * Selecciona a todos las personas y alumnos de la base de datos
+	 * @return Listado de PersonaAlumnoDTO
+	 */
 	public List<PersonaAlumnoDTO> listarPersonasDTO() {
 		try {
 			String query = "select p.id,p.nombreUsuario,p.apellido1,p.nombre1,p.fechaNacimiento,p.direccion,p.mail,p.activo,a.idestudiantil,c.nombre from Personas p FULL OUTER JOIN Alumnos a on a.id=p.id left outer join Carreras c on a.carrera_id=c.id";
@@ -86,22 +95,22 @@ public class PersonaDAO {
 						aux.setMail(strDato);
 						break;
 					case 7:
-						
-						if(dato.toString().equals("1")) {
+
+						if (dato.toString().equals("1")) {
 							aux.setActivo(true);
-						}else {
+						} else {
 							aux.setActivo(false);
 						}
-						
+
 						break;
 					case 8:
-						if(strDato.equalsIgnoreCase("")) {
+						if (strDato.equalsIgnoreCase("")) {
 							break;
 						}
 						aux.setIdEstudiantil(Long.parseLong(strDato));
 						break;
 					case 9:
-						if(strDato.equalsIgnoreCase("")) {						
+						if (strDato.equalsIgnoreCase("")) {
 							break;
 						}
 						aux.setCarrera(strDato);
@@ -120,10 +129,22 @@ public class PersonaDAO {
 		return null;
 	}
 
+	
+	/**
+	 * Busca a una persona en la base de datos a partir del id
+	 * @param id Id de Persona a buscar
+	 * @return Si encuentra devuelve un objeto Persona sino devuelve null
+	 */
 	public Persona buscarPersona(long id) {
 		return em.find(Persona.class, id);
 	}
 
+	
+	/**
+	 * Se agrega una Persona en la base de datos
+	 * 
+	 * @param p Persona a crear en la base
+	 */
 	public void agregarPersona(Persona p) {
 
 		try {
@@ -133,7 +154,13 @@ public class PersonaDAO {
 			new Exception("No se pudo crear la Persona");
 		}
 	}
-
+	
+	
+	/**
+	 * modifica a una Persona en la base de datos
+	 * 
+	 * @param p Persona a modificar
+	 */
 	public void modificarPersona(Persona p) {
 		try {
 			em.merge(p);
@@ -143,6 +170,12 @@ public class PersonaDAO {
 		}
 	}
 
+	
+	/**
+	 * Borra a una Persona en la base de datos
+	 * 
+	 * @param id Id de la Persona a borrar
+	 */
 	public void borrarPersona(long id) {
 
 		try {
@@ -156,21 +189,13 @@ public class PersonaDAO {
 
 	}
 
-//	public Usuario verificarUsuario(String nombreUsuario, String contra) {
-//
-//		try {
-//			TypedQuery<Usuario> query = em.createQuery(
-//					"select u from Usuario u where u.nombreUsuario=:nombreUsuario and u.contrasena=:contra",
-//					Usuario.class).setParameter("nombreUsuario", nombreUsuario).setParameter("contra", contra);
-//			return query.getSingleResult();
-//		} catch (Exception e) {
-//			return null;
-//		}
-	
+
+
 	/**
-	 * si esta en la BD y usuario y contrasena es correcto devuelve un objeto de tipo persona
+	 * si esta en la BD y usuario y contrasena es correcto devuelve un objeto de
+	 * tipo persona
 	 * 
-	 * @param nombreUsuario 
+	 * @param nombreUsuario
 	 * @param contrasena
 	 * 
 	 * @return persona

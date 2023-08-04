@@ -58,12 +58,7 @@ public class FilterView implements Serializable {
 		currentYear=new Date(System.currentTimeMillis()).getYear()+1900;
 		filterBy = new ArrayList<>();
 
-//        filterBy.add(FilterMeta.builder()
-//                .field("status")
-//                .filterValue(CustomerStatus.NEW)
-//                .matchMode(MatchMode.EQUALS)
-//                .build());
-//
+
 		filterBy.add(FilterMeta.builder().field("date")
 				.filterValue(
 						new ArrayList<>(Arrays.asList(LocalDate.now().minusDays(28), LocalDate.now().plusDays(28))))
@@ -71,6 +66,13 @@ public class FilterView implements Serializable {
 
 	}
 
+	/**
+	 * Esta funcion se encarga de filtrar la tabla, 
+	 * @param value El objeto al cual se le aplicaran los filtros
+	 * @param filter Los filtros a aplicar 
+	 * @param locale 
+	 * @return retorna verdadero si el objeto coincide con los filtros sino retorna falso
+	 */
 	public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
 		String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
 		if (LangUtils.isBlank(filterText)) {

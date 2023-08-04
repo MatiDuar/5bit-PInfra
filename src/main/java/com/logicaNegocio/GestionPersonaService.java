@@ -42,43 +42,78 @@ public class GestionPersonaService implements Serializable {
 	@EJB
 	AlumnoDAO alumnoDAO;
 
+	/**
+	 * Lista de todas las personas en la base de datos
+	 * @return Lista de Personas
+	 * @throws Exception
+	 */
 	public List<Persona> listarPersonas() throws Exception {
 
 		List<Persona> listaPersonas = personaDAO.listarPersonas();
 
 		return listaPersonas;
 	}
+	
+	/**
+	 * Lista de todas las personas y alumnos en la base de datos
+	 * @return Lista de PersonasAlumnoDTO
+	 * @throws Exception
+	 */
 	public List<PersonaAlumnoDTO> listarPersonasDTO() throws Exception {
 
 		List<PersonaAlumnoDTO> listaPersonas = personaDAO.listarPersonasDTO();
 
 		return listaPersonas;
 	}
+	
+	/**
+	 * Lista de todos los ITRs
+	 * @return lista de ITR
+	 */
 	public List<ITR> listarITRs() {
 
 		List<ITR> listaPItrs = itrDAO.listarITRs();
 
 		return listaPItrs;
 	}
-
+	/**
+	 * Verifica si el nombreUsuario y contraseña coinciden en la base de datos
+	 * @param nombreUsuario
+	 * @param contra
+	 * @return El objeto de la persona encontrada en la base de datos
+	 */
 	public Persona verificarUsuario(String nombreUsuario, String contra) {
 		return personaDAO.verificar(nombreUsuario, contra);
 	}
 
+	/**
+	 * se agrega Persona en la base de datos
+	 * @param p
+	 */
 	public void agregarUsuario(Persona p) {
 		p.setActivo(true);
 		p.setAdmin(false);
 		personaDAO.agregarPersona(p);
 	}
-
+	/**
+	 * Modifica los de datos en la base de datos
+	 * @param p Persona a modificar los datos
+	 */
 	public void modificarUsuario(Persona p) {
 		personaDAO.modificarPersona(p);
 	}
-
+	
+	/**
+	 * Borra a un Usuario en la base de datos
+	 * @param id Id de el usuario a borrar
+	 */
 	public void borrarUsuario(long id) {
 		personaDAO.borrarPersona(id);
 	}
-	
+	/**
+	 * Lista de Carreras en la base de datos
+	 * @return Lista de Carrera
+	 */
 	public List<Carrera> listarCarreras(){
 		return carreraDAO.listarCarreras();
 	}

@@ -27,6 +27,11 @@ public class AlumnoDAO {
 	@PersistenceContext
 	private EntityManager em;
 
+	
+	/**
+	 * Lista a todos los alumnos de la base de datos
+	 * @return
+	 */
 	public List<Alumno> listarAlumnos() {
 		try {
 			String query = "select a from Alumno a";
@@ -38,7 +43,10 @@ public class AlumnoDAO {
 		return null;
 	}
 	
-	
+	/**
+	 * Agrega alumno a al base de datos
+	 * @param a Alumno a crear
+	 */
 	public void agregarAlumno(Alumno a) {
 		
 		try {
@@ -49,6 +57,10 @@ public class AlumnoDAO {
 		}
 	}
 	
+	/**
+	 * Modificar un alumno
+	 * @param c Alumno a modificar
+	 */
 	public void modificarAlumno(Alumno c) {
 		try {
 			em.merge(c);
@@ -58,6 +70,10 @@ public class AlumnoDAO {
 		}
 	}
 	
+	/**
+	 * Borra a un Alumno de la base de datos
+	 * @param id Id del alumno a eliminar
+	 */
 	public void borrarAlumno(long id) {
 		
 		try {
@@ -71,6 +87,12 @@ public class AlumnoDAO {
 		
 	}
 	
+	
+	/** 
+	 * Busca en la base de datos a un alumno con el id Ingresado
+	 * @param id Id de alumno a buscar
+	 * @return Si encuentra a un alumno con el id ingresado retorna el mismo sino retorna null
+	 */
 	public Alumno buscar(long id) {
 		try {
 			Alumno a=em.find(Alumno.class, id);

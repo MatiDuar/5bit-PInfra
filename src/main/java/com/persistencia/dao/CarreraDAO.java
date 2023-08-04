@@ -27,6 +27,11 @@ public class CarreraDAO {
 	@PersistenceContext
 	private EntityManager em;
 
+	
+	/**
+	 * Lista de carrera en la base de datos
+	 * @return Lista de carreras
+	 */
 	public List<Carrera> listarCarreras() {
 		try {
 			String query = "select c from Carrera c";
@@ -38,7 +43,10 @@ public class CarreraDAO {
 		return null;
 	}
 	
-	
+	/**
+	 * Se agrega una carrera en la base de datos
+	 * @param c Carrera a crear en la base
+	 */
 	public void agregarCarrera(Carrera c) {
 		
 		try {
@@ -48,7 +56,10 @@ public class CarreraDAO {
 			new Exception("No se pudo crear la Carrera");
 		}
 	}
-	
+	/**
+	 * modifica a una carrera en la base de datos
+	 * @param c Carrera a modificar
+	 */
 	public void modificarCarrera(Carrera c) {
 		try {
 			em.merge(c);
@@ -57,7 +68,10 @@ public class CarreraDAO {
 			new Exception("No se pudo modificar la Carrera");
 		}
 	}
-	
+	/**
+	 * Borra a una carrera en la base de datos
+	 * @param id Id de la carrera a borrar
+	 */
 	public void borrarCarrera(long id) {
 		
 		try {
@@ -71,6 +85,11 @@ public class CarreraDAO {
 		
 	}
 	
+	/**
+	 * Busca una carrera en la base de datos a partir del nombre de la misma
+	 * @param nombre Nombre de carrera a buscar
+	 * @return Si encuentra devuelve un objeto Carrera sino devuelve Null
+	 */
 	public Carrera buscarCarrera(String nombre) {
 
 		try {
@@ -84,6 +103,12 @@ public class CarreraDAO {
 
 	}
 	
+	
+	/**
+	 * Busca una carrera en la base de datos a partir de un Id
+	 * @param id Id de carrera a buscar
+	 * @return Si encuentra devuelve un objeto Carrera sino devuelve Null
+	 */
 	public Carrera buscarCarrera(Long id) {
 
 		try {

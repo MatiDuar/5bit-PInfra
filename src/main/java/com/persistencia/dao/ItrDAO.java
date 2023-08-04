@@ -26,7 +26,11 @@ public class ItrDAO {
 
 	@PersistenceContext
 	private EntityManager em;
-
+	/**
+	 * Listado de ITR en la base de datos
+	 * 
+	 * @return Lista de ITR
+	 */
 	public List<ITR> listarITRs() {
 		try {
 			String query = "select i from ITR i";
@@ -38,7 +42,11 @@ public class ItrDAO {
 		return null;
 	}
 	
-	
+	/**
+	 * Se agrega un ITR en la base de datos
+	 * 
+	 * @param i ITR a crear en la base
+	 */
 	public void agregarITR(ITR i) {
 		
 		try {
@@ -49,6 +57,11 @@ public class ItrDAO {
 		}
 	}
 	
+	/**
+	 * modifica a un ITR en la base de datos
+	 * 
+	 * @param i ITR a modificar
+	 */
 	public void modificarITR(ITR i) {
 		try {
 			em.merge(i);
@@ -58,6 +71,11 @@ public class ItrDAO {
 		}
 	}
 	
+	/**
+	 * Borra a un ITR en la base de datos
+	 * 
+	 * @param id Id del ITR a borrar
+	 */
 	public void borrarITR(long id) {
 		
 		try {
@@ -70,7 +88,12 @@ public class ItrDAO {
 		}
 		
 	}
-	
+	/**
+	 * Busca un ITR en la base de datos a partir del nombre de la misma
+	 * 
+	 * @param nombre Nombre de ITR a buscar
+	 * @return Si encuentra devuelve un objeto ITR sino devuelve Null
+	 */
 	public ITR buscarITR(String nombre) {
 
 		try {

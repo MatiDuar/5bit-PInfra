@@ -23,6 +23,11 @@ public class DepartamentoDAO {
 	@PersistenceContext
 	private EntityManager em;
 
+	/**
+	 * Listado de Departamentos en la base de datos
+	 * 
+	 * @return Lista de Departamento
+	 */
 	public List<Departamento> listarCarreras() {
 		try {
 			String query = "select d from Departamento d";
@@ -35,6 +40,11 @@ public class DepartamentoDAO {
 		return null;
 	}
 
+	/**
+	 * Se agrega un Departamento en la base de datos
+	 * 
+	 * @param d Departamento a crear en la base
+	 */
 	public void agregarDepartamento(Departamento d) {
 
 		try {
@@ -45,6 +55,11 @@ public class DepartamentoDAO {
 		}
 	}
 
+	/**
+	 * Se agrega una lista de Departamentos en la base de datos
+	 * 
+	 * @param d lista de Departamentos a crear en la base
+	 */
 	public void agregarDepartamento(List<Departamento> d) {
 
 		try {
@@ -57,6 +72,11 @@ public class DepartamentoDAO {
 		}
 	}
 
+	/**
+	 * modifica a una Departamento en la base de datos
+	 * 
+	 * @param d Departamento a modificar
+	 */
 	public void modificarDepartamento(Departamento d) {
 		try {
 			em.merge(d);
@@ -66,6 +86,11 @@ public class DepartamentoDAO {
 		}
 	}
 
+	/**
+	 * Borra a un Departamento en la base de datos
+	 * 
+	 * @param id Id del Departamento a borrar
+	 */
 	public void borrarDepartamento(long id) {
 
 		try {
@@ -79,6 +104,12 @@ public class DepartamentoDAO {
 
 	}
 
+	/**
+	 * Busca un Departamento en la base de datos a partir del nombre de la misma
+	 * 
+	 * @param nombre Nombre de Departamento a buscar
+	 * @return Si encuentra devuelve un objeto Departamento sino devuelve Null
+	 */
 	public Departamento buscarDepartamento(String nombre) {
 
 		try {

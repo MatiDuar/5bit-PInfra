@@ -42,7 +42,6 @@ public class LoginBeanJWT implements Serializable {
 	            
 	            // Almacenar el token en la sesión
 	            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("token", token);
-//	            request.getSession().setAttribute("token", jwtToken); // Almacenar el token en la sesión
 	            	
 	            return token;
 	    	}catch (Exception e){
@@ -53,37 +52,7 @@ public class LoginBeanJWT implements Serializable {
 	            
 	    	
 	    	
-	    	// ****************************************  Esto capaz no lo usamos  **************************************** 
 	    	
-	    	/**
-	    	 
-	    	  	 //esto se usa para saber si el token es valido
-	    	Claims claims = new DefaultClaims();
-	    	try {
-	    	       claims = Jwts.parserBuilder()
-	    	            .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))
-	    	            .build()
-	    	            .parseClaimsJws(token)
-	    	            .getBody();
-
-	    	    // El token es válido
-	    	} catch (Exception e) {
-	    	    // La firma del token no es válida
-	    	}
-	    	
-	    	// esto es para saber si el token expiro
-	    	Date expirationDate = claims.getExpiration();
-	    	Date currentDate = new Date();
-
-	    	if (expirationDate.before(currentDate)) {
-	    	    // El token ha expirado
-	    	} else {
-	    	    // El token está dentro del período de validez
-	    	} 
-	    	  	
-	    	 */
-	    	
-	    	// ****************************************  Esto capaz no lo usamos  ****************************************
             
 	    }
 	    
