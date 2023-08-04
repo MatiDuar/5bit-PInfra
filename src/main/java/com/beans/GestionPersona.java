@@ -9,6 +9,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.LinkedList;
@@ -62,12 +63,12 @@ public class GestionPersona implements Serializable {
 
 	private boolean isModContraseña;
 
-	//Para saber si entro sin logearse al sistema
+	// Para saber si entro sin logearse al sistema
 	private boolean isKicked;
-	
+
 	// Token de jwt
 	private String token;
-	
+
 	@PostConstruct
 	public void init() {
 		persistenciaBean.initPersona();
@@ -85,39 +86,39 @@ public class GestionPersona implements Serializable {
 	}
 
 	/**
-	 * este es el metodo que verifica si el usuario esta en la BD y si esta activo, si esta activo se redirije a index
+	 * este es el metodo que verifica si el usuario esta en la BD y si esta activo,
+	 * si esta activo se redirije a index
 	 * 
 	 * @return devuelve un sting con el path hacia la pagina donde hay que dirigirse
 	 */
 	public String verificarPersona() {
 		try {
 
-			
 			Persona persona = persistenciaBean.verificarUsuario(personaSeleccionada.getNombreUsuario(),
 					personaSeleccionada.getContrasena());
 
 			if (persona == null) {
 				throw new Exception();
 			}
-			if(persona.getActivo()) {
+			if (persona.getActivo()) {
 				if (persistenciaBean.buscarAlumno(persona.getId()) != null) {
 					alumnoLogeado = persistenciaBean.buscarAlumno(persona.getId());
 				}
 				personaLogeada = persona;
-				
+
 				// Generar JSON Web Token
-				token = jwt.generarToken(persona.getNombreUsuario()); // por ahora solo se le pasa nombre de usuario, se podrian agregar mas datos
-							
+				token = jwt.generarToken(persona.getNombreUsuario()); // por ahora solo se le pasa nombre de usuario, se
+																		// podrian agregar mas datos
+
 				return "/index.xhtml?facesRedirect=true";
 			}
-			
-			
+
 			// Mensaje si el usuario esta inactivo
 			String msg1 = "Usuario dado de baja del sistema";
 			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, msg1, "");
 			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 			return "";
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			String msg1 = "Usuario o contraseña Incorrecta";
@@ -141,8 +142,8 @@ public class GestionPersona implements Serializable {
 		// mensaje de actualizacion correcta
 		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, msg1, "");
 		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-		
-		String url="login.xhtml";
+
+		String url = "login.xhtml";
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect(url);
 		} catch (IOException e) {
@@ -177,6 +178,39 @@ public class GestionPersona implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 		return "";
 	}
+
+	public String bajaPersonaOnLista(PersonaAlumnoDTO pDto) {
+		Persona p=parsePersonaFromDTO(pDto);
+		p.setActivo(false);
+		persistenciaBean.modificarUsuario(p);
+//		pDto.setActivo(false);
+		System.out.println("baja");
+		String msg1 = "Se elimino correctamente el usuario";
+		// mensaje de actualizacion correcta
+		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, msg1, "");
+		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+		return "";
+	}
+
+	public String activarPersonaOnLista(PersonaAlumnoDTO pDto) {
+		Persona p=parsePersonaFromDTO(pDto);
+		p.setActivo(true);
+		persistenciaBean.modificarUsuario(p);
+		
+//		pDto.setActivo(true);
+		System.out.println("alta");
+		String msg1 = "Se activo correctamente el usuario";
+		// mensaje de actualizacion correcta
+		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, msg1, "");
+		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+		return "";
+	}
+//	public void bajaPersonaLisener(ActionEvent event) {
+//		Persona p = (Persona) event.getComponent().getAttributes().get("persona");
+//
+//		bajaPersonaOnLista(p);
+//
+//	}
 
 	public String modificarContrasena() {
 		Persona p = persistenciaBean.buscarPersona(personaLogeada.getId());
@@ -237,6 +271,7 @@ public class GestionPersona implements Serializable {
 
 	public Persona parsePersonaFromDTO(PersonaAlumnoDTO pdto) {
 		Persona p = persistenciaBean.buscarPersona(pdto.getId());
+		p.setActivo(pdto.getActivo());
 		p.setNombre1(pdto.getNombre1());
 		p.setApellido1(pdto.getApellido1());
 		p.setMail(pdto.getMail());
@@ -249,7 +284,7 @@ public class GestionPersona implements Serializable {
 
 	public Alumno parseAlumnoFromDTO(PersonaAlumnoDTO pdto) {
 		Alumno a = persistenciaBean.buscarAlumno(pdto.getId());
-
+		a.setActivo(pdto.getActivo());
 		a.setNombre1(pdto.getNombre1());
 		a.setApellido1(pdto.getApellido1());
 		a.setMail(pdto.getMail());
@@ -280,7 +315,7 @@ public class GestionPersona implements Serializable {
 	public java.util.Date getFechaNacSel() {
 		return fechaNacSel;
 	}
-	
+
 	public String darDeBaja() {
 		personaLogeada.setActivo(false);
 		persistenciaBean.modificarUsuario(personaLogeada);
@@ -291,37 +326,37 @@ public class GestionPersona implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 		return "login.xhtml?facesRedirect=true";
 	}
-	
+
 	public String cerrarSesion() {
 		reset();
 		return "login.xhtml?facesRedirect=true";
-		
+
 	}
-	
+
 	public void checkUserIsLogin() {
-		if(personaLogeada.getId()==null || personaLogeada==null) {
+		if (personaLogeada.getId() == null || personaLogeada == null) {
 			try {
-				
-				isKicked=true;
+
+				isKicked = true;
 				FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-				
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
-	
+
 	public void msjKick() {
-		if(isKicked) {
+		if (isKicked) {
 			String msg1 = "Debes estar ingresado para esa funcionalidad";
 			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, msg1, "");
 			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-			isKicked=false;
+			isKicked = false;
 		}
 	}
-		
+
 	public void setFechaNacSel(java.util.Date fechaNacSel) {
 		personaSeleccionada.setFechaNacimiento(new java.sql.Date(fechaNacSel.getTime()));
 		this.fechaNacSel = fechaNacSel;
@@ -490,7 +525,5 @@ public class GestionPersona implements Serializable {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	
-	
 
 }

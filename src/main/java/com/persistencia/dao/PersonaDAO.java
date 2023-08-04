@@ -86,7 +86,7 @@ public class PersonaDAO {
 						aux.setMail(strDato);
 						break;
 					case 7:
-						System.out.println(dato.toString());
+						
 						if(dato.toString().equals("1")) {
 							aux.setActivo(true);
 						}else {

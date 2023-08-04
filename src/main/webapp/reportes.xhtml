@@ -17,165 +17,73 @@
 	<ui:define name="contenidoPrincipal">
 		
 		<h1>Reportes</h1>
-		
+
+
 		<div class="card">
-			<h:form>
-				<p:dataTable var="personas" value="#{dtFilterView.personas}"
-					widgetVar="personasTable"
-					emptyMessage="Personas no encontradas con este criterio"
-					filteredValue="#{dtFilterView.filteredPersonas}"
-					globalFilterFunction="#{dtFilterView.globalFilterFunction}"
-					editable="#{gestionPersona.personaLogeada.admin}" id="dateTable" selectionMode="single"
-					rowKey="#{gestionPersona.personasMod}">
+			<div class="grid formgrid">
+				<div class="field col-12">
+					<h3>
+						<span class="pi pi-exclamation-triangle"></span> En Desarollo
+					</h3>
+					<p:skeleton class="mb-2" />
+					<p:skeleton class="mb-2" />
+					<p:skeleton width="15rem" class="mb-2" />
 
-					<p:ajax event="rowEdit" listener="#{gestionPersona.onRowEdit}"
-						update="dateTable" />
-					<p:ajax event="rowEditCancel"
-						listener="#{gestionPersona.onRowCancel}" update="dateTable" />
-			
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="card">
+			<div class="grid formgrid">
+				<h5>Tabla de Escolaridades</h5>
+				<p:dataTable var="dataTable" value="">
 					<f:facet name="header">
-						<div class="flex justify-content-end">
-							<p:inputText id="globalFilter"
-								onkeyup="PF('personasTable').filter()" style="width:300px"
-								placeholder="Buscardor global..." />
-						</div>
-					</f:facet>
-
-					<p:column field="nombre1" headerText="Nombre"
-						sortBy="#{personas.nombre1}" filterable="false">
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText style="vertical-align: middle; margin-left: .5rem"
-									value="#{personas.nombre1}" />
-							</f:facet>
-							<f:facet name="input" class="col-10">
-								<p:inputText
-									style="width:100%;vertical-align: middle; margin-left: .5rem"
-									value="#{personas.nombre1}" />
-							</f:facet>
-						</p:cellEditor>
-					</p:column>
-
-					<p:column field="apellido1" headerText="Apellido"
-						filterable="false">
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText style="vertical-align: middle; margin-left: .5rem"
-									value="#{personas.apellido1}" />
-							</f:facet>
-							<f:facet name="input" class="col-10">
-								<p:inputText
-									style="width:100%;vertical-align: middle; margin-left: .5rem"
-									value="#{personas.apellido1}" />
-							</f:facet>
-						</p:cellEditor>
-					</p:column>
-
-					<p:column field="mail" headerText="Email" filterable="false">
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText style="vertical-align: middle; margin-left: .5rem"
-									value="#{personas.mail}" />
-							</f:facet>
-							<f:facet name="input" class="col-10">
-								<p:inputText
-									style="width:100%;vertical-align: middle; margin-left: .5rem"
-									value="#{personas.mail}" />
-							</f:facet>
-						</p:cellEditor>
-					</p:column>
-
-					<p:column field="nombreUsuario" headerText="Nombre de Usuario"
-						filterable="false">
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText style="vertical-align: middle; margin-left: .5rem"
-									value="#{personas.nombreUsuario}" />
-							</f:facet>
-							<f:facet name="input" class="col-10">
-								<p:inputText
-									style="width:100%;vertical-align: middle; margin-left: .5rem"
-									value="#{personas.nombreUsuario}" />
-							</f:facet>
-						</p:cellEditor>
-					</p:column>
-					<p:column field="direccion" headerText="Direccion"
-						filterable="false">
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText style="vertical-align: middle; margin-left: .5rem"
-									value="#{personas.direccion}" />
-							</f:facet>
-							<f:facet name="input" class="col-10">
-
-								<p:inputText
-									style="width:100%;vertical-align: middle; margin-left: .5rem"
-									value="#{personas.direccion}" />
-							</f:facet>
-						</p:cellEditor>
-					</p:column>
-					<p:column headerText="Edad" filterable="false">
-						<h:outputText style="vertical-align: middle; margin-left: .5rem"
-							value="#{dtFilterView.getEdad(personas.fechaNacimiento)}" />
-
-					</p:column>
-
-					<p:column headerText="Carrera" filterable="false">
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText style="vertical-align: middle; margin-left: .5rem"
-									value="#{personas.carrera}" />
-							</f:facet>
-							<f:facet name="input" class="col-10 elemento3"  id="elementoCoso"> 
-								<p:selectOneMenu
-									value="#{personas.carrera}"
-									rendered="#{personas.carrera!=null}"
-									appendTo="@(#groupCarreraMod)"
-									styleClass="elemento">
-									<f:selectItem itemLabel="" itemValue="" styleClass="elemento2"/>
-									<c:forEach var="carrera" items="#{gestionPersona.carreras}">
-										<f:selectItem itemLabel="#{carrera.nombre}"
-											itemValue="#{carrera.nombre}" />
-									</c:forEach>
-								</p:selectOneMenu>
+						<h4>Filtros</h4>
+						<p:panelGrid columns="4" layout="grid" >
+							<p:outputLabel value=""></p:outputLabel>
+							<p:outputLabel value="ITR"></p:outputLabel>
+							<p:outputLabel value="Generacion"></p:outputLabel>
+							<p:outputLabel value=""></p:outputLabel>
 							
-							</f:facet>
-						</p:cellEditor>
-						
+							<p:inputText disabled="true" placeholder="Buscar..." style="width:100%;"> </p:inputText>
+
+							<p:selectOneMenu disabled="true" style="width:80%;">
+								<f:selectItem itemLabel="" itemValue="" />
+							</p:selectOneMenu>
+
+
+							<p:selectOneMenu disabled="true" style="width:80%;">
+								<f:selectItem itemLabel="" itemValue="" />
+							</p:selectOneMenu>
+							<p:commandButton value="Filtrar" disabled="true" style="width:60%;"></p:commandButton>
+
+						</p:panelGrid>
+					</f:facet>
+					<p:column headerText="Nombre">
+						<p:skeleton />
+
 					</p:column>
-					<div id="groupCarreraMod"> prueba</div>
+					<p:column headerText="Cédula">
+						<p:skeleton />
 
-
-					<p:column headerText="Id Estudiante" filterable="false">
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText style="vertical-align: middle; margin-left: .5rem"
-									value="#{personas.idEstudiantil}" />
-							</f:facet>
-							<f:facet name="input" class="col-10">
-
-								<p:inputText
-									style="width:100%;vertical-align: middle; margin-left: .5rem"
-									value="#{personas.idEstudiantil}"
-									rendered="#{personas.idEstudiantil!=null}" />
-							</f:facet>
-
-						</p:cellEditor>
 					</p:column>
-
-					<p:column style="width:6rem" headerText="" rendered="#{gestionPersona.personaLogeada.admin}">
-						<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit"
-							saveTitle="Save Row" />
+					<p:column headerText="ITR">
+						<p:skeleton />
 					</p:column>
-
-<!-- 				<p:column style="width:6rem" headerText=""> -->
-<!-- 					<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" -->
-<!-- 						saveTitle="Save Row" /> -->
-<!-- 				</p:column> -->
-
-			</p:dataTable>
-		</h:form>
-	</div>
+					<p:column headerText="Generación">
+						<p:skeleton />
+					</p:column>
+					<p:column headerText="Email Utec">
+						<p:skeleton />
+					</p:column>
+					<p:column headerText="Teléfono">
+						<p:skeleton />
+					</p:column>
+				</p:dataTable>
+			</div>
+		</div>
 
 	</ui:define>
 

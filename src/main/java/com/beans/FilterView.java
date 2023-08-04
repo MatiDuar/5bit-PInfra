@@ -124,6 +124,12 @@ public class FilterView implements Serializable {
 	}
 
 	public List<PersonaAlumnoDTO> getPersonas() {
+		try {
+			personas=service.listarPersonasDTO();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return personas;
 	}
 
