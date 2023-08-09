@@ -13,22 +13,23 @@
 	display: flex;
 	flex-direction: column;
 }
-.aaa{
+
+.aaa {
 	background: #FFFFFF;
 }
 
 .layout-topbar {
 	position: fixed;
-    height: 100px;
-    width: 100%;
-    background-color: var(--surface-a);
-    border-bottom: 2px solid var(--surface-d);
-    display: flex;
-    justify-content: space-between;
+	height: 100px;
+	width: 100%;
+	background-color: var(--surface-a);
+	border-bottom: 2px solid var(--surface-d);
+	display: flex;
+	justify-content: space-between;
 }
 
 .layout-topbar .topbar-actions {
-    display: flex;
+	display: flex;
 }
 
 .bordeBtn {
@@ -37,14 +38,22 @@
 
 .layout-content {
 	margin-left: 250px;
-    padding-top: 125px;
-    padding-left: 30px;
-    padding-right: 30px;  
+	padding-top: 125px;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.layout-content2 {
+	padding-top: 125px;
+	padding-left: 30px;
+	padding-right: 30px;
 }
 
 body {
 	margin: 0px;
-	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		"Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .ui-button btnPanel {
@@ -57,64 +66,65 @@ body {
 	padding: 4px !important;
 }
 
- .custom-tabmenu .ui-tabmenu-nav li:first-child {
-    margin-left: auto;
-  }
-  
- .text-align-center{
- 	text-align:center;
- }
- 
- .footer {
-	color: white;
-    background-color: #1A1A1A;
-    width: 100%;
-    height: 40px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    text-align: center;
+.custom-tabmenu .ui-tabmenu-nav li:first-child {
+	margin-left: auto;
 }
 
-.separador{
+.text-align-center {
+	text-align: center;
+}
+
+.footer {
+	color: white;
+	background-color: #1A1A1A;
+	width: 100%;
+	height: 40px;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	text-align: center;
+}
+
+.separador {
 	margin-bottom: 125px;
 }
- 
+
 .fildsetprueba {
 	margin-bottom: 20px;
-} 
- 
-.datePicker{
-    position: static !important;	
-} 
-
-.user{
-	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-    color: #6c757d;
-    padding: 1rem;
-    font-weight: 700;
-    display: block;
-    line-height: 1;
-    outline: 0 none;
 }
- 
-.contenedorUser{
-	padding-right: 15px;
-} 
 
-.elemento{
+.datePicker {
+	position: static !important;
+}
+
+.user {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		"Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	color: #6c757d;
+	padding: 1rem;
+	font-weight: 700;
+	display: block;
+	line-height: 1;
+	outline: 0 none;
+}
+
+.contenedorUser {
+	padding-right: 15px;
+}
+
+.elemento {
 	position: absolute !important;
 }
- 
-.ui-cell-editor-input{
+
+.ui-cell-editor-input {
 	display: flex;
 	align-items: center !important;
 }
 
-.ui-datatable .ui-row-editing .ui-cell-editor .ui-cell-editor-input{
-display: grid;
-}    
-
+.ui-datatable .ui-row-editing .ui-cell-editor .ui-cell-editor-input {
+	display: grid;
+}
 
 ul {
 	overflow: hidden !important;
@@ -122,3 +132,8 @@ ul {
 	overflow-y: hidden !important;
 }
 
+td .columnaEditar {
+	display: flex !important;
+	justify-content: center;
+	align-items: center;
+}

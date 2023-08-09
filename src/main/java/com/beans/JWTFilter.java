@@ -52,9 +52,11 @@ public class JWTFilter implements Filter {
 				// El token es válido
 
 				String username = claims.getSubject();
+				Boolean admin=(Boolean) claims.get("esAdmin");
+				
 				// Aca se podria obtener los roles y otras informaciones adicionales del token si se incluyen en el
 				System.out.println("Usuario: " + username);
-
+				System.out.println("esAdmin: "+admin);
 				// Permite el acceso al recurso protegido
 				chain.doFilter(request, response);
 			} catch (Exception e) {

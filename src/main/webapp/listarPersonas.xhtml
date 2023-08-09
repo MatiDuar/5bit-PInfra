@@ -170,38 +170,35 @@
 							</p:cellEditor>
 						</p:column>
 
-						<p:column>
-
-
-
-
-							<p:commandButton value="Activar"
-								styleClass="ui-button-raised ui-button-success"
-								action="#{gestionPersona.activarPersonaOnLista(personas)}"
-								rendered="#{!personas.activo}" immediate="true"
-								update="dateTable">
-								<p:confirm header="Estas Seguro?"
-									message="La cuenta sera activada en el sistema"
-									icon="pi pi-info-circle" class="confirmDialog" />
+						<p:column rendered="#{gestionPersona.personaLogeada.admin}" headerText="Estado">
+							<div class="columnaEditar">
+								<p:commandButton icon="pi pi-plus-circle"
+									styleClass="rounded-button ui-button-success ui-button-flat"
+									action="#{gestionPersona.activarPersonaOnLista(personas)}"
+									rendered="#{!personas.activo}" immediate="true"
+									update="dateTable">
+									<p:confirm header="Estas Seguro?"
+										message="La cuenta sera activada en el sistema"
+										icon="pi pi-info-circle" class="confirmDialog" />
+										
 							</p:commandButton>
 
-							<p:commandButton value="Eliminar"
-								styleClass="ui-button-raised ui-button-danger"
-								icon="pi pi-times"
-								action="#{gestionPersona.bajaPersonaOnLista(personas)}"
-								rendered="#{personas.activo}" immediate="true"
-								update="dateTable">
-								<p:confirm header="Estas Seguro?"
-									message="La cuenta seleccionada sera dada de baja y no podra ingresar a la aplicacion"
-									icon="pi pi-info-circle" class="confirmDialog" />
-							</p:commandButton>
+								<p:commandButton icon="pi pi-minus-circle"
+									styleClass="rounded-button ui-button-danger ui-button-flat"
+									action="#{gestionPersona.bajaPersonaOnLista(personas)}"
+									rendered="#{personas.activo}" immediate="true"
+									update="dateTable" id="botonBaja">
+									<p:confirm header="Estas Seguro?"
+										message="La cuenta seleccionada sera dada de baja y no podra ingresar a la aplicacion"
+										icon="pi pi-info-circle" class="confirmDialog" />
 
 
-
+								</p:commandButton>
+							</div>
 						</p:column>
-
-						<p:column style="width:6rem" headerText=""
+						<p:column style="width:6rem;" headerText="Editar"
 							rendered="#{gestionPersona.personaLogeada.admin}">
+
 							<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit"
 								saveTitle="Save Row" />
 						</p:column>
@@ -210,18 +207,17 @@
 
 					</p:dataTable>
 
-					
+
 
 				</p:panel>
-				
+
 				<p:confirmDialog global="true" showEffect="fade" responsive="true"
-						width="350" class="dialog" appendTo="contenido">
-						<p:commandButton value="No" type="button"
-							styleClass="ui-confirmdialog-no ui-button-flat"
-							update="dateTable" />
-						<p:commandButton value="Sí" type="button"
-							styleClass="ui-confirmdialog-yes" update="dateTable" />
-					</p:confirmDialog>
+					width="350" class="dialog" appendTo="contenido">
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no ui-button-flat" update="dateTable" />
+					<p:commandButton value="Sí" type="button"
+						styleClass="ui-confirmdialog-yes" update="dateTable" />
+				</p:confirmDialog>
 			</h:form>
 		</div>
 

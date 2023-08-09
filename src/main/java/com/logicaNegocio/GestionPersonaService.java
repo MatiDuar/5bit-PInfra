@@ -117,6 +117,8 @@ public class GestionPersonaService implements Serializable {
 	public List<Carrera> listarCarreras(){
 		return carreraDAO.listarCarreras();
 	}
+	
+	
 	public void initPersona() {
 
 		initDepartamentos();

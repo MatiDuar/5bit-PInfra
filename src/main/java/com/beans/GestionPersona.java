@@ -7,7 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
@@ -24,6 +24,11 @@ import com.persistencia.entities.Alumno;
 import com.persistencia.entities.Carrera;
 import com.persistencia.entities.ITR;
 import com.persistencia.entities.Persona;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.impl.DefaultClaims;
+import io.jsonwebtoken.security.Keys;
 
 @Named(value = "gestionPersona") // JEE8
 @SessionScoped // JEE8
@@ -55,6 +60,8 @@ public class GestionPersona implements Serializable {
 	private String toRegistro;
 	private List<Carrera> carreras;
 	private List<ITR> itrs;
+	
+	private List<String> bottonesMenu;
 
 	private java.util.Date fechaNacSel;
 	private java.util.Date fechaNacLog;
@@ -69,6 +76,8 @@ public class GestionPersona implements Serializable {
 	// Token de jwt
 	private String token;
 
+	private Claims datosToken;
+
 	@PostConstruct
 	public void init() {
 		persistenciaBean.initPersona();
@@ -82,6 +91,7 @@ public class GestionPersona implements Serializable {
 		isModContraseña = false;
 		toRegistro = "registro.xhtml?facesRedirect=true";
 		personasMod = new LinkedList<>();
+		bottonesMenu=new LinkedList<>();
 
 	}
 
@@ -94,34 +104,32 @@ public class GestionPersona implements Serializable {
 	public String verificarPersona() {
 		try {
 
-			Persona persona = persistenciaBean.verificarUsuario(personaSeleccionada.getNombreUsuario(),
-					personaSeleccionada.getContrasena());
+			// Generar JSON Web Token
+			token = jwt.generarToken(personaSeleccionada.getNombreUsuario(), personaSeleccionada.getContrasena());
 
-			if (persona == null) {
-				throw new Exception();
+			datosToken = jwt.obtenerClaim(token);
+
+			// traemos los datos de la persona logeada a partir del Id Persona del token
+			// generado
+			Long idPersona = ((Double) datosToken.get("id")).longValue();
+			if (persistenciaBean.buscarAlumno(idPersona) != null) {
+				alumnoLogeado = persistenciaBean.buscarAlumno(idPersona);
 			}
-			if (persona.getActivo()) {
-				if (persistenciaBean.buscarAlumno(persona.getId()) != null) {
-					alumnoLogeado = persistenciaBean.buscarAlumno(persona.getId());
-				}
-				personaLogeada = persona;
-
-				// Generar JSON Web Token
-				token = jwt.generarToken(persona.getNombreUsuario()); // por ahora solo se le pasa nombre de usuario, se
-																		// podrian agregar mas datos
-
-				return "/index.xhtml?facesRedirect=true";
+			personaLogeada = persistenciaBean.buscarPersona(idPersona);
+			if (!(Boolean) datosToken.get("activo")) {
+				// Mensaje si el usuario esta inactivo
+				String msg1 = "Usuario dado de baja del sistema";
+				FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, msg1, "");
+				FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+				return "";
 			}
+			FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
 
-			// Mensaje si el usuario esta inactivo
-			String msg1 = "Usuario dado de baja del sistema";
-			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, msg1, "");
-			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 			return "";
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			String msg1 = "Usuario o contraseña Incorrecta";
+			String msg1 = e.getMessage();
 			// mensaje autenticación incorrecta
 			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg1, "");
 			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
@@ -238,7 +246,7 @@ public class GestionPersona implements Serializable {
 	 * @return
 	 */
 	public String modificarContrasena() {
-		Persona p = persistenciaBean.buscarPersona(personaLogeada.getId());
+		Persona p = persistenciaBean.buscarPersona((long) datosToken.get("id"));
 		p.setContrasena(contrasenaModificar);
 
 		persistenciaBean.modificarUsuario(p);
@@ -274,6 +282,8 @@ public class GestionPersona implements Serializable {
 		alumnoSeleccionado = new Alumno();
 		carreraSeleccionada = "";
 		itrSeleccionado = "";
+		token = "";
+		datosToken = null;
 	}
 
 	/**
@@ -372,11 +382,14 @@ public class GestionPersona implements Serializable {
 	public java.util.Date getFechaNacSel() {
 		return fechaNacSel;
 	}
+
 	/**
 	 * Funcion que da de baja al usuario Logeado
+	 * 
 	 * @return
 	 */
 	public String darDeBaja() {
+
 		personaLogeada.setActivo(false);
 		persistenciaBean.modificarUsuario(personaLogeada);
 		reset();
@@ -394,7 +407,7 @@ public class GestionPersona implements Serializable {
 	}
 
 	/**
-	 * Este metodo valida si el usuario esta logeado 
+	 * Este metodo valida si el usuario esta logeado
 	 */
 	public void checkUserIsLogin() {
 		if (personaLogeada.getId() == null || personaLogeada == null) {
@@ -404,7 +417,7 @@ public class GestionPersona implements Serializable {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
 
 			} catch (IOException e) {
-				
+
 				e.printStackTrace();
 			}
 		}
@@ -587,6 +600,28 @@ public class GestionPersona implements Serializable {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public List<String> getBottonesMenu() {
+
+
+		// Obtener la ruta de la vista actual
+		String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+
+		if(viewId.equals("/index.xhtml") || viewId.equals("/listarPersonas.xhtml")) {
+			bottonesMenu=new LinkedList<>();
+		}else{
+			bottonesMenu=new LinkedList<>();
+			bottonesMenu.add("Boton 1");
+			bottonesMenu.add("Boton 2");
+			bottonesMenu.add("Boton 3");
+			bottonesMenu.add("Boton 4");			
+		}
+		return bottonesMenu;
+	}
+
+	public void setBottonesMenu(List<String> bottonesMenu) {
+		this.bottonesMenu = bottonesMenu;
 	}
 
 }

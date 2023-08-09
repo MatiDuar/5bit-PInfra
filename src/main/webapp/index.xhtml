@@ -3,19 +3,21 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-<h:head >
+<h:head>
 
 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
 	<h:outputScript library="primefaces" name="primefaces.js" />
-	<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/primeflex@3.3.1/primeflex.min.css" />
+	<link type="text/css" rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/primeflex@3.3.1/primeflex.min.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/index.css" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	
+
 </h:head>
 <h:body onload="#{gestionPersona.checkUserIsLogin()}">
-	
+
 	<!-- ****************************************	Menu	****************************************-->
 
 	<ui:include src="templates/header.xhtml" />
@@ -23,36 +25,64 @@
 	<!--****************************************	Fin Menu	****************************************-->
 
 	<!--****************************************	Contenido barra Izquierda	****************************************-->
-	
-	<ui:include src="templates/menu.xhtml" />
-	
+	<h:panelGroup rendered="#{gestionPersona.bottonesMenu.size()!=0}">
+
+		<ui:include src="templates/menu.xhtml" />
+	</h:panelGroup>
+
+
 	<!--**************************************** 	Fin contenido barra Izquierda	**************************************** -->
 
 	<!--****************************************	Contenido Principal    **************************************** -->
-	<div class="layout-content">
-		<div id="contenidoPrincipal">
-			<ui:insert name="contenidoPrincipal">
+	<h:panelGroup rendered="#{gestionPersona.bottonesMenu.size()!=0}">
+		<div class="layout-content">
+			<div id="contenidoPrincipal">
+				<ui:insert name="contenidoPrincipal">
 
-				<div>
-					<h1>Proyecto Infraestructura - 5bit</h1>
+					<div>
+						<h1>Proyecto Infraestructura - 5bit</h1>
 
-					<div class="card">
-						<h5>PDF</h5>
-						<p:media value="/resources/document/PInfra.pdf" width="100%" height="620px">
+						<div class="card">
+							<h5>PDF</h5>
+							<p:media value="/resources/document/PInfra.pdf" width="100%"
+								height="620px">
        							 Your browser can't display pdf, <h:outputLink
-								value="#{request.contextPath}/resources/document/PInfra.pdf">click</h:outputLink> to download pdf instead.
+									value="#{request.contextPath}/resources/document/PInfra.pdf">click</h:outputLink> to download pdf instead.
     					</p:media>
+						</div>
 					</div>
-				</div>
 
-			</ui:insert>
+				</ui:insert>
+			</div>
 		</div>
-	</div>
+	</h:panelGroup>
+	
+	<h:panelGroup rendered="#{gestionPersona.bottonesMenu.size()==0}">
+		<div class="layout-content2">
+			<div id="contenidoPrincipal">
+				<ui:insert name="contenidoPrincipal">
 
+					<div>
+						<h1>Proyecto Infraestructura - 5bit</h1>
+
+						<div class="card">
+							<h5>PDF</h5>
+							<p:media value="/resources/document/PInfra.pdf" width="100%"
+								height="620px">
+       							 Your browser can't display pdf, <h:outputLink
+									value="#{request.contextPath}/resources/document/PInfra.pdf">click</h:outputLink> to download pdf instead.
+    					</p:media>
+						</div>
+					</div>
+
+				</ui:insert>
+			</div>
+		</div>
+	</h:panelGroup>
 	<!--****************************************	Fin contenido Principal	   ****************************************-->
 
-    <!--****************************************	Footer    **************************************** -->
-    
+	<!--****************************************	Footer    **************************************** -->
+
 	<ui:include src="templates/footer.xhtml" />
 
 	<!--****************************************	Fin footer    **************************************** -->
