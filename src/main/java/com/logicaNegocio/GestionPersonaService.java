@@ -44,6 +44,7 @@ public class GestionPersonaService implements Serializable {
 
 	/**
 	 * Lista de todas las personas en la base de datos
+	 * 
 	 * @return Lista de Personas
 	 * @throws Exception
 	 */
@@ -53,9 +54,10 @@ public class GestionPersonaService implements Serializable {
 
 		return listaPersonas;
 	}
-	
+
 	/**
 	 * Lista de todas las personas y alumnos en la base de datos
+	 * 
 	 * @return Lista de PersonasAlumnoDTO
 	 * @throws Exception
 	 */
@@ -65,9 +67,10 @@ public class GestionPersonaService implements Serializable {
 
 		return listaPersonas;
 	}
-	
+
 	/**
 	 * Lista de todos los ITRs
+	 * 
 	 * @return lista de ITR
 	 */
 	public List<ITR> listarITRs() {
@@ -76,8 +79,10 @@ public class GestionPersonaService implements Serializable {
 
 		return listaPItrs;
 	}
+
 	/**
 	 * Verifica si el nombreUsuario y contraseña coinciden en la base de datos
+	 * 
 	 * @param nombreUsuario
 	 * @param contra
 	 * @return El objeto de la persona encontrada en la base de datos
@@ -88,6 +93,7 @@ public class GestionPersonaService implements Serializable {
 
 	/**
 	 * se agrega Persona en la base de datos
+	 * 
 	 * @param p
 	 */
 	public void agregarUsuario(Persona p) {
@@ -95,30 +101,44 @@ public class GestionPersonaService implements Serializable {
 		p.setAdmin(false);
 		personaDAO.agregarPersona(p);
 	}
+
 	/**
 	 * Modifica los de datos en la base de datos
+	 * 
 	 * @param p Persona a modificar los datos
 	 */
 	public void modificarUsuario(Persona p) {
 		personaDAO.modificarPersona(p);
 	}
-	
+
 	/**
 	 * Borra a un Usuario en la base de datos
+	 * 
 	 * @param id Id de el usuario a borrar
 	 */
 	public void borrarUsuario(long id) {
 		personaDAO.borrarPersona(id);
 	}
+
 	/**
 	 * Lista de Carreras en la base de datos
+	 * 
 	 * @return Lista de Carrera
 	 */
-	public List<Carrera> listarCarreras(){
+	public List<Carrera> listarCarreras() {
 		return carreraDAO.listarCarreras();
 	}
-	
-	
+
+	/**
+	 * retorna true si existe un usuario con el nombre ingresado
+	 * @param nombre
+	 * @return
+	 */
+	public Boolean existeNombreUsuario(String nombre) {
+
+		return personaDAO.existeNombreUsuario(nombre);
+	}
+
 	public void initPersona() {
 
 		initDepartamentos();
@@ -133,7 +153,7 @@ public class GestionPersonaService implements Serializable {
 		p.setNombreUsuario("demo");
 		p.setContrasena("demo");
 		p.setDireccion("demo");
-		p.setFechaNacimiento(new Date(2002-1900, 02, 04));
+		p.setFechaNacimiento(new Date(2002 - 1900, 02, 04));
 		p.setMail("demo@demo");
 
 		personaDAO.agregarPersona(p);
@@ -146,10 +166,9 @@ public class GestionPersonaService implements Serializable {
 		a.setNombreUsuario("jean.marshall");
 		a.setContrasena("demo");
 		a.setDireccion("demo");
-		a.setFechaNacimiento(new Date(2002-1900, 02, 04));
+		a.setFechaNacimiento(new Date(2002 - 1900, 02, 04));
 		a.setMail("jean.marshall@estudiantes.utec.edu.uy");
 		a.setIdEstudiantil((long) 2222);
-		
 
 		a.setItr(itrDAO.buscarITR("Centro-sur"));
 		a.setCarrera(carreraDAO.buscarCarrera("LTI"));
@@ -197,19 +216,19 @@ public class GestionPersonaService implements Serializable {
 	public Alumno buscarAlumno(long id) {
 		return alumnoDAO.buscar(id);
 	}
-	
+
 	public Carrera buscarCarrera(String nombre) {
 		return carreraDAO.buscarCarrera(nombre);
 	}
-	
+
 	public Carrera buscarCarrera(Long id) {
 		return carreraDAO.buscarCarrera(id);
 	}
-	
+
 	public ITR buscarITR(String nombre) {
 		return itrDAO.buscarITR(nombre);
 	}
-	
+
 	public Persona buscarPersona(long id) {
 		return personaDAO.buscarPersona(id);
 	}

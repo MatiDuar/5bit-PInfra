@@ -608,7 +608,7 @@ public class GestionPersona implements Serializable {
 		// Obtener la ruta de la vista actual
 		String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
 
-		if(viewId.equals("/index.xhtml") || viewId.equals("/listarPersonas.xhtml")) {
+		if(viewId.equals("/index.xhtml") || viewId.equals("/listarPersonas.xhtml") || viewId.equals("/editarPerfil.xhtml")) {
 			bottonesMenu=new LinkedList<>();
 		}else{
 			bottonesMenu=new LinkedList<>();

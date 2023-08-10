@@ -45,6 +45,7 @@ public class PersonaDAO {
 
 	/**
 	 * Selecciona a todos las personas y alumnos de la base de datos
+	 * 
 	 * @return Listado de PersonaAlumnoDTO
 	 */
 	public List<PersonaAlumnoDTO> listarPersonasDTO() {
@@ -129,9 +130,9 @@ public class PersonaDAO {
 		return null;
 	}
 
-	
 	/**
 	 * Busca a una persona en la base de datos a partir del id
+	 * 
 	 * @param id Id de Persona a buscar
 	 * @return Si encuentra devuelve un objeto Persona sino devuelve null
 	 */
@@ -139,7 +140,6 @@ public class PersonaDAO {
 		return em.find(Persona.class, id);
 	}
 
-	
 	/**
 	 * Se agrega una Persona en la base de datos
 	 * 
@@ -154,8 +154,7 @@ public class PersonaDAO {
 			new Exception("No se pudo crear la Persona");
 		}
 	}
-	
-	
+
 	/**
 	 * modifica a una Persona en la base de datos
 	 * 
@@ -170,7 +169,6 @@ public class PersonaDAO {
 		}
 	}
 
-	
 	/**
 	 * Borra a una Persona en la base de datos
 	 * 
@@ -188,8 +186,6 @@ public class PersonaDAO {
 		}
 
 	}
-
-
 
 	/**
 	 * si esta en la BD y usuario y contrasena es correcto devuelve un objeto de
@@ -210,6 +206,18 @@ public class PersonaDAO {
 			return query.getSingleResult();
 		} catch (Exception e) {
 			return null;
+		}
+	}
+
+	public Boolean existeNombreUsuario(String nombreUsuario) {
+		try {
+			TypedQuery<Persona> query = em
+					.createQuery("select p from Persona p where p.nombreUsuario=:nombreUsuario", Persona.class)
+					.setParameter("nombreUsuario", nombreUsuario);
+			query.getSingleResult();
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
 	}
 }

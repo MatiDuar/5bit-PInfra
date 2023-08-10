@@ -9,8 +9,10 @@
 <h:head>
 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
 	<h:outputScript library="primefaces" name="primefaces.js" />
-	<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/primeflex@3.3.1/primeflex.min.css" />
-	<link rel="stylesheet" type="text/css" href="resources/css/registro.css" />
+	<link type="text/css" rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/primeflex@3.3.1/primeflex.min.css" />
+	<link rel="stylesheet" type="text/css"
+		href="resources/css/registro.css" />
 </h:head>
 <body>
 
@@ -37,7 +39,11 @@
 								<p:inputText id="primerNombre"
 									value="#{gestionPersona.personaSeleccionada.nombre1}"
 									required="true"
-									requiredMessage="Debe ingresar el primer Nombre" maxlength="50" />
+									requiredMessage="Debe ingresar el primer Nombre" maxlength="50"
+									validatorMessage="No puede contener solo espacios vacios">
+									<f:validateRegex pattern="^(?!\s*$).+"></f:validateRegex>
+
+								</p:inputText>
 								<small class="block ui-state-error"><h:message
 										style="color:red;" for="primerNombre" /></small>
 
@@ -46,17 +52,24 @@
 							<div class="col-12 md:col-4">
 								<h5>Segundo Nombre</h5>
 								<p:inputText id="nombre2"
-									value="#{gestionPersona.personaSeleccionada.nombre2}" />
+									value="#{gestionPersona.personaSeleccionada.nombre2}"
+									validatorMessage="No puede contener solo espacios vacios">
+									<f:validateRegex pattern="^(|\s*.*\S.*)$"></f:validateRegex>
+
+								</p:inputText>
 								<small class="block ui-state-error"><h:message
 										style="color:red;" for="nombre2" /></small>
 							</div>
 							<div class="field col-12 md:col-4">
 								<h5>Fecha Nacimiento *</h5>
 								<p:datePicker id="spanish" value="#{gestionPersona.fechaNacSel}"
-									locale="es" monthNavigator="true" pattern="dd-MM-yyyy" yearNavigator="true" yearRange="1950:2023"
-									required="true"
+									locale="es" monthNavigator="true" pattern="dd-MM-yyyy"
+									yearNavigator="true" yearRange="1950:2023" required="true"
 									requiredMessage="Debe ingresar una fecha de nacimiento"
-									validatorMessage="Formato incorrecto de la Fecha" />
+									validatorMessage="Formato incorrecto de la Fecha">
+
+
+								</p:datePicker>
 								<small class="block ui-state-error"><h:message
 										style="color:red;" for="spanish" /></small>
 
@@ -68,7 +81,11 @@
 								<p:inputText id="apellido1"
 									value="#{gestionPersona.personaSeleccionada.apellido1}"
 									required="true"
-									requiredMessage="Debe ingresar el primer Apellido" />
+									requiredMessage="Debe ingresar el primer Apellido"
+									validatorMessage="No puede contener solo espacios vacios">
+									<f:validateRegex pattern="^(?!\s*$).+"></f:validateRegex>
+
+								</p:inputText>
 								<small class="block ui-state-error"><h:message
 										style="color:red;" for="apellido1" /></small>
 							</div>
@@ -76,7 +93,10 @@
 							<div class="col-12 md:col-4">
 								<h5>Segundo Apellido</h5>
 								<p:inputText id="apellido2"
-									value="#{gestionPersona.personaSeleccionada.apellido2}" />
+									value="#{gestionPersona.personaSeleccionada.apellido2}"
+									validatorMessage="No puede contener solo espacios vacios">
+									<f:validateRegex pattern="^(|\s*.*\S.*)$"></f:validateRegex>
+								</p:inputText>
 								<small class="block ui-state-error"><h:message
 										style="color:red;" for="apellido2" /></small>
 							</div>
@@ -84,7 +104,11 @@
 								<h5>Direccion *</h5>
 								<p:inputText id="direccion"
 									value="#{gestionPersona.personaSeleccionada.direccion}"
-									required="true" requiredMessage="Debe ingresar la Direccion" />
+									required="true" requiredMessage="Debe ingresar la Direccion"
+									validatorMessage="No puede contener solo espacios vacios">
+									<f:validateRegex pattern="^(?!\s*$).+"></f:validateRegex>
+
+								</p:inputText>
 								<small class="block ui-state-error"><h:message
 										style="color:red;" for="direccion" /></small>
 							</div>
@@ -103,7 +127,10 @@
 									value="#{gestionPersona.personaSeleccionada.nombreUsuario}"
 									required="true"
 									requiredMessage="Debe ingresar el Nombre de Usuario"
-									styleClass="block" />
+									styleClass="block" validator="#{validatorPersona.validate}">
+
+
+								</p:inputText>
 								<small class="block ui-state-error"><h:message
 										style="color:red;" for="nombreUsuario" /></small>
 							</div>
@@ -113,8 +140,11 @@
 								<p:inputText id="email1"
 									value="#{gestionPersona.personaSeleccionada.mail}"
 									required="true" requiredMessage="Debe ingresar el Email"
-									type="email" 
-									/>
+									type="email" validatorMessage="Formato de Email incorrecto">
+									<f:validateRegex
+										pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"></f:validateRegex>
+
+								</p:inputText>
 								<small class="block ui-state-error"><h:message
 										style="color:red;" for="email1" /></small>
 							</div>
@@ -125,8 +155,10 @@
 								<p:password id="pass" label="Contraseña" match="pass2"
 									feedback="false"
 									value="#{gestionPersona.personaSeleccionada.contrasena}"
-									validatorMessage="Las Contraseñas no coinciden" required="true"
-									requiredMessage="Se necesita una valor" />
+									required="true" requiredMessage="Se necesita una valor">
+
+									<f:validateLength minimum="8" maximum="16"></f:validateLength>
+								</p:password>
 								<small class="block ui-state-error"><h:message
 										style="color:red;" for="pass" /></small>
 
@@ -159,7 +191,7 @@
 									<f:selectItem itemLabel="No" itemValue="false" />
 
 								</p:selectOneMenu>
-								
+
 
 							</div>
 						</div>
@@ -168,41 +200,49 @@
 								<div class="grid ui-fluid" id="datosAlumno">
 									<div class="col-12 md:col-4">
 										<h5>Id Estudiantil *</h5>
-										<p:inputText 
-											id="idEstudiante"
-											type="number"
+										<p:inputText id="idEstudiante" type="number"
 											value="#{gestionPersona.alumnoSeleccionado.idEstudiantil}"
-											requiredMessage="Debe ingresar el Id Estudiantil" />
-											<small class="block ui-state-error"><h:message
-										style="color:red;" for="idEstudiante" /></small>
+											requiredMessage="Debe ingresar el Id Estudiantil"
+											required="true">
+
+										</p:inputText>
+										<small class="block ui-state-error"><h:message
+												style="color:red;" for="idEstudiante" /></small>
 									</div>
 
 									<div class="col-12 md:col-4">
 										<h5>Carrera *</h5>
 										<p:selectOneMenu id="group"
-											value="#{gestionPersona.carreraSeleccionada}">
+											value="#{gestionPersona.carreraSeleccionada}"
+											validatorMessage="Debe Seleccionar una opcion">
 											<f:selectItem itemLabel="Selecciona uno" itemValue="" />
 											<c:forEach var="carrera" items="#{gestionPersona.carreras}">
 												<f:selectItem itemLabel="#{carrera.nombre}"
 													itemValue="#{carrera.nombre}" />
 											</c:forEach>
+
+											<f:validateRequired></f:validateRequired>
+
 										</p:selectOneMenu>
 										<small class="block ui-state-error"><h:message
-										style="color:red;" for="group" /></small>
+												style="color:red;" for="group" /></small>
 									</div>
 
 									<div class="col-12 md:col-4">
 										<h5>ITR *</h5>
 										<p:selectOneMenu id="groupItr"
-											value="#{gestionPersona.itrSeleccionado}">
+											value="#{gestionPersona.itrSeleccionado}"
+											validatorMessage="Debe Seleccionar una opcion">
 											<f:selectItem itemLabel="Selecciona uno" itemValue="" />
 											<c:forEach var="itr" items="#{gestionPersona.itrs}">
 												<f:selectItem itemLabel="#{itr.nombre}"
 													itemValue="#{itr.nombre}" />
 											</c:forEach>
+
+											<f:validateRequired></f:validateRequired>
 										</p:selectOneMenu>
 										<small class="block ui-state-error"><h:message
-										style="color:red;" for="groupItr" /></small>
+												style="color:red;" for="groupItr" /></small>
 									</div>
 								</div>
 							</p:outputPanel>
@@ -213,16 +253,19 @@
 						<div class="flex card-container">
 							<div
 								class="flex-none flex align-items-center justify-content-center">
-								<p:commandButton value="Success"
-									styleClass="ui-button-raised ui-button-success"
-									action="#{gestionPersona.agregarPersona}" update="grid grid2" />
+								<p:commandButton value="Cancelar"
+									styleClass="ui-button-raised  ui-button-flat"
+									action="login.xhtml" immediate="true"/>
 							</div>
+
 							<div
 								class="flex-grow-1 flex align-items-center justify-content-center "></div>
 							<div
 								class="flex-none flex align-items-center justify-content-center">
-								<p:commandButton value="Danger"
-									styleClass="ui-button-raised ui-button-danger" />
+								<p:commandButton value="Guardar"
+									 
+									action="#{gestionPersona.agregarPersona}"
+									update="grid grid2 datosAlumno" />
 							</div>
 						</div>
 					</div>
