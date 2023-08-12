@@ -10,13 +10,7 @@
 	font-size: 20px;
 }
 
-.footer {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	background: #f5f5f5;
-}
+
 
 .box {
 	display: flex;

@@ -17,7 +17,7 @@
 
 	<ui:define name="contenidoPrincipal">
 
-		<h1>Gestion de Usuarios</h1>
+		<h1>Gestión de Usuarios</h1>
 
 		<div class="card">
 			<h:form>
@@ -54,7 +54,16 @@
 								<f:facet name="input" class="col-10">
 									<p:inputText
 										style="width:100%;vertical-align: middle; margin-left: .5rem"
-										value="#{personas.nombre1}" />
+										value="#{personas.nombre1}"
+										requiredMessage="Debe ingresar el primer Nombre"
+										maxlength="50"
+										validatorMessage="No puede contener solo espacios vacios"
+										id="primerNombre">
+										<f:validateRegex pattern="^(?!\s*$).+"></f:validateRegex>
+
+									</p:inputText>
+									<small class="block ui-state-error"><h:message
+											style="color:red;" for="primerNombre" /></small>
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
@@ -70,7 +79,16 @@
 								<f:facet name="input" class="col-10">
 									<p:inputText
 										style="width:100%;vertical-align: middle; margin-left: .5rem"
-										value="#{personas.apellido1}" />
+										value="#{personas.apellido1}" required="true"
+										requiredMessage="Debe ingresar el primer Apellido"
+										validatorMessage="No puede contener solo espacios vacios"
+										id="apellido1">
+										<f:validateRegex pattern="^(?!\s*$).+"></f:validateRegex>
+
+									</p:inputText>
+
+									<small class="block ui-state-error"><h:message
+											style="color:red;" for="apellido1" /></small>
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
@@ -83,9 +101,16 @@
 										value="#{personas.mail}" />
 								</f:facet>
 								<f:facet name="input" class="col-10">
-									<p:inputText
+									<p:inputText id="email1"
 										style="width:100%;vertical-align: middle; margin-left: .5rem"
-										value="#{personas.mail}" />
+										value="#{personas.mail}"
+										requiredMessage="Debe ingresar el Email" type="email"
+										validatorMessage="Formato de Email incorrecto">
+										<f:validateRegex
+											pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"></f:validateRegex>
+									</p:inputText>
+									<small class="block ui-state-error"><h:message
+											style="color:red;" for="email1" /></small>
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
@@ -101,7 +126,15 @@
 								<f:facet name="input" class="col-10">
 									<p:inputText
 										style="width:100%;vertical-align: middle; margin-left: .5rem"
-										value="#{personas.nombreUsuario}" />
+										value="#{personas.nombreUsuario}" required="true"
+										requiredMessage="Debe ingresar el Nombre de Usuario"
+										id="nombreUsuario" validator="#{validatorPersona.validateOnLista}">
+
+
+									</p:inputText>
+
+									<small class="block ui-state-error"><h:message
+											style="color:red;" for="nombreUsuario" /></small>
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
@@ -115,9 +148,15 @@
 								</f:facet>
 								<f:facet name="input" class="col-10">
 
-									<p:inputText
+									<p:inputText id="direccion"
 										style="width:100%;vertical-align: middle; margin-left: .5rem"
-										value="#{personas.direccion}" />
+										value="#{personas.direccion}" required="true"
+										requiredMessage="Debe ingresar la Direccion"
+										validatorMessage="No puede contener solo espacios vacios">
+										<f:validateRegex pattern="^(?!\s*$).+"></f:validateRegex>
+										<small class="block ui-state-error"><h:message
+												style="color:red;" for="direccion" /></small>
+									</p:inputText>
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
@@ -135,7 +174,7 @@
 										value="#{personas.carrera}" />
 								</f:facet>
 								<f:facet name="input" class="col-10 elemento3" id="elementoCoso">
-									<p:selectOneMenu value="#{personas.carrera}"
+									<p:selectOneMenu id="group" value="#{personas.carrera}"
 										rendered="#{personas.carrera!=null}"
 										appendTo="@(#groupCarreraMod)" styleClass="elemento">
 										<f:selectItem itemLabel="" itemValue="" styleClass="elemento2" />
@@ -143,6 +182,8 @@
 											<f:selectItem itemLabel="#{carrera.nombre}"
 												itemValue="#{carrera.nombre}" />
 										</c:forEach>
+										<f:validateRequired></f:validateRequired>
+
 									</p:selectOneMenu>
 
 								</f:facet>
@@ -161,16 +202,22 @@
 								</f:facet>
 								<f:facet name="input" class="col-10">
 
-									<p:inputText
+									<p:inputText id="idEstudiante"
 										style="width:100%;vertical-align: middle; margin-left: .5rem"
 										value="#{personas.idEstudiantil}"
-										rendered="#{personas.idEstudiantil!=null}" />
+										rendered="#{personas.idEstudiantil!=null}"
+										requiredMessage="Debe ingresar el Id Estudiantil"
+										required="true">
+									</p:inputText>
+									<small class="block ui-state-error"><h:message
+											style="color:red;" for="idEstudiante" /></small>
 								</f:facet>
 
 							</p:cellEditor>
 						</p:column>
 
-						<p:column rendered="#{gestionPersona.personaLogeada.admin}" headerText="Estado">
+						<p:column rendered="#{gestionPersona.personaLogeada.admin}"
+							headerText="Estado">
 							<div class="columnaEditar">
 								<p:commandButton icon="pi pi-plus-circle"
 									styleClass="rounded-button ui-button-success ui-button-flat"
@@ -180,8 +227,8 @@
 									<p:confirm header="Estas Seguro?"
 										message="La cuenta sera activada en el sistema"
 										icon="pi pi-info-circle" class="confirmDialog" />
-										
-							</p:commandButton>
+
+								</p:commandButton>
 
 								<p:commandButton icon="pi pi-minus-circle"
 									styleClass="rounded-button ui-button-danger ui-button-flat"
@@ -200,7 +247,9 @@
 							rendered="#{gestionPersona.personaLogeada.admin}">
 
 							<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit"
-								saveTitle="Save Row" />
+								saveTitle="Save Row">
+
+							</p:rowEditor>
 						</p:column>
 
 

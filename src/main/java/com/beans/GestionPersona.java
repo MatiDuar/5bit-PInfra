@@ -47,7 +47,7 @@ public class GestionPersona implements Serializable {
 
 	private Alumno alumnoSeleccionado;
 	private Alumno alumnoLogeado;
-	private Alumno alumnoMod;
+
 
 	private String carreraSeleccionada;
 	private String itrSeleccionado;
@@ -129,7 +129,7 @@ public class GestionPersona implements Serializable {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			String msg1 = e.getMessage();
+			String msg1 = "Usuario o Contrseña errónea";
 			// mensaje autenticación incorrecta
 			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg1, "");
 			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
@@ -176,6 +176,7 @@ public class GestionPersona implements Serializable {
 			parsePersona(personaLogeada, alumnoLogeado);
 			persistenciaBean.modificarUsuario(alumnoLogeado);
 		} else {
+			System.out.println(personaLogeada);
 			persistenciaBean.modificarUsuario(personaLogeada);
 		}
 
@@ -246,10 +247,12 @@ public class GestionPersona implements Serializable {
 	 * @return
 	 */
 	public String modificarContrasena() {
-		Persona p = persistenciaBean.buscarPersona((long) datosToken.get("id"));
-		p.setContrasena(contrasenaModificar);
+		
+		
+		System.out.println(personaLogeada);
+		personaLogeada.setContrasena(contrasenaModificar);
 
-		persistenciaBean.modificarUsuario(p);
+		persistenciaBean.modificarUsuario(personaLogeada);
 
 		String msg1 = "Se modifico correctamente la Contraseña";
 		// mensaje de actualizacion correcta
@@ -570,13 +573,7 @@ public class GestionPersona implements Serializable {
 		this.isModContraseña = isModContraseña;
 	}
 
-	public Alumno getAlumnoMod() {
-		return alumnoMod;
-	}
 
-	public void setAlumnoMod(Alumno alumnoMod) {
-		this.alumnoMod = alumnoMod;
-	}
 
 	public List<Alumno> getPersonasMod() {
 		return personasMod;
