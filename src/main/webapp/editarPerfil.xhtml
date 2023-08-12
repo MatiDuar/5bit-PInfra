@@ -19,298 +19,299 @@
 
 	<ui:define name="contenidoPrincipal">
 
-		<div class="headerRegistro">
-			<div class="textoHeader">
-				<h1 class="mt-0">EDITAR PERFIL</h1>
+		<div class="cont" style="display: grid; justify-content: center;">		
+			<div class="headerRegistro">
+				<div class="textoHeader">
+					<h1 class="mt-0" style="text-align-last: center;">EDITAR PERFIL</h1>
+				</div>
 			</div>
-		</div>
-		<div class="box separador">
-			<div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
-				<div class="card " id="coso">
-					<h:form>
-						<p:growl id="messages" life="3000" closable="true"
-							showDetail="true" />
-						<p:fieldset id="grid" legend="Datos Personales"
-							class="fildsetprueba">
-							<div class="grid ui-fluid">
-								<div class="col-12 md:col-4">
-									<h5>Primer Nombre *</h5>
-
-									<p:inputText id="primerNombre"
-										value="#{gestionPersona.personaLogeada.nombre1}"
-										required="true"
-										requiredMessage="Debe ingresar el primer Nombre"
-										maxlength="50"
-										validatorMessage="No puede contener solo espacios vacios">
-										<f:validateRegex pattern="^(?!\s*$).+"></f:validateRegex>
-									</p:inputText>
-									<small class="block ui-state-error"><h:message
-											style="color:red;" for="primerNombre" /></small>
-
-								</div>
-
-								<div class="col-12 md:col-4">
-									<h5>Segundo Nombre</h5>
-									<p:inputText id="nombre2"
-										value="#{gestionPersona.personaLogeada.nombre2}"
-										validatorMessage="No puede contener solo espacios vacios">
-										<f:validateRegex pattern="^(|\s*.*\S.*)$"></f:validateRegex>
-									</p:inputText>
-									<small class="block ui-state-error"><h:message
-											style="color:red;" for="nombre2" /></small>
-								</div>
-								<div class="field col-12 md:col-4">
-									<h5>Fecha Nacimiento *</h5>
-									<p:datePicker id="spanish"
-										value="#{gestionPersona.fechaNacLog}" locale="es"
-										monthNavigator="true" pattern="dd-MM-yyyy"
-										yearNavigator="true" yearRange="1950:2023" required="true"
-										requiredMessage="Debe ingresar una fecha de nacimiento"
-										validatorMessage="Formato incorrecto de la Fecha"
-										styleClass="datePicker" />
-									<small class="block ui-state-error"><h:message
-											style="color:red;" for="spanish" /></small>
-
-								</div>
-							</div>
-							<div class="grid ui-fluid">
-								<div class="col-12 md:col-4">
-									<h5>Primer Apellido *</h5>
-									<p:inputText id="apellido1"
-										value="#{gestionPersona.personaLogeada.apellido1}"
-										required="true"
-										requiredMessage="Debe ingresar el primer Apellido"
-										validatorMessage="No puede contener solo espacios vacios">
-										<f:validateRegex pattern="^(?!\s*$).+"></f:validateRegex>
-									</p:inputText>
-									<small class="block ui-state-error"><h:message
-											style="color:red;" for="apellido1" /></small>
-								</div>
-
-								<div class="col-12 md:col-4">
-									<h5>Segundo Apellido</h5>
-									<p:inputText id="apellido2"
-										value="#{gestionPersona.personaLogeada.apellido2}"
-										validatorMessage="No puede contener solo espacios vacios">
-										<f:validateRegex pattern="^(|\s*.*\S.*)$"></f:validateRegex>
-									</p:inputText>
-									<small class="block ui-state-error"><h:message
-											style="color:red;" for="apellido2" /></small>
-								</div>
-								<div class="field col-12 md:col-4">
-									<h5>Direccion *</h5>
-									<p:inputText id="direccion"
-										value="#{gestionPersona.personaLogeada.direccion}"
-										required="true" requiredMessage="Debe ingresar la Direccion"
-										validatorMessage="No puede contener solo espacios vacios">
-										<f:validateRegex pattern="^(?!\s*$).+"></f:validateRegex>
-									</p:inputText>
-									<small class="block ui-state-error"><h:message
-											style="color:red;" for="direccion" /></small>
-								</div>
-							</div>
-
-							<div class="grid ui-fluid"></div>
-
-
-						</p:fieldset>
-						<p:fieldset id="grid2" legend="Datos Usuario"
-							class="fildsetprueba">
-							<div class="grid ui-fluid">
-								<div class="col-12 md:col-4">
-									<h5>Nombre de Usuario *</h5>
-
-									<p:inputText id="nombreUsuario"
-										value="#{gestionPersona.personaLogeada.nombreUsuario}"
-										required="true"
-										requiredMessage="Debe ingresar el Nombre de Usuario"
-										styleClass="block" validator="#{validatorPersona.validate}">
-
-
-									</p:inputText>
-									<small class="block ui-state-error"><h:message
-											style="color:red;" for="nombreUsuario" /></small>
-								</div>
-
-								<div class="col-12 md:col-4">
-									<h5>Email *</h5>
-									<p:inputText id="email1"
-										value="#{gestionPersona.personaLogeada.mail}" required="true"
-										requiredMessage="Debe ingresar el Email" type="email"
-										validatorMessage="Formato de Email incorrecto">
-										<f:validateRegex
-											pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"></f:validateRegex>
-									</p:inputText>
-									<small class="block ui-state-error"><h:message
-											style="color:red;" for="email1" /></small>
-								</div>
-							</div>
-
-							<div class="col-12 md:col-4">
-								<p:commandButton value="Cambiar Contraseña"
-									action="#{gestionPersona.toggleModContrasena}"
-									update="modContrasena" immediate="true">
-								</p:commandButton>
-							</div>
-
-							<h:panelGroup id="modContrasena" layout="block">
-
-								<p:outputPanel rendered="#{gestionPersona.modContraseña}">
-									<p:fieldset class="fildsetprueba">
-										<div class="grid ui-fluid">
-											<div class="col-12 md:col-4">
-												<h5>Contraseña *</h5>
-												<p:password id="pass" label="Contraseña" match="pass2"
-													feedback="false"
-													value="#{gestionPersona.contrasenaModificar}"
-													validatorMessage="Las Contraseñas no coinciden"
-													required="true" requiredMessage="Se necesita una valor">
-													<f:validateLength minimum="8" maximum="16"></f:validateLength>
-												</p:password>
-												<small class="block ui-state-error"><h:message
-														style="color:red;" for="pass" /></small>
-
-											</div>
-											<div class="col-12 md:col-4">
-												<h5>Confirmar Contraseña *</h5>
-												<p:password id="pass2" label="Confirmar Contraseña"
-													feedback="false"
-													value="#{gestionPersona.contrasenaModificar}"
-													required="true"
-													requiredMessage="Debe ingresar una Contraseña" />
-												<small class="block ui-state-error"><h:message
-														style="color:red;" for="pass2" /></small>
-											</div>
-
-										</div>
-										<div class="grid ui-fluid col-8">
-											<div class="col-12 md:col-4">
-												<p:commandButton value="Cancelar"
-													styleClass="ui-button-raised ui-button-flat"
-													action="#{gestionPersona.toggleModContrasena}"
-													update="modContrasena" immediate="true" />
-											</div>
-											<div class="col-12 md:col-4">
-
-												<p:commandButton value="Guardar"
-													styleClass="ui-button-raised"
-													action="#{gestionPersona.modificarContrasena}"
-													update="modContrasena messages grid grid2" />
-											</div>
-
-
-
-
-										</div>
-									</p:fieldset>
-								</p:outputPanel>
-
-							</h:panelGroup>
-
-
-						</p:fieldset>
-						<p:fieldset id="grid3" legend="Datos Alumno" class="fildsetprueba"
-							rendered="#{gestionPersona.alumnoLogeado!=null}">
-
-							<h:panelGroup id="datosAlumno" layout="block">
-								<p:outputPanel>
-									<div class="grid ui-fluid" id="datosAlumno">
-										<div class="col-12 md:col-4">
-											<h5>Id Estudiantil *</h5>
-											<p:inputText id="idEstudiante" type="number"
-												value="#{gestionPersona.alumnoLogeado.idEstudiantil}"
-												requiredMessage="Debe ingresar el Id Estudiantil"
-												required="true" />
-											<small class="block ui-state-error"><h:message
-													style="color:red;" for="idEstudiante" /></small>
-										</div>
-
-										<div class="col-12 md:col-4">
-											<h5>Carrera *</h5>
-											<p:selectOneMenu id="group"
-												value="#{gestionPersona.carreraSeleccionadaLog}"
-												validatorMessage="Debe Seleccionar una opcion">
-												<f:selectItem itemLabel="Selecciona uno" itemValue="" />
-												<c:forEach var="carrera" items="#{gestionPersona.carreras}">
-													<f:selectItem itemLabel="#{carrera.nombre}"
-														itemValue="#{carrera.nombre}" />
-												</c:forEach>
-												<f:validateRequired></f:validateRequired>
-
-											</p:selectOneMenu>
-											<small class="block ui-state-error"><h:message
-													style="color:red;" for="group" /></small>
-										</div>
-
-										<div class="col-12 md:col-4">
-											<h5>ITR *</h5>
-											<p:selectOneMenu id="groupItr"
-												value="#{gestionPersona.itrSeleccionadoLog}"
-												validatorMessage="Debe Seleccionar una opcion">
-												<f:selectItem itemLabel="Selecciona uno" itemValue="" />
-												<c:forEach var="itr" items="#{gestionPersona.itrs}">
-													<f:selectItem itemLabel="#{itr.nombre}"
-														itemValue="#{itr.nombre}" />
-												</c:forEach>
-												<f:validateRequired></f:validateRequired>
-
-											</p:selectOneMenu>
-											<small class="block ui-state-error"><h:message
-													style="color:red;" for="groupItr" /></small>
-										</div>
+			<div class="box separador">
+				<div class="surface-card p-4 shadow-2 border-round w-full">
+					<div class="card " id="coso">
+						<h:form>
+							<p:growl id="messages" life="3000" closable="true"
+								showDetail="true" />
+							<p:fieldset id="grid" legend="Datos Personales"
+								class="fildsetprueba">
+								<div class="grid ui-fluid">
+									<div class="col-12 md:col-4">
+										<h5>Primer Nombre *</h5>
+	
+										<p:inputText id="primerNombre"
+											value="#{gestionPersona.personaLogeada.nombre1}"
+											required="true"
+											requiredMessage="Debe ingresar el primer Nombre"
+											maxlength="50"
+											validatorMessage="No puede contener solo espacios vacios">
+											<f:validateRegex pattern="^(?!\s*$).+"></f:validateRegex>
+										</p:inputText>
+										<small class="block ui-state-error"><h:message
+												style="color:red;" for="primerNombre" /></small>
+	
 									</div>
-								</p:outputPanel>
-							</h:panelGroup>
-						</p:fieldset>
-
-						<div>
-							<div class="flex card-container">
-								<div
-									class="flex-none flex align-items-center justify-content-center">
-									<p:commandButton value="Dar de Baja"
-										styleClass="ui-button-raised ui-button-danger ui-button-flat"
-										 action="#{gestionPersona.darDeBaja}">
-										<p:confirm header="Estas Seguro?"
-											message="Su cuenta sera dada de baja y no podra ingresar a la aplicacion"
-											icon="pi pi-info-circle" class="confirmDialog" />
+	
+									<div class="col-12 md:col-4">
+										<h5>Segundo Nombre</h5>
+										<p:inputText id="nombre2"
+											value="#{gestionPersona.personaLogeada.nombre2}"
+											validatorMessage="No puede contener solo espacios vacios">
+											<f:validateRegex pattern="^(|\s*.*\S.*)$"></f:validateRegex>
+										</p:inputText>
+										<small class="block ui-state-error"><h:message
+												style="color:red;" for="nombre2" /></small>
+									</div>
+									<div class="field col-12 md:col-4">
+										<h5>Fecha Nacimiento *</h5>
+										<p:datePicker id="spanish"
+											value="#{gestionPersona.fechaNacLog}" locale="es"
+											monthNavigator="true" pattern="dd-MM-yyyy"
+											yearNavigator="true" yearRange="1950:2023" required="true"
+											requiredMessage="Debe ingresar una fecha de nacimiento"
+											validatorMessage="Formato incorrecto de la Fecha"
+											styleClass="datePicker" />
+										<small class="block ui-state-error"><h:message
+												style="color:red;" for="spanish" /></small>
+	
+									</div>
+								</div>
+								<div class="grid ui-fluid">
+									<div class="col-12 md:col-4">
+										<h5>Primer Apellido *</h5>
+										<p:inputText id="apellido1"
+											value="#{gestionPersona.personaLogeada.apellido1}"
+											required="true"
+											requiredMessage="Debe ingresar el primer Apellido"
+											validatorMessage="No puede contener solo espacios vacios">
+											<f:validateRegex pattern="^(?!\s*$).+"></f:validateRegex>
+										</p:inputText>
+										<small class="block ui-state-error"><h:message
+												style="color:red;" for="apellido1" /></small>
+									</div>
+	
+									<div class="col-12 md:col-4">
+										<h5>Segundo Apellido</h5>
+										<p:inputText id="apellido2"
+											value="#{gestionPersona.personaLogeada.apellido2}"
+											validatorMessage="No puede contener solo espacios vacios">
+											<f:validateRegex pattern="^(|\s*.*\S.*)$"></f:validateRegex>
+										</p:inputText>
+										<small class="block ui-state-error"><h:message
+												style="color:red;" for="apellido2" /></small>
+									</div>
+									<div class="field col-12 md:col-4">
+										<h5>Direccion *</h5>
+										<p:inputText id="direccion"
+											value="#{gestionPersona.personaLogeada.direccion}"
+											required="true" requiredMessage="Debe ingresar la Direccion"
+											validatorMessage="No puede contener solo espacios vacios">
+											<f:validateRegex pattern="^(?!\s*$).+"></f:validateRegex>
+										</p:inputText>
+										<small class="block ui-state-error"><h:message
+												style="color:red;" for="direccion" /></small>
+									</div>
+								</div>
+	
+								<div class="grid ui-fluid"></div>
+	
+	
+							</p:fieldset>
+							<p:fieldset id="grid2" legend="Datos Usuario"
+								class="fildsetprueba">
+								<div class="grid ui-fluid">
+									<div class="col-12 md:col-4">
+										<h5>Nombre de Usuario *</h5>
+	
+										<p:inputText id="nombreUsuario"
+											value="#{gestionPersona.personaLogeada.nombreUsuario}"
+											required="true"
+											requiredMessage="Debe ingresar el Nombre de Usuario"
+											styleClass="block" validator="#{validatorPersona.validate}">
+	
+	
+										</p:inputText>
+										<small class="block ui-state-error"><h:message
+												style="color:red;" for="nombreUsuario" /></small>
+									</div>
+	
+									<div class="col-12 md:col-4">
+										<h5>Email *</h5>
+										<p:inputText id="email1"
+											value="#{gestionPersona.personaLogeada.mail}" required="true"
+											requiredMessage="Debe ingresar el Email" type="email"
+											validatorMessage="Formato de Email incorrecto">
+											<f:validateRegex
+												pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"></f:validateRegex>
+										</p:inputText>
+										<small class="block ui-state-error"><h:message
+												style="color:red;" for="email1" /></small>
+									</div>
+								</div>
+	
+								<div class="col-12 md:col-4">
+									<p:commandButton value="Cambiar Contraseña"
+										action="#{gestionPersona.toggleModContrasena}"
+										update="modContrasena" immediate="true">
 									</p:commandButton>
-
 								</div>
-
-								<div
-									class="flex-grow-1 flex align-items-center justify-content-center "></div>
-								<div
-									class="flex-none flex align-items-center justify-content-center">
-									<p:commandButton value="Guardar Cambios"
-										
-										action="#{gestionPersona.modificarPersona}"
-										update="grid grid2 messages" />
+	
+								<h:panelGroup id="modContrasena" layout="block">
+	
+									<p:outputPanel rendered="#{gestionPersona.modContraseña}">
+										<p:fieldset class="fildsetprueba">
+											<div class="grid ui-fluid">
+												<div class="col-12 md:col-4">
+													<h5>Contraseña *</h5>
+													<p:password id="pass" label="Contraseña" match="pass2"
+														feedback="false"
+														value="#{gestionPersona.contrasenaModificar}"
+														validatorMessage="Las Contraseñas no coinciden"
+														required="true" requiredMessage="Se necesita una valor">
+														<f:validateLength minimum="8" maximum="16"></f:validateLength>
+													</p:password>
+													<small class="block ui-state-error"><h:message
+															style="color:red;" for="pass" /></small>
+	
+												</div>
+												<div class="col-12 md:col-4">
+													<h5>Confirmar Contraseña *</h5>
+													<p:password id="pass2" label="Confirmar Contraseña"
+														feedback="false"
+														value="#{gestionPersona.contrasenaModificar}"
+														required="true"
+														requiredMessage="Debe ingresar una Contraseña" />
+													<small class="block ui-state-error"><h:message
+															style="color:red;" for="pass2" /></small>
+												</div>
+	
+											</div>
+											<div class="grid ui-fluid col-8">
+												<div class="col-12 md:col-4">
+													<p:commandButton value="Cancelar"
+														styleClass="ui-button-raised ui-button-flat"
+														action="#{gestionPersona.toggleModContrasena}"
+														update="modContrasena" immediate="true" />
+												</div>
+												<div class="col-12 md:col-4">
+	
+													<p:commandButton value="Guardar"
+														styleClass="ui-button-raised"
+														action="#{gestionPersona.modificarContrasena}"
+														update="modContrasena messages grid grid2" />
+												</div>
+	
+	
+	
+	
+											</div>
+										</p:fieldset>
+									</p:outputPanel>
+	
+								</h:panelGroup>
+	
+	
+							</p:fieldset>
+							<p:fieldset id="grid3" legend="Datos Alumno" class="fildsetprueba"
+								rendered="#{gestionPersona.alumnoLogeado!=null}">
+	
+								<h:panelGroup id="datosAlumno" layout="block">
+									<p:outputPanel>
+										<div class="grid ui-fluid" id="datosAlumno">
+											<div class="col-12 md:col-4">
+												<h5>Id Estudiantil *</h5>
+												<p:inputText id="idEstudiante" type="number"
+													value="#{gestionPersona.alumnoLogeado.idEstudiantil}"
+													requiredMessage="Debe ingresar el Id Estudiantil"
+													required="true" />
+												<small class="block ui-state-error"><h:message
+														style="color:red;" for="idEstudiante" /></small>
+											</div>
+	
+											<div class="col-12 md:col-4">
+												<h5>Carrera *</h5>
+												<p:selectOneMenu id="group"
+													value="#{gestionPersona.carreraSeleccionadaLog}"
+													validatorMessage="Debe Seleccionar una opcion">
+													<f:selectItem itemLabel="Selecciona uno" itemValue="" />
+													<c:forEach var="carrera" items="#{gestionPersona.carreras}">
+														<f:selectItem itemLabel="#{carrera.nombre}"
+															itemValue="#{carrera.nombre}" />
+													</c:forEach>
+													<f:validateRequired></f:validateRequired>
+	
+												</p:selectOneMenu>
+												<small class="block ui-state-error"><h:message
+														style="color:red;" for="group" /></small>
+											</div>
+	
+											<div class="col-12 md:col-4">
+												<h5>ITR *</h5>
+												<p:selectOneMenu id="groupItr"
+													value="#{gestionPersona.itrSeleccionadoLog}"
+													validatorMessage="Debe Seleccionar una opcion">
+													<f:selectItem itemLabel="Selecciona uno" itemValue="" />
+													<c:forEach var="itr" items="#{gestionPersona.itrs}">
+														<f:selectItem itemLabel="#{itr.nombre}"
+															itemValue="#{itr.nombre}" />
+													</c:forEach>
+													<f:validateRequired></f:validateRequired>
+	
+												</p:selectOneMenu>
+												<small class="block ui-state-error"><h:message
+														style="color:red;" for="groupItr" /></small>
+											</div>
+										</div>
+									</p:outputPanel>
+								</h:panelGroup>
+							</p:fieldset>
+	
+							<div>
+								<div class="flex card-container">
+									<div
+										class="flex-none flex align-items-center justify-content-center">
+										<p:commandButton value="Dar de Baja"
+											styleClass="ui-button-raised ui-button-danger ui-button-flat"
+											 action="#{gestionPersona.darDeBaja}">
+											<p:confirm header="Estas Seguro?"
+												message="Su cuenta sera dada de baja y no podra ingresar a la aplicacion"
+												icon="pi pi-info-circle" class="confirmDialog" />
+										</p:commandButton>
+	
+									</div>
+	
+									<div
+										class="flex-grow-1 flex align-items-center justify-content-center "></div>
+									<div
+										class="flex-none flex align-items-center justify-content-center">
+										<p:commandButton value="Guardar Cambios"
+											
+											action="#{gestionPersona.modificarPersona}"
+											update="grid grid2 messages" />
+									</div>
+	
+	
 								</div>
-
-
 							</div>
-						</div>
-
-
-
-						<p:outputPanel id="confirmDialogContainer" styleClass="cont">
-							<p:confirmDialog global="true" showEffect="fade"
-								hideEffect="fade" responsive="true" width="350" class="dialog"
-								appendTo="confirmDialogContainer" id="k"
-								styleClass="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-								<p:commandButton value="No" type="button"
-									styleClass="ui-confirmdialog-no ui-button-flat" />
-								<p:commandButton value="Sí" type="button"
-									styleClass="ui-confirmdialog-yes" />
-							</p:confirmDialog>
-						</p:outputPanel>
-
-					</h:form>
-
+	
+	
+	
+							<p:outputPanel id="confirmDialogContainer" styleClass="cont">
+								<p:confirmDialog global="true" showEffect="fade"
+									hideEffect="fade" responsive="true" width="350" class="dialog"
+									appendTo="confirmDialogContainer" id="k"
+									styleClass="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+									<p:commandButton value="No" type="button"
+										styleClass="ui-confirmdialog-no ui-button-flat" />
+									<p:commandButton value="Sí" type="button"
+										styleClass="ui-confirmdialog-yes" />
+								</p:confirmDialog>
+							</p:outputPanel>
+	
+						</h:form>
+	
+					</div>
 				</div>
 			</div>
 		</div>
-
 	</ui:define>
 
 </ui:composition>
