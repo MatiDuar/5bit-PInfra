@@ -175,6 +175,14 @@ public class PersonaAlumnoDTO {
 		return carrera;
 	}
 
+	@Override
+	public String toString() {
+		return "PersonaAlumnoDTO [id=" + id + ", nombreUsuario=" + nombreUsuario + ", apellido1=" + apellido1
+				+ ", nombre1=" + nombre1 + ", fechaNacimiento=" + fechaNacimiento + ", direccion=" + direccion
+				+ ", mail=" + mail + ", activo=" + activo + ", idEstudiantil=" + idEstudiantil + ", carrera=" + carrera
+				+ "]";
+	}
+
 	
 
 }

@@ -165,6 +165,7 @@ public class PersonaDAO {
 			em.merge(p);
 			em.flush();
 		} catch (Exception e) {
+			e.printStackTrace();
 			new Exception("No se pudo modificar la Persona");
 		}
 	}

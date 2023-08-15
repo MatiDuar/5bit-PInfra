@@ -7,8 +7,8 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-	<h:outputScript library="primefaces" name="jquery/jquery.js" />
-	<h:outputScript library="primefaces" name="primefaces.js" />
+	<h:outputScript library="primefaces-12.0.0" name="jquery/jquery.js" />
+	<h:outputScript library="primefaces-12.0.0" name="primefaces.js" />
 	<link type="text/css" rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/primeflex@3.3.1/primeflex.min.css" />
 	<link rel="stylesheet" type="text/css" href="resources/css/index.css" />
@@ -128,7 +128,7 @@
 										style="width:100%;vertical-align: middle; margin-left: .5rem"
 										value="#{personas.nombreUsuario}" required="true"
 										requiredMessage="Debe ingresar el Nombre de Usuario"
-										id="nombreUsuario" validator="#{validatorPersona.validateOnLista}">
+										id="nombreUsuario" >
 
 
 									</p:inputText>
@@ -154,9 +154,10 @@
 										requiredMessage="Debe ingresar la Direccion"
 										validatorMessage="No puede contener solo espacios vacios">
 										<f:validateRegex pattern="^(?!\s*$).+"></f:validateRegex>
-										<small class="block ui-state-error"><h:message
-												style="color:red;" for="direccion" /></small>
+										
 									</p:inputText>
+									<small class="block ui-state-error"><h:message
+												style="color:red;" for="direccion" /></small>
 								</f:facet>
 							</p:cellEditor>
 						</p:column>

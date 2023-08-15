@@ -195,8 +195,11 @@ public class GestionPersona implements Serializable {
 	 */
 
 	public String modificarPersonaOnLista(Persona p) {
-
+		System.out.println(p.toString());
+		
+		
 		persistenciaBean.modificarUsuario(p);
+		System.out.println("modificarPersonaOnListaPost");
 
 		String msg1 = "Se modifico correctamente el usuario";
 		// mensaje de actualizacion correcta
@@ -316,7 +319,7 @@ public class GestionPersona implements Serializable {
 	 * @param persona Persona con los datos a modificar
 	 */
 	public void onRowEdit(RowEditEvent<PersonaAlumnoDTO> persona) {
-
+		System.out.println(persona.getObject().toString());
 		if (persona.getObject().getCarrera() == null) {
 			Persona modPersona = parsePersonaFromDTO(persona.getObject());
 			modificarPersonaOnLista(modPersona);
@@ -324,6 +327,7 @@ public class GestionPersona implements Serializable {
 			Alumno modAlumno = parseAlumnoFromDTO(persona.getObject());
 			modificarPersonaOnLista(modAlumno);
 		}
+		System.out.println("ASHEEEEEEE");
 
 	}
 
