@@ -154,7 +154,7 @@ public class GestionPersonaService implements Serializable {
 		p.setContrasena("demo");
 		p.setDireccion("demo");
 		p.setFechaNacimiento(new Date(2002 - 1900, 02, 04));
-		p.setMail("demo@demo");
+		p.setMail("demo@demo.com");
 
 		personaDAO.agregarPersona(p);
 
