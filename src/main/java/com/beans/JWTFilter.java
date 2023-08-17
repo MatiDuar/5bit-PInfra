@@ -61,13 +61,19 @@ public class JWTFilter implements Filter {
 				chain.doFilter(request, response);
 			} catch (Exception e) {
 				// El token no es válido, responde con un error 401 o redirige a la página de login
+//				HttpServletResponse httpResponse = (HttpServletResponse) response;
+//				httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				HttpServletResponse httpResponse = (HttpServletResponse) response;
-				httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				httpResponse.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
+				httpResponse.sendRedirect("login.xhtml");
 			}
 		} else {
 			// Token no proporcionado, responde con un error 401 o redirige a la página de login
+//			HttpServletResponse httpResponse = (HttpServletResponse) response;
+//			httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			HttpServletResponse httpResponse = (HttpServletResponse) response;
-			httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			httpResponse.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
+			httpResponse.sendRedirect("login.xhtml");
 		}
 
 	}
